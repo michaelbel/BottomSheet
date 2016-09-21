@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_github"
+          android:title="@string/fork_on_github"
+          android:icon="@drawable/ic_github"
+          app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_theme"
+          android:title="@string/change_theme"
+          android:icon="@drawable/ic_theme"
+          app:showAsAction="ifRoom"/>
+
+</menu>

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">BottomSheet</string>
+    <string name="to_github">https://github.com/michaelbel/bottomsheet</string>
+    <string name="fork_on_github">Fork on Github</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="list_style">List style</string>
+    <string name="list_style_with_title">List style with title</string>
+    <string name="list_style_with_icons">List style with icons</string>
+    <string name="actions">Actions</string>
+    <string name="message">Message</string>
+    <string name="custom_view">Custom view</string>
+    <string name="grid_style">Grid style</string>
+    <string name="custom_style">Custom style</string>
+    <string name="print_this_page">Print this page</string>
+    <string name="share">Share</string>
+    <string name="upload">Upload</string>
+    <string name="copy">Copy</string>
+    <string name="preview">Preview</string>
+    <string name="get_link">Get link</string>
+    <string name="make_copy">Make a copy</string>
+    <string name="gmail">Gmail</string>
+    <string name="hangout">Hangout</string>
+    <string name="google_plus">Google+</string>
+    <string name="mail">Mail</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+</resources>

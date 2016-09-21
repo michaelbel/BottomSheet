@@ -1,0 +1,50 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/list_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/list_style"/>
+
+        <Button
+            android:id="@+id/list_style_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/list_style_with_title"/>
+
+        <Button
+            android:id="@+id/list_style_icons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/list_style_with_icons"/>
+
+        <Button
+            android:id="@+id/grid_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/grid_style"/>
+
+        <Button
+            android:id="@+id/custom_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_style"/>
+
+        <Button
+            android:id="@+id/custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_view"/>
+
+    </LinearLayout>
+
+</ScrollView>
