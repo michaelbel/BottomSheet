@@ -13,6 +13,23 @@ dependencies {
 }
 ```
 
+## Example
+```java
+new BottomSheet.Builder(this);
+    .setTitle(...);
+    .setItems(..., ..., ...);
+    .setCustomView(...);
+    .setContentType(...);
+    .setTitleTextColor(...);
+    .setItemTextColor(...);
+    .setBackgroundColor(...);
+    .setIconColor(...);
+    .setItemSelector(...);
+    .setFullWidth(...);
+    .setDarkTheme(...);
+    .show();
+```
+
 ## License
 
     Copyright 2016 Michael Bel
