@@ -13,7 +13,7 @@ dependencies {
 }
 ```
 
-## Example
+## Usage
 ```java
 new BottomSheet.Builder(this);
     .setTitle(...);
