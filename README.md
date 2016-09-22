@@ -29,7 +29,7 @@ dependencies {
 
 ## Usage
 ```java
-new BottomSheet.Builder(this);
+new BottomSheet.Builder(this)
     .setTitle(...);
     .setItems(..., ..., ...);
     .setCustomView(...);
