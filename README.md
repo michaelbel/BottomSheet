@@ -7,14 +7,14 @@ BottomSheet dialogs library for Android
 [![Download](https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg) ](https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion)
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/screens/light_1.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/light_2.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/light_3.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/light_4.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/dark_1.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/dark_2.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/dark_3.png" width="30%">
-    <img style="margin-left:0px;" src="/screens/dark_4.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/light_1.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/light_2.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/light_3.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/light_4.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/dark_1.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/dark_2.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/dark_3.png" width="25%">
+    <img style="margin-left:0px;" src="/screens/dark_4.png" width="25%">
 </div>
 
 <img style="margin-left:0px;" src="/screens/light_landscape.png" width="49%">
@@ -23,7 +23,7 @@ BottomSheet dialogs library for Android
 ## Download
 ```gradle
 dependencies {
-    compile 'org.michaelbel:bottomsheet:0.0.3'
+    compile 'org.michaelbel:bottomsheet:0.0.4'
 }
 ```
 
