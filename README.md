@@ -6,6 +6,20 @@ BottomSheet dialogs library for Android
 [![Licence](https://img.shields.io/badge/License-Apache_v2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Download](https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg) ](https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion)
 
+<div style="dispaly:flex;">
+    <img style="margin-left:0px;" src="/screens/light_1.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/light_2.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/light_3.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/light_4.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/dark_1.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/dark_2.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/dark_3.png" width="30%">
+    <img style="margin-left:0px;" src="/screens/dark_4.png" width="30%">
+</div>
+
+<img style="margin-left:0px;" src="/screens/light_landscape.png" width="49%">
+<img style="margin-left:0px;" src="/screens/dark_landscape.png" width="49%">
+
 ## Download
 ```gradle
 dependencies {
