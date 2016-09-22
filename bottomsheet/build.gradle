@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 4
+        versionName "0.0.4"
     }
 
     buildTypes {
@@ -33,7 +33,7 @@ ext {
     libraryName = 'Bottom Sheet'
     artifact = 'bottomsheet'
 
-    libraryVersion = '0.0.3'
+    libraryVersion = '0.0.4'
     libraryDescription = 'Bottom Sheet library'
 
     siteUrl = 'https://github.com/michaelbel/bottomsheet'
