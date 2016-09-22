@@ -70,23 +70,6 @@ public class LaunchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /* Sample:
-
-    BottomSheet.Builder builder = new BottomSheet.Builder(this);
-    builder.setTitle(...);
-    builder.setItems(..., ..., ...);
-    builder.setCustomView(...);
-    builder.setContentType(...);
-    builder.setTitleTextColor(...);
-    builder.setItemTextColor(...);
-    builder.setBackgroundColor(...);
-    builder.setIconColor(...);
-    builder.setItemSelector(...);
-    builder.setFullWidth(...);
-    builder.setDarkTheme(...);
-    builder.show();
-    */
-
     @OnClick(R.id.list_style)
     public void listStyleButtonClick(View v) {
         final CharSequence[] items = new CharSequence[]{
