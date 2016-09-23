@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import org.michaelbel.bottomsheet.test.BottomSheet;
+import org.michaelbel.bottomsheet.BottomSheet;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

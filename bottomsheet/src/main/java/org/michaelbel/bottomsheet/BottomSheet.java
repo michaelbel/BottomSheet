@@ -1,4 +1,4 @@
-package org.michaelbel.bottomsheet.test;
+package org.michaelbel.bottomsheet;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,7 +7,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -49,8 +48,6 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.michaelbel.bottomsheet.R;
 
 import java.util.ArrayList;
 

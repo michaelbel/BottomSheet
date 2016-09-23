@@ -1,4 +1,4 @@
-package org.michaelbel.bottomsheet.test;
+package org.michaelbel.bottomsheet;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
