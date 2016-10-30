@@ -18,7 +18,7 @@ import org.michaelbel.bottomsheet.BottomSheet;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean appTheme;
@@ -32,42 +32,45 @@ public class LaunchActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences preferences = getSharedPreferences("mainconfig", MODE_PRIVATE);
-        appTheme = preferences.getBoolean("appTheme", true);
+        SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
+        appTheme = preferences.getBoolean("app_theme", true);
     }
 
     @Override
     public void setTheme(@StyleRes int resid) {
-        SharedPreferences preferences = getSharedPreferences("mainconfig", MODE_PRIVATE);
-        boolean appTheme = preferences.getBoolean("appTheme", true);
+        SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
+        boolean appTheme = preferences.getBoolean("app_theme", true);
         super.setTheme(appTheme ? R.style.AppThemeLight : R.style.AppThemeDark);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        MenuItem githubItem = menu.add(R.string.fork_on_github).setIcon(R.drawable.ic_github);
+        githubItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        githubItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.to_github))));
+                return true;
+            }
+        });
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        MenuItem themeItem = menu.add(R.string.change_theme).setIcon(R.drawable.ic_theme);
+        themeItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        themeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                boolean appTheme = preferences.getBoolean("app_theme", true);
+                editor.putBoolean("app_theme", !appTheme);
+                editor.apply();
+                recreate();
+                return true;
+            }
+        });
 
-        if (id == R.id.action_github) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.to_github))));
-        } else if (id == R.id.action_theme) {
-            SharedPreferences preferences = getSharedPreferences("mainconfig", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-
-            boolean appTheme = preferences.getBoolean("appTheme", true);
-
-            editor.putBoolean("appTheme", !appTheme);
-            editor.apply();
-
-            recreate();
-        }
-
-        return super.onOptionsItemSelected(item);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @OnClick(R.id.list_style)
@@ -216,6 +219,45 @@ public class LaunchActivity extends AppCompatActivity {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!appTheme);
         builder.setCustomView(R.layout.custom_view);
+        builder.show();
+    }
+
+    @OnClick(R.id.callback_style)
+    public void callbackClick(View v) {
+        final CharSequence[] items = new CharSequence[]{
+                getString(R.string.share),
+                getString(R.string.upload),
+                getString(R.string.copy),
+                getString(R.string.print_this_page)
+        };
+
+        int[] icons = new int[] {
+                R.drawable.ic_share,
+                R.drawable.ic_upload,
+                R.drawable.ic_copy,
+                R.drawable.ic_printer
+        };
+
+        BottomSheet.Builder builder = new BottomSheet.Builder(this);
+        builder.setDarkTheme(!appTheme);
+        builder.setItems(items, icons, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        builder.setCallback(new BottomSheet.Callback() {
+            @Override
+            public void onOpen() {
+                Toast.makeText(LaunchActivity.this, "BottomSheet is Opened", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onClose() {
+                Toast.makeText(LaunchActivity.this, "BottomSheet is Closed", Toast.LENGTH_SHORT).show();
+            }
+        });
         builder.show();
     }
 }

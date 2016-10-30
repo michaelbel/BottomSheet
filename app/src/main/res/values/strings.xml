@@ -24,4 +24,5 @@
     <string name="mail">Mail</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
+    <string name="callback">With callback</string>
 </resources>
