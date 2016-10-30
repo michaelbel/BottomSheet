@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 5
-        versionName "0.0.5"
+        versionCode 7
+        versionName "1.0.1"
     }
 
     buildTypes {
@@ -19,10 +19,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    /*pkg {
+        repo = "maven"
+        name = "bottomsheet"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }*/
 }
 
 ext {
@@ -33,7 +53,7 @@ ext {
     libraryName = 'Bottom Sheet'
     artifact = 'bottomsheet'
 
-    libraryVersion = '0.0.5'
+    libraryVersion = '1.0.1'
     libraryDescription = 'Bottom Sheet library'
 
     siteUrl = 'https://github.com/michaelbel/bottomsheet'
@@ -51,8 +71,14 @@ ext {
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
 
+
 javadoc {
     options {
         encoding = 'UTF-8'
     }
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
 }
