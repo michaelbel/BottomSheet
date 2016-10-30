@@ -1,3 +1,19 @@
+/*
+ * Copyright 2016 Michael Bel
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.michaelbel.bottomsheet;
 
 import android.animation.Animator;
@@ -21,6 +37,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.NestedScrollingParent;
@@ -49,8 +66,13 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
+import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
+
+@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -58,6 +80,8 @@ public class BottomSheet extends Dialog {
     public static final int LIST = 1;
     public static final int GRID = 2;
 
+    @RestrictTo(GROUP_ID)
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({LIST, GRID})
     public @interface Type {}
 
@@ -107,7 +131,7 @@ public class BottomSheet extends Dialog {
         public int icon;
         public CharSequence text;
 
-        Item(CharSequence text, int icon) {
+        public Item(CharSequence text, int icon) {
             this.text = text;
             this.icon = icon;
         }
@@ -149,7 +173,11 @@ public class BottomSheet extends Dialog {
                     return false;
                 }
             };
-            containerView.setBackground(shadowDrawable);
+            if (Build.VERSION.SDK_INT >= 16) {
+                containerView.setBackground(shadowDrawable);
+            } else {
+                containerView.setBackgroundDrawable(shadowDrawable);
+            }
             containerView.setPadding(0, backgroundPaddingTop, 0, Utils.dp(getContext(), 8));
         }
 
@@ -285,7 +313,11 @@ public class BottomSheet extends Dialog {
     public void show() {
         super.show();
         if (focusable) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            try {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
         }
 
         dismissed = false;
@@ -392,7 +424,12 @@ public class BottomSheet extends Dialog {
         backgroundPaddingTop = padding.top;
 
         container = new ContainerView(getContext());
-        container.setBackground(backDrawable);
+        if (Build.VERSION.SDK_INT >= 16) {
+            container.setBackground(backDrawable);
+        } else {
+            container.setBackgroundDrawable(backDrawable);
+        }
+
         focusable = needFocus;
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -452,12 +489,9 @@ public class BottomSheet extends Dialog {
         @Override
         public void onStopNestedScroll(View target) {
             nestedScrollingParentHelper.onStopNestedScroll(target);
-
             if (dismissed) {
                 return;
             }
-
-            float currentTranslation = containerView.getTranslationY();
             checkDismiss(0, 0);
         }
 
@@ -567,7 +601,7 @@ public class BottomSheet extends Dialog {
                 if (startedTrackingY < containerView.getTop() ||
                         startedTrackingX < containerView.getLeft() ||
                         startedTrackingX > containerView.getRight()) {
-                    dismiss(); // todo dismiss
+                    dismiss();
                     return true;
                 }
 
