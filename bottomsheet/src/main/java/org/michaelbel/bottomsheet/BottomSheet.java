@@ -126,6 +126,8 @@ public class BottomSheet extends Dialog {
     private DisplayMetrics metrics = new DisplayMetrics();
     private Handler handler = new Handler(Looper.getMainLooper());
 
+    private Callback bottomSheetCallBack;
+
     private class Item {
 
         public int icon;
@@ -346,6 +348,10 @@ public class BottomSheet extends Dialog {
         } else {
             startOpenAnimation();
         }
+
+        if (bottomSheetCallBack != null) {
+            bottomSheetCallBack.onOpen();
+        }
     }
 
     @Override
@@ -399,6 +405,10 @@ public class BottomSheet extends Dialog {
         });
         animatorSet.start();
         currentSheetAnimation = animatorSet;
+
+        if (bottomSheetCallBack != null) {
+            bottomSheetCallBack.onClose();
+        }
     }
 
     public BottomSheet(Context context, boolean needFocus) {
@@ -901,6 +911,10 @@ public class BottomSheet extends Dialog {
 
         animatorSet.start();
         currentSheetAnimation = animatorSet;
+
+        if (bottomSheetCallBack != null) {
+            bottomSheetCallBack.onClose();
+        }
     }
 
     private void dismissInternal() {
@@ -1018,6 +1032,11 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        public Builder setCallback(Callback callback) {
+            bottomSheet.bottomSheetCallBack = callback;
+            return this;
+        }
+
         public BottomSheet show() {
             bottomSheet.show();
             return bottomSheet;
@@ -1079,5 +1098,12 @@ public class BottomSheet extends Dialog {
         public int getViewTypeCount() {
             return 1;
         }
+    }
+
+    public interface Callback {
+
+        void onOpen();
+
+        void onClose();
     }
 }
