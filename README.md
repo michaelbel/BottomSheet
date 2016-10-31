@@ -30,17 +30,17 @@ dependencies {
 ## Usage
 ```java
 new BottomSheet.Builder(this)
-    .setTitle(...);
-    .setItems(..., ..., ...);
-    .setCustomView(...);
-    .setContentType(...);
-    .setTitleTextColor(...);
-    .setItemTextColor(...);
-    .setBackgroundColor(...);
-    .setIconColor(...);
-    .setItemSelector(...);
-    .setFullWidth(...);
-    .setDarkTheme(...);
+    .setTitle(...)
+    .setItems(..., ..., ...)
+    .setCustomView(...)
+    .setContentType(...)
+    .setTitleTextColor(...)
+    .setItemTextColor(...)
+    .setBackgroundColor(...)
+    .setIconColor(...)
+    .setItemSelector(...)
+    .setFullWidth(...)
+    .setDarkTheme(...)
     .setCallback(new BottomSheet.Callback() {
         @Override
         public void onOpen() {
@@ -49,7 +49,7 @@ new BottomSheet.Builder(this)
         @Override
         public void onClose() {
         }
-    });
+    })
     .show();
 ```
 
