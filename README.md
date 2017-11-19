@@ -23,24 +23,33 @@ BottomSheet dialogs library for Android
 ## Download
 ```gradle
 dependencies {
-    compile 'org.michaelbel:bottomsheet:0.0.5'
+    compile 'org.michaelbel:bottomsheet:1.0.1'
 }
 ```
 
 ## Usage
 ```java
 new BottomSheet.Builder(this)
-    .setTitle(...);
-    .setItems(..., ..., ...);
-    .setCustomView(...);
-    .setContentType(...);
-    .setTitleTextColor(...);
-    .setItemTextColor(...);
-    .setBackgroundColor(...);
-    .setIconColor(...);
-    .setItemSelector(...);
-    .setFullWidth(...);
-    .setDarkTheme(...);
+    .setTitle(...)
+    .setItems(..., ..., ...)
+    .setCustomView(...)
+    .setContentType(...)
+    .setTitleTextColor(...)
+    .setItemTextColor(...)
+    .setBackgroundColor(...)
+    .setIconColor(...)
+    .setItemSelector(...)
+    .setFullWidth(...)
+    .setDarkTheme(...)
+    .setCallback(new BottomSheet.Callback() {
+        @Override
+        public void onOpen() {
+        }
+        
+        @Override
+        public void onClose() {
+        }
+    })
     .show();
 ```
 
