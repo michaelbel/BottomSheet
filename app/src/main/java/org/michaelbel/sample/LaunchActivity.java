@@ -18,7 +18,7 @@ import org.michaelbel.bottomsheet.BottomSheet;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean appTheme;
