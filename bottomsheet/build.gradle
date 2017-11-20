@@ -3,14 +3,14 @@ apply plugin: "com.jfrog.bintray"
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "26.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 7
-        versionName "1.0.1"
+        versionName "1.0.2"
     }
 
     buildTypes {
@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:27.0.1'
 }
 
 Properties properties = new Properties()
@@ -53,7 +53,7 @@ ext {
     libraryName = 'Bottom Sheet'
     artifact = 'bottomsheet'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
     libraryDescription = 'Bottom Sheet library'
 
     siteUrl = 'https://github.com/michaelbel/bottomsheet'
