@@ -72,7 +72,7 @@ import java.util.ArrayList;
 
 import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -139,6 +139,7 @@ public class BottomSheet extends Dialog {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -481,12 +482,12 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+        public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int nestedScrollAxes) {
             return !dismissed && nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL && !canDismissWithSwipe();
         }
 
         @Override
-        public void onNestedScrollAccepted(View child, View target, int nestedScrollAxes) {
+        public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int nestedScrollAxes) {
             nestedScrollingParentHelper.onNestedScrollAccepted(child, target, nestedScrollAxes);
 
             if (dismissed) {
@@ -497,7 +498,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onStopNestedScroll(View target) {
+        public void onStopNestedScroll(@NonNull View target) {
             nestedScrollingParentHelper.onStopNestedScroll(target);
             if (dismissed) {
                 return;
@@ -506,7 +507,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
             if (dismissed) {
                 return;
             }
@@ -526,7 +527,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
             if (dismissed) {
                 return;
             }
@@ -548,12 +549,12 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
+        public boolean onNestedFling(@NonNull View target, float velocityX, float velocityY, boolean consumed) {
             return false;
         }
 
         @Override
-        public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+        public boolean onNestedPreFling(@NonNull View target, float velocityX, float velocityY) {
             return false;
         }
 

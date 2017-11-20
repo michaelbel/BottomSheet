@@ -19,7 +19,7 @@ package org.michaelbel.bottomsheet;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class Utils {
 
     public static int dp(@NonNull Context context, float value) {

@@ -31,7 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class BottomSheetCell extends FrameLayout {
 
     private TextView textView;
@@ -76,8 +76,10 @@ public class BottomSheetCell extends FrameLayout {
     public BottomSheetCell setIcon(@DrawableRes int resId, @ColorInt int color) {
         if (resId != 0) {
             Drawable res = ContextCompat.getDrawable(getContext(), resId);
-            res.clearColorFilter();
-            res.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+            if (res != null) {
+                res.clearColorFilter();
+                res.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+            }
 
             iconView.setImageDrawable(res);
 

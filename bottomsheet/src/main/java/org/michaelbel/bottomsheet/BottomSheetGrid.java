@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class BottomSheetGrid extends LinearLayout {
 
     private TextView textView;
@@ -76,8 +76,10 @@ public class BottomSheetGrid extends LinearLayout {
 
     public BottomSheetGrid setIcon(@DrawableRes int resId, @ColorInt int color) {
         Drawable icon = ContextCompat.getDrawable(getContext(), resId);
-        icon.clearColorFilter();
-        icon.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        if (icon != null) {
+            icon.clearColorFilter();
+            icon.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        }
 
         iconView.setImageDrawable(icon);
         return this;

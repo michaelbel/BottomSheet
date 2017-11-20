@@ -29,7 +29,7 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
