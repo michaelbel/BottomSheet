@@ -70,7 +70,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 //@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
@@ -80,7 +80,7 @@ public class BottomSheet extends Dialog {
     public static final int LIST = 1;
     public static final int GRID = 2;
 
-    @RestrictTo(GROUP_ID)
+    @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LIST, GRID})
     public @interface Type {}
@@ -165,7 +165,9 @@ public class BottomSheet extends Dialog {
         }
 
         Window window = getWindow();
-        window.setWindowAnimations(R.style.DialogNoAnimation);
+        if (window != null) {
+            window.setWindowAnimations(R.style.DialogNoAnimation);
+        }
         setContentView(container, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
