@@ -122,9 +122,4 @@ public class BottomSheetCell extends FrameLayout {
 
         setMeasuredDimension(width, height);
     }
-
-    /*@Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Utils.dp(getContext(), 48), MeasureSpec.EXACTLY));
-    }*/
 }
