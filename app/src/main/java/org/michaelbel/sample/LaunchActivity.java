@@ -18,7 +18,6 @@ import org.michaelbel.bottomsheet.BottomSheet;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//@SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean appTheme;
@@ -32,43 +31,45 @@ public class LaunchActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
-        appTheme = preferences.getBoolean("app_theme", true);
+        SharedPreferences prefs = getSharedPreferences("main_config", MODE_PRIVATE);
+        appTheme = prefs.getBoolean("app_theme", true);
     }
 
     @Override
     public void setTheme(@StyleRes int resid) {
-        SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
-        boolean appTheme = preferences.getBoolean("app_theme", true);
+        SharedPreferences prefs = getSharedPreferences("main_config", MODE_PRIVATE);
+        boolean appTheme = prefs.getBoolean("app_theme", true);
         super.setTheme(appTheme ? R.style.AppThemeLight : R.style.AppThemeDark);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem githubItem = menu.add(R.string.fork_on_github).setIcon(R.drawable.ic_github);
-        githubItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        githubItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.to_github))));
-                return true;
-            }
-        });
+        menu.add(R.string.fork_on_github)
+                .setIcon(R.drawable.ic_github)
+                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.to_github))));
+                        return true;
+                    }
+                });
 
-        MenuItem themeItem = menu.add(R.string.change_theme).setIcon(R.drawable.ic_theme);
-        themeItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        themeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                SharedPreferences preferences = getSharedPreferences("main_config", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                boolean appTheme = preferences.getBoolean("app_theme", true);
-                editor.putBoolean("app_theme", !appTheme);
-                editor.apply();
-                recreate();
-                return true;
-            }
-        });
+        menu.add(R.string.change_theme)
+                .setIcon(R.drawable.ic_theme)
+                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        SharedPreferences prefs = getSharedPreferences("main_config", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        boolean appTheme = prefs.getBoolean("app_theme", true);
+                        editor.putBoolean("app_theme", !appTheme);
+                        editor.apply();
+                        recreate();
+                        return true;
+                    }
+                });
 
         return super.onCreateOptionsMenu(menu);
     }
