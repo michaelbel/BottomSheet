@@ -23,7 +23,7 @@ BottomSheet dialogs library for Android
 ## Download
 ```gradle
 dependencies {
-    compile 'org.michaelbel:bottomsheet:1.0.2'
+    implementation 'org.michaelbel:bottomsheet:1.0.2'
 }
 ```
 
