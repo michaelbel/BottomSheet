@@ -1,6 +1,5 @@
 package org.michaelbel.sample;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -20,7 +19,7 @@ import butterknife.OnClick;
 
 public class LaunchActivity extends AppCompatActivity {
 
-    private boolean appTheme;
+    private boolean theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,44 +30,38 @@ public class LaunchActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences prefs = getSharedPreferences("main_config", MODE_PRIVATE);
-        appTheme = prefs.getBoolean("app_theme", true);
+        SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
+        theme = prefs.getBoolean("theme", true);
     }
 
     @Override
     public void setTheme(@StyleRes int resid) {
-        SharedPreferences prefs = getSharedPreferences("main_config", MODE_PRIVATE);
-        boolean appTheme = prefs.getBoolean("app_theme", true);
+        SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
+        boolean appTheme = prefs.getBoolean("theme", true);
         super.setTheme(appTheme ? R.style.AppThemeLight : R.style.AppThemeDark);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(R.string.fork_on_github)
+        menu.add(R.string.view_on_github)
                 .setIcon(R.drawable.ic_github)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.to_github))));
-                        return true;
-                    }
+                .setOnMenuItemClickListener(menuItem -> {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url))));
+                    return true;
                 });
 
         menu.add(R.string.change_theme)
                 .setIcon(R.drawable.ic_theme)
                 .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        SharedPreferences prefs = getSharedPreferences("main_config", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        boolean appTheme = prefs.getBoolean("app_theme", true);
-                        editor.putBoolean("app_theme", !appTheme);
-                        editor.apply();
-                        recreate();
-                        return true;
-                    }
+                .setOnMenuItemClickListener(menuItem -> {
+                    SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    boolean appTheme = prefs.getBoolean("theme", true);
+                    editor.putBoolean("theme", !appTheme);
+                    editor.apply();
+                    recreate();
+                    return true;
                 });
 
         return super.onCreateOptionsMenu(menu);
@@ -84,13 +77,9 @@ public class LaunchActivity extends AppCompatActivity {
         };
 
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!appTheme);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
-                    }
-                }
+        builder.setDarkTheme(!theme);
+        builder.setItems(items, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -106,13 +95,9 @@ public class LaunchActivity extends AppCompatActivity {
 
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setTitle(R.string.actions);
-        builder.setDarkTheme(!appTheme);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
-                    }
-                }
+        builder.setDarkTheme(!theme);
+        builder.setItems(items, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -134,13 +119,9 @@ public class LaunchActivity extends AppCompatActivity {
         };
 
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!appTheme);
-        builder.setItems(items, icons, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
-                    }
-                }
+        builder.setDarkTheme(!theme);
+        builder.setItems(items, icons, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -170,14 +151,10 @@ public class LaunchActivity extends AppCompatActivity {
         };
 
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!appTheme);
+        builder.setDarkTheme(!theme);
         builder.setContentType(BottomSheet.GRID);
-        builder.setItems(items, icons, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
-                    }
-                }
+        builder.setItems(items, icons, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -205,12 +182,8 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setBackgroundColor(0xFF3F51B5);
         builder.setIconColor(0xFFEEFF41);
         builder.setItemSelector(R.drawable.selectable_custom);
-        builder.setItems(items, icons, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
-                    }
-                }
+        builder.setItems(items, icons, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -218,7 +191,7 @@ public class LaunchActivity extends AppCompatActivity {
     @OnClick(R.id.custom_view)
     public void customViewButtonClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!appTheme);
+        builder.setDarkTheme(!theme);
         builder.setCustomView(R.layout.custom_view);
         builder.show();
     }
@@ -240,13 +213,9 @@ public class LaunchActivity extends AppCompatActivity {
         };
 
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!appTheme);
-        builder.setItems(items, icons, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(LaunchActivity.this, items[i], Toast.LENGTH_SHORT).show();
-                    }
-                }
+        builder.setDarkTheme(!theme);
+        builder.setItems(items, icons, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.setCallback(new BottomSheet.Callback() {
             @Override

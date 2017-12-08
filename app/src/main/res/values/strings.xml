@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BottomSheet</string>
-    <string name="to_github">https://github.com/michaelbel/bottomsheet</string>
-    <string name="fork_on_github">Fork on Github</string>
+    <string name="github_url">https://github.com/michaelbel/bottomsheet</string>
+    <string name="view_on_github">View on Github</string>
     <string name="change_theme">Change Theme</string>
     <string name="list_style">List style</string>
     <string name="list_style_with_title">List style with title</string>
