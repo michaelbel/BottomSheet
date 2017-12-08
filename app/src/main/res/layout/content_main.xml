@@ -51,6 +51,18 @@
             android:layout_height="wrap_content"
             android:text="@string/callback"/>
 
+        <Button
+            android:id="@+id/dividers_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/with_dividers"/>
+
+        <Button
+            android:id="@+id/cell_height_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_cell_height"/>
+
     </LinearLayout>
 
 </ScrollView>
