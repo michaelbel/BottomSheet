@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Michael Bel
+ * Copyright 2016-2017 Michael Bel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,6 @@ import java.util.ArrayList;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-//@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -139,7 +138,6 @@ public class BottomSheet extends Dialog {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -420,8 +418,8 @@ public class BottomSheet extends Dialog {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().addFlags(
                     WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR |
-                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
-                            WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
+                    WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
             );
         }
 
@@ -1035,7 +1033,7 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        public Builder setCallback(Callback callback) {
+        public Builder setCallback(@NonNull Callback callback) {
             bottomSheet.bottomSheetCallBack = callback;
             return this;
         }
@@ -1104,9 +1102,7 @@ public class BottomSheet extends Dialog {
     }
 
     public interface Callback {
-
         void onOpen();
-
         void onClose();
     }
 }
