@@ -17,6 +17,8 @@
 package org.michaelbel.bottomsheet;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -31,13 +33,26 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressWarnings("all")
 public class BottomSheetCell extends FrameLayout {
+
+    private int cellHeight;
+    private Paint paint;
+    private boolean divider;
 
     private TextView textView;
     private ImageView iconView;
 
     public BottomSheetCell(Context context) {
         super(context);
+
+        if (paint == null) {
+            paint = new Paint();
+            paint.setStrokeWidth(1);
+            paint.setColor(0x1F000000);
+        }
+
+        cellHeight = Utils.dp(context, 48);
 
         iconView = new ImageView(context);
         iconView.setScaleType(ImageView.ScaleType.CENTER);
@@ -112,13 +127,37 @@ public class BottomSheetCell extends FrameLayout {
         return this;
     }
 
+    public BottomSheetCell setHeight(int height) {
+        cellHeight = height;
+        return this;
+    }
+
+    public BottomSheetCell setDivider(boolean divider) {
+        this.divider = divider;
+        setWillNotDraw(!divider);
+        return this;
+    }
+
+    public BottomSheetCell setDividerColor(boolean theme) {
+        paint.setColor(!theme ? 0x1F000000 : 0x1FFFFFFF);
+        setWillNotDraw(false);
+        return this;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int width = MeasureSpec.makeMeasureSpec(widthMeasureSpec, MeasureSpec.EXACTLY);
-        int height = Utils.dp(getContext(), 48);
+        int height = cellHeight + (divider ? 1 : 0);
 
         setMeasuredDimension(width, height);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (divider) {
+            canvas.drawLine(getPaddingLeft(), getHeight() - 1, getWidth() - getPaddingRight(), getHeight() - 1, paint);
+        }
     }
 }

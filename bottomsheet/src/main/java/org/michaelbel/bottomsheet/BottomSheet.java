@@ -72,6 +72,7 @@ import java.util.ArrayList;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -97,6 +98,8 @@ public class BottomSheet extends Dialog {
     private CharSequence titleText;
 
     private int contentType = LIST;
+    private int cellHeight;
+    private boolean dividers;
 
     private CharSequence[] mItems;
     private @StringRes int[] mItemsRes;
@@ -162,6 +165,10 @@ public class BottomSheet extends Dialog {
             itemSelector = darkTheme ? R.drawable.selectable_dark : R.drawable.selectable_light;
         }
 
+        if (cellHeight == 0) {
+            cellHeight = Utils.dp(getContext(), 48);
+        }
+
         Window window = getWindow();
         if (window != null) {
             window.setWindowAnimations(R.style.DialogNoAnimation);
@@ -225,7 +232,7 @@ public class BottomSheet extends Dialog {
                 titleTextView.setGravity(Gravity.CENTER_VERTICAL);
 
                 FrameLayout.LayoutParams params0 = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, Utils.dp(getContext(), 56));
+                        ViewGroup.LayoutParams.WRAP_CONTENT, Utils.dp(getContext(), 52));
                 params0.gravity = Gravity.START | Gravity.TOP;
                 params0.leftMargin = Utils.dp(getContext(), 16);
                 params0.rightMargin = Utils.dp(getContext(), 16);
@@ -238,7 +245,7 @@ public class BottomSheet extends Dialog {
                         return true;
                     }
                 });
-                topOffset += 56;
+                topOffset += 52;
             }
 
             BottomSheetAdapter adapter = new BottomSheetAdapter();
@@ -1033,6 +1040,16 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        public Builder setCellHeight(int height) {
+            bottomSheet.cellHeight = height;
+            return this;
+        }
+
+        public Builder setDividers(boolean value) {
+            bottomSheet.dividers = value;
+            return this;
+        }
+
         public Builder setCallback(@NonNull Callback callback) {
             bottomSheet.bottomSheetCallBack = callback;
             return this;
@@ -1062,10 +1079,10 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            int type = getItemViewType(i);
+        public View getView(int position, View view, ViewGroup viewGroup) {
+            int type = getItemViewType(position);
 
-            Item item = items.get(i);
+            Item item = items.get(position);
 
             if (type == 0) {
                 if (contentType == LIST) {
@@ -1076,6 +1093,11 @@ public class BottomSheet extends Dialog {
                     BottomSheetCell cell = (BottomSheetCell) view;
                     cell.setIcon(item.icon, iconColor);
                     cell.setText(item.text, itemTextColor);
+                    cell.setHeight(cellHeight);
+                    if (position != items.size() - 1) {
+                        cell.setDivider(dividers);
+                        cell.setDividerColor(darkTheme);
+                    }
                 } else {
                     if (view == null) {
                         view = new BottomSheetGrid(getContext());
