@@ -27,4 +27,6 @@
     <string name="callback">With callback</string>
     <string name="with_dividers">With dividers</string>
     <string name="custom_cell_height">Custom cell height</string>
+    <string name="bottom_sheet_open">BottomSheet is Open</string>
+    <string name="bottom_sheet_close">BottomSheet is Close</string>
 </resources>

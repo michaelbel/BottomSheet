@@ -18,6 +18,7 @@ import org.michaelbel.bottomsheet.Utils;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean theme;
@@ -221,12 +222,12 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(new BottomSheet.Callback() {
             @Override
             public void onOpen() {
-                Toast.makeText(LaunchActivity.this, "BottomSheet is Opened", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LaunchActivity.this, R.string.bottom_sheet_open, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onClose() {
-                Toast.makeText(LaunchActivity.this, "BottomSheet is Closed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LaunchActivity.this, R.string.bottom_sheet_close, Toast.LENGTH_SHORT).show();
             }
         });
         builder.show();
@@ -265,6 +266,6 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setItems(items, (dialogInterface, i) ->
                 Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
-        builder.show(); `
+        builder.show();
     }
 }
