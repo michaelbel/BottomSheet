@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.michaelbel.bottomsheet.BottomSheet;
+import org.michaelbel.bottomsheet.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -229,5 +230,41 @@ public class LaunchActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @OnClick(R.id.dividers_style)
+    public void dividersClick(View v) {
+        final CharSequence[] items = new CharSequence[]{
+                getString(R.string.share),
+                getString(R.string.upload),
+                getString(R.string.copy),
+                getString(R.string.print_this_page)
+        };
+
+        BottomSheet.Builder builder = new BottomSheet.Builder(this);
+        builder.setDarkTheme(!theme);
+        builder.setDividers(true);
+        builder.setItems(items, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        );
+        builder.show();
+    }
+
+    @OnClick(R.id.cell_height_style)
+    public void cellHeightClick(View v) {
+        final CharSequence[] items = new CharSequence[]{
+                getString(R.string.share),
+                getString(R.string.upload),
+                getString(R.string.copy),
+                getString(R.string.print_this_page)
+        };
+
+        BottomSheet.Builder builder = new BottomSheet.Builder(this);
+        builder.setDarkTheme(!theme);
+        builder.setCellHeight(Utils.dp(this, 64));
+        builder.setItems(items, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        );
+        builder.show(); `
     }
 }
