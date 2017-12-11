@@ -17,8 +17,11 @@ BottomSheet dialogs library for Android
     <img style="margin-left:0px;" src="/screens/dark_4.png" width="24%">
 </div>
 
-<img style="margin-left:0px;" src="/screens/light_landscape.png" width="49%">
-<img style="margin-left:0px;" src="/screens/dark_landscape.png" width="49%">
+<div style="dispaly:flex;">
+    <img style="margin-left:0px;" src="/screens/light_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/screens/dark_landscape.png" width="49%">
+</div>    
+
 
 ## Download
 ```gradle
