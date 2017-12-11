@@ -23,7 +23,7 @@ BottomSheet dialogs library for Android
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.0.3'
+    implementation 'org.michaelbel:bottomsheet:1.1.0'
 }
 ```
 
@@ -40,6 +40,8 @@ new BottomSheet.Builder(this)
     .setIconColor(...)
     .setItemSelector(...)
     .setFullWidth(...)
+    .setCellHeight(...)
+    .setDividers(...)
     .setDarkTheme(...)
     .setCallback(new BottomSheet.Callback() {
         @Override
