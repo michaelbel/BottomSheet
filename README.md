@@ -2,6 +2,7 @@
 [ProjectLicenceUrl]:    http://www.apache.org/licenses/LICENSE-2.0
 [ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
 [ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
+[ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.0.apk
 
 [LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
@@ -42,6 +43,9 @@ BottomSheet dialogs library for Android
 ## Demo
 
 [![GetApp][GooglePlayBadgePath]][ProjectGooglePlayUrl]
+
+Or [Download APK][ApkFileUrl]
+
 
 ## Download
 ```gradle
