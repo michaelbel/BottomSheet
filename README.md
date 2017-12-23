@@ -1,28 +1,47 @@
+[ProjectGithubUrl]:     https://github.com/michaelbel/bottomsheet
+[ProjectLicenceUrl]:    http://www.apache.org/licenses/LICENSE-2.0
+[ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
+[ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
+
+[LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+[GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
+
+[ApiBadge]:       https://img.shields.io/badge/API-14%2B-blue.svg
+[PlatformBadge]:  https://img.shields.io/badge/Platform-Android-blue.svg
+[LicenseBadge]:   https://img.shields.io/badge/License-Apache_v2.0-blue.svg
+[BintrayBadge]:   https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
+[PlaystoreBadge]: https://img.shields.io/badge/Google_Play-Demo-blue.svg
+
 # BottomSheet
+[![Platform][PlatformBadge]][ProjectGithubUrl]
+[![Api][ApiBadge]][ProjectGithubUrl]
+[![License][LicenseBadge]][ProjectLicenceUrl]
+[![Bintray][BintrayBadge]][ProjectBintrayUrl]
+[![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
+
+[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]
+
 BottomSheet dialogs library for Android
 
-[![Platform](https://img.shields.io/badge/Platform-Android-blue.svg)](https://github.com/michaelbel/material)
-[![API](https://img.shields.io/badge/API-14%2B-blue.svg)](https://github.com/michaelbel/material)
-[![Licence](https://img.shields.io/badge/License-Apache_v2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Download](https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg) ](https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion)
-[![Playstore](https://img.shields.io/badge/Google_Play-Demo-blue.svg)](https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet)
-
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/screens/light_1.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/light_2.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/light_3.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/light_4.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_1.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_2.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_3.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_4.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_2.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_3.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_4.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_1.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_2.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_3.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_4.png" width="24%">
 </div>
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/screens/light_landscape.png" width="49%">
-    <img style="margin-left:0px;" src="/screens/dark_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/art/screens/light_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/art/screens/dark_landscape.png" width="49%">
 </div>    
 
+## Demo
+
+[![GetApp][GooglePlayBadgePath]][ProjectGooglePlayUrl]
 
 ## Download
 ```gradle
@@ -74,3 +93,5 @@ new BottomSheet.Builder(this)
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+<!-- Yes, this is a comment. -->
