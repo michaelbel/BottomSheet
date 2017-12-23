@@ -8,21 +8,27 @@ BottomSheet dialogs library for Android
 [![Playstore](https://img.shields.io/badge/Google_Play-Demo-blue.svg)](https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet)
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/screens/light_1.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/light_2.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/light_3.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/light_4.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_1.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_2.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_3.png" width="24%">
-    <img style="margin-left:0px;" src="/screens/dark_4.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_2.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_3.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/light_4.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_1.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_2.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_3.png" width="24%">
+    <img style="margin-left:0px;" src="/art/screens/dark_4.png" width="24%">
 </div>
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/screens/light_landscape.png" width="49%">
-    <img style="margin-left:0px;" src="/screens/dark_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/art/screens/light_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/art/screens/dark_landscape.png" width="49%">
 </div>    
 
+## Demo
+
+[![Download][1]][2]
+
+[1]: ../master/art/badges/google-play-badge.png
+[2]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
 
 ## Download
 ```gradle
