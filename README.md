@@ -5,6 +5,7 @@ BottomSheet dialogs library for Android
 [![API](https://img.shields.io/badge/API-14%2B-blue.svg)](https://github.com/michaelbel/material)
 [![Licence](https://img.shields.io/badge/License-Apache_v2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Download](https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg) ](https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion)
+[![Playstore](https://img.shields.io/badge/Google_Play-Demo-blue.svg)](https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet)
 
 <div style="dispaly:flex;">
     <img style="margin-left:0px;" src="/screens/light_1.png" width="24%">
