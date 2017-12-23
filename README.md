@@ -13,15 +13,15 @@
 [PlaystoreBadge]: https://img.shields.io/badge/Google_Play-Demo-blue.svg
 
 # BottomSheet
-[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]
-
-BottomSheet dialogs library for Android
-
 [![Platform][PlatformBadge]][ProjectGithubUrl]
 [![Api][ApiBadge]][ProjectGithubUrl]
 [![License][LicenseBadge]][ProjectLicenceUrl]
 [![Bintray][BintrayBadge]][ProjectBintrayUrl]
 [![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
+
+[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]
+
+BottomSheet dialogs library for Android
 
 <div style="dispaly:flex;">
     <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
