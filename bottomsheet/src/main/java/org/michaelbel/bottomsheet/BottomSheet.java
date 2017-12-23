@@ -72,7 +72,7 @@ import java.util.ArrayList;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -135,7 +135,7 @@ public class BottomSheet extends Dialog {
         public int icon;
         public CharSequence text;
 
-        public Item(CharSequence text, int icon) {
+        private Item(CharSequence text, int icon) {
             this.text = text;
             this.icon = icon;
         }
@@ -173,8 +173,7 @@ public class BottomSheet extends Dialog {
         if (window != null) {
             window.setWindowAnimations(R.style.DialogNoAnimation);
         }
-        setContentView(container, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(container, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         if (containerView == null) {
             containerView = new FrameLayout(getContext()) {
@@ -208,6 +207,12 @@ public class BottomSheet extends Dialog {
         if (customView != null) {
             if (customView.getParent() != null) {
                 ViewGroup viewGroup = (ViewGroup) customView.getParent();
+                viewGroup.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        return true;
+                    }
+                });
                 viewGroup.removeView(customView);
             }
 
@@ -232,10 +237,11 @@ public class BottomSheet extends Dialog {
                 titleTextView.setGravity(Gravity.CENTER_VERTICAL);
 
                 FrameLayout.LayoutParams params0 = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, Utils.dp(getContext(), 52));
+                        ViewGroup.LayoutParams.WRAP_CONTENT, Utils.dp(getContext(), 48));
                 params0.gravity = Gravity.START | Gravity.TOP;
                 params0.leftMargin = Utils.dp(getContext(), 16);
                 params0.rightMargin = Utils.dp(getContext(), 16);
+                params0.bottomMargin = Utils.dp(getContext(), 8);
 
                 titleTextView.setLayoutParams(params0);
                 containerView.addView(titleTextView);
@@ -245,7 +251,7 @@ public class BottomSheet extends Dialog {
                         return true;
                     }
                 });
-                topOffset += 52;
+                topOffset += 48;
             }
 
             BottomSheetAdapter adapter = new BottomSheetAdapter();
@@ -272,8 +278,7 @@ public class BottomSheet extends Dialog {
                     containerView.addView(listView);
                 } else if (contentType == GRID) {
                     FrameLayout.LayoutParams params3 = new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
                     );
 
                     GridView gridView = new GridView(getContext());
@@ -434,9 +439,7 @@ public class BottomSheet extends Dialog {
         touchSlop = vc.getScaledTouchSlop();
 
         Rect padding = new Rect();
-
         shadowDrawable = ContextCompat.getDrawable(context, R.drawable.sheet_shadow);
-
         shadowDrawable.getPadding(padding);
         backgroundPaddingLeft = padding.left;
         backgroundPaddingTop = padding.top;
@@ -494,63 +497,54 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int nestedScrollAxes) {
+        public void onNestedScrollAccepted(View child, View target, int nestedScrollAxes) {
             nestedScrollingParentHelper.onNestedScrollAccepted(child, target, nestedScrollAxes);
-
             if (dismissed) {
                 return;
             }
-
             cancelCurrentAnimation();
         }
 
         @Override
-        public void onStopNestedScroll(@NonNull View target) {
+        public void onStopNestedScroll(View target) {
             nestedScrollingParentHelper.onStopNestedScroll(target);
             if (dismissed) {
                 return;
             }
+            float currentTranslation = containerView.getTranslationY();
             checkDismiss(0, 0);
         }
 
         @Override
-        public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
             if (dismissed) {
                 return;
             }
-
             cancelCurrentAnimation();
-
             if (dyUnconsumed != 0) {
                 float currentTranslation = containerView.getTranslationY();
                 currentTranslation -= dyUnconsumed;
-
                 if (currentTranslation < 0) {
                     currentTranslation = 0;
                 }
-
                 containerView.setTranslationY(currentTranslation);
             }
         }
 
         @Override
-        public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
+        public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
             if (dismissed) {
                 return;
             }
-
             cancelCurrentAnimation();
             float currentTranslation = containerView.getTranslationY();
-
             if (currentTranslation > 0 && dy > 0) {
                 currentTranslation -= dy;
                 consumed[1] = dy;
-
                 if (currentTranslation < 0) {
                     currentTranslation = 0;
                     consumed[1] += currentTranslation;
                 }
-
                 containerView.setTranslationY(currentTranslation);
             }
         }
@@ -611,35 +605,30 @@ public class BottomSheet extends Dialog {
                 return false;
             }
 
-            if (ev != null && (ev.getAction() == MotionEvent.ACTION_DOWN ||
-                    ev.getAction() == MotionEvent.ACTION_MOVE) && !startedTracking && !maybeStartTracking) {
+            if (onContainerTouchEvent(ev)) {
+                return true;
+            }
+
+            if (canDismissWithTouchOutside() && ev != null && (ev.getAction() == MotionEvent.ACTION_DOWN || ev.getAction() == MotionEvent.ACTION_MOVE) && !startedTracking && !maybeStartTracking) {
                 startedTrackingX = (int) ev.getX();
                 startedTrackingY = (int) ev.getY();
-
-                if (startedTrackingY < containerView.getTop() ||
-                        startedTrackingX < containerView.getLeft() ||
-                        startedTrackingX > containerView.getRight()) {
+                if (startedTrackingY < containerView.getTop() || startedTrackingX < containerView.getLeft() || startedTrackingX > containerView.getRight()) {
                     dismiss();
                     return true;
                 }
-
                 startedTrackingPointerId = ev.getPointerId(0);
                 maybeStartTracking = true;
                 cancelCurrentAnimation();
-
                 if (velocityTracker != null) {
                     velocityTracker.clear();
                 }
-            } else if (ev != null && ev.getAction() == MotionEvent.ACTION_MOVE &&
-                    ev.getPointerId(0) == startedTrackingPointerId) {
+            } else if (ev != null && ev.getAction() == MotionEvent.ACTION_MOVE && ev.getPointerId(0) == startedTrackingPointerId) {
                 if (velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain();
                 }
-
                 float dx = Math.abs((int) (ev.getX() - startedTrackingX));
                 float dy = (int) ev.getY() - startedTrackingY;
                 velocityTracker.addMovement(ev);
-
                 if (maybeStartTracking && !startedTracking && (dy > 0 && dy / 3.0f > Math.abs(dx) && Math.abs(dy) >= touchSlop)) {
                     startedTrackingY = (int) ev.getY();
                     maybeStartTracking = false;
@@ -651,18 +640,15 @@ public class BottomSheet extends Dialog {
                     if (translationY < 0) {
                         translationY = 0;
                     }
-
                     containerView.setTranslationY(translationY);
                     startedTrackingY = (int) ev.getY();
                 }
-            } else if (ev == null || ev.getPointerId(0) == startedTrackingPointerId && (ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_UP)) {
+            } else if (ev == null || ev != null && ev.getPointerId(0) == startedTrackingPointerId && (ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_UP)) {
                 if (velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain();
                 }
-
                 velocityTracker.computeCurrentVelocity(1000);
                 float translationY = containerView.getTranslationY();
-
                 if (startedTracking || translationY != 0) {
                     checkDismiss(velocityTracker.getXVelocity(), velocityTracker.getYVelocity());
                     startedTracking = false;
@@ -670,14 +656,13 @@ public class BottomSheet extends Dialog {
                     maybeStartTracking = false;
                     startedTracking = false;
                 }
-
                 if (velocityTracker != null) {
                     velocityTracker.recycle();
                     velocityTracker = null;
                 }
+                startedTrackingPointerId = -1;
             }
-
-            return startedTracking;
+            return startedTracking || !canDismissWithSwipe();
         }
 
         @Override
@@ -805,7 +790,6 @@ public class BottomSheet extends Dialog {
             if (canDismissWithSwipe()) {
                 return onTouchEvent(event);
             }
-
             return super.onInterceptTouchEvent(event);
         }
 
@@ -823,7 +807,15 @@ public class BottomSheet extends Dialog {
         }
     }
 
+    protected boolean onContainerTouchEvent(MotionEvent event) {
+        return false;
+    }
+
     private boolean canDismissWithSwipe() {
+        return true;
+    }
+
+    protected boolean canDismissWithTouchOutside() {
         return true;
     }
 
@@ -1081,7 +1073,6 @@ public class BottomSheet extends Dialog {
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
             int type = getItemViewType(position);
-
             Item item = items.get(position);
 
             if (type == 0) {
