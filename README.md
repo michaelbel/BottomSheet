@@ -3,7 +3,7 @@
 [ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
 [ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
 [ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.0.apk
-[MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets
+[MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
 
 [LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
