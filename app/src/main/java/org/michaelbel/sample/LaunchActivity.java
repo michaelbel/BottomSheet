@@ -268,4 +268,23 @@ public class LaunchActivity extends AppCompatActivity {
         );
         builder.show();
     }
+
+    @OnClick(R.id.title_multiline)
+    public void titleMultilineButtonClick(View v) {
+        final CharSequence[] items = new CharSequence[]{
+                getString(R.string.preview),
+                getString(R.string.share),
+                getString(R.string.get_link),
+                getString(R.string.make_copy)
+        };
+
+        BottomSheet.Builder builder = new BottomSheet.Builder(this);
+        builder.setTitle(R.string.multi_title_text);
+        builder.setTitleMultiline(true);
+        builder.setDarkTheme(!theme);
+        builder.setItems(items, (dialogInterface, i) ->
+                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        );
+        builder.show();
+    }
 }

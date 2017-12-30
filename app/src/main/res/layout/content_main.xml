@@ -7,7 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
 
         <Button
             android:id="@+id/list_style"
@@ -62,6 +65,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/custom_cell_height"/>
+
+        <Button
+            android:id="@+id/title_multiline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/multiline_title"/>
 
     </LinearLayout>
 

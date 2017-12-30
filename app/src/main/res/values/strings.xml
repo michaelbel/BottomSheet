@@ -27,6 +27,8 @@
     <string name="callback">With callback</string>
     <string name="with_dividers">With dividers</string>
     <string name="custom_cell_height">Custom cell height</string>
+    <string name="multiline_title">Title multiline</string>
+    <string name="multi_title_text">This title is multiline. This means that you can place here a few lines of text</string>
     <string name="bottom_sheet_open">BottomSheet is Open</string>
     <string name="bottom_sheet_close">BottomSheet is Close</string>
 </resources>

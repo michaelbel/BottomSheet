@@ -15,7 +15,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--<style name="AppTheme.Start" parent="@android:style/Theme.Material">-->
     <style name="AppTheme.Start" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
     </style>
