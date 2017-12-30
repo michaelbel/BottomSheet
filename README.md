@@ -2,7 +2,7 @@
 [ProjectLicenceUrl]:    http://www.apache.org/licenses/LICENSE-2.0
 [ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
 [ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
-[ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.0.apk
+[ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.1.apk
 [MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
 
 [LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
@@ -52,7 +52,7 @@ Or [Download APK][ApkFileUrl]
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.0'
+    implementation 'org.michaelbel:bottomsheet:1.1.1'
 }
 ```
 
@@ -71,6 +71,7 @@ new BottomSheet.Builder(this)
     .setFullWidth(...)
     .setCellHeight(...)
     .setDividers(...)
+    .setTitleMultiline(...)
     .setDarkTheme(...)
     .setCallback(new BottomSheet.Callback() {
         @Override
