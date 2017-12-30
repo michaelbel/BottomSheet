@@ -2,6 +2,8 @@
 [ProjectLicenceUrl]:    http://www.apache.org/licenses/LICENSE-2.0
 [ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
 [ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
+[ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.0.apk
+[MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
 
 [LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
@@ -21,7 +23,8 @@
 
 [![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]
 
-BottomSheet dialogs library for Android
+BottomSheet dialogs library for Android with [material design concept][MDGuidelinesUrl].
+Bottom sheets slide up from the bottom of the screen to reveal more content.
 
 <div style="dispaly:flex;">
     <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
@@ -42,6 +45,9 @@ BottomSheet dialogs library for Android
 ## Demo
 
 [![GetApp][GooglePlayBadgePath]][ProjectGooglePlayUrl]
+
+Or [Download APK][ApkFileUrl]
+
 
 ## Download
 ```gradle
