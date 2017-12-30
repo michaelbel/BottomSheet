@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+@SuppressWarnings("all")
 public class BottomSheetGrid extends LinearLayout {
 
     private TextView textView;
@@ -40,16 +41,12 @@ public class BottomSheetGrid extends LinearLayout {
         super(context);
 
         setOrientation(VERTICAL);
-        setPadding(Utils.dp(getContext(), 24), Utils.dp(getContext(), 16),
-                Utils.dp(getContext(), 24), Utils.dp(getContext(), 16));
+        setPadding(Utils.dp(getContext(), 24), Utils.dp(getContext(), 16), Utils.dp(getContext(), 24), Utils.dp(getContext(), 16));
 
         iconView = new ImageView(context);
         iconView.setScaleType(ImageView.ScaleType.CENTER);
 
-        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(
-                Utils.dp(getContext(), 48),
-                Utils.dp(getContext(), 48)
-        );
+        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(Utils.dp(getContext(), 48), Utils.dp(getContext(), 48));
         params1.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
 
         iconView.setLayoutParams(params1);
@@ -62,11 +59,7 @@ public class BottomSheetGrid extends LinearLayout {
         textView.setEllipsize(TextUtils.TruncateAt.END);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
-        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params2.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
 
         textView.setLayoutParams(params2);
