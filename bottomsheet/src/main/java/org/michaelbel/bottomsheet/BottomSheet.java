@@ -63,6 +63,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -72,7 +73,7 @@ import java.util.ArrayList;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-//@SuppressWarnings("all")
+@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -82,7 +83,7 @@ public class BottomSheet extends Dialog {
 
     @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({LIST, GRID})
+    @IntDef({ LIST, GRID })
     public @interface Type {}
 
     private boolean fullWidth;
@@ -95,7 +96,9 @@ public class BottomSheet extends Dialog {
     private int itemSelector;
 
     private View customView;
+
     private CharSequence titleText;
+    private boolean titleTextMultiline;
 
     private int contentType = LIST;
     private int cellHeight;
@@ -107,7 +110,7 @@ public class BottomSheet extends Dialog {
 
     private ArrayList<Item> items = new ArrayList<>();
 
-    private ViewGroup containerView;
+    private LinearLayout containerView;
     private ContainerView container;
     private WindowInsets lastInsets;
     private Runnable startAnimationRunnable;
@@ -127,6 +130,10 @@ public class BottomSheet extends Dialog {
     private Point displaySize = new Point();
     private DisplayMetrics metrics = new DisplayMetrics();
     private Handler handler = new Handler(Looper.getMainLooper());
+
+    private TextView titleTextView;
+    private ListView listView;
+    private GridView gridView;
 
     private Callback bottomSheetCallBack;
 
@@ -176,12 +183,13 @@ public class BottomSheet extends Dialog {
         setContentView(container, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         if (containerView == null) {
-            containerView = new FrameLayout(getContext()) {
+            containerView = new LinearLayout(getContext()) {
                 @Override
                 public boolean hasOverlappingRendering() {
                     return false;
                 }
             };
+            containerView.setOrientation(LinearLayout.VERTICAL);
             if (Build.VERSION.SDK_INT >= 16) {
                 containerView.setBackground(shadowDrawable);
             } else {
@@ -197,8 +205,7 @@ public class BottomSheet extends Dialog {
         containerView.setVisibility(View.INVISIBLE);
         containerView.setBackgroundColor(backgroundColor);
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.BOTTOM;
 
         containerView.setLayoutParams(params);
@@ -207,12 +214,12 @@ public class BottomSheet extends Dialog {
         if (customView != null) {
             if (customView.getParent() != null) {
                 ViewGroup viewGroup = (ViewGroup) customView.getParent();
-                viewGroup.setOnTouchListener(new View.OnTouchListener() {
+                /*viewGroup.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         return true;
                     }
-                });
+                });*/
                 viewGroup.removeView(customView);
             }
 
@@ -220,28 +227,29 @@ public class BottomSheet extends Dialog {
             params1.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             params1.gravity = Gravity.START | Gravity.TOP;
-
             containerView.addView(customView, params1);
         } else {
-            int topOffset = 0;
-
             if (titleText != null) {
-                TextView titleTextView = new TextView(getContext());
+                titleTextView = new TextView(getContext());
                 titleTextView.setLines(1);
-                titleTextView.setMaxLines(1);
-                titleTextView.setSingleLine(true);
                 titleTextView.setText(titleText);
                 titleTextView.setTextColor(titleTextColor);
+                titleTextView.setGravity(Gravity.CENTER_VERTICAL);
                 titleTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
                 titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
-                titleTextView.setGravity(Gravity.CENTER_VERTICAL);
+                if (titleTextMultiline) {
+                    titleTextView.setSingleLine(false);
+                } else {
+                    titleTextView.setMaxLines(1);
+                    titleTextView.setSingleLine(true);
+                }
 
-                FrameLayout.LayoutParams params0 = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, Utils.dp(getContext(), 48));
+                LinearLayout.LayoutParams params0 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 params0.gravity = Gravity.START | Gravity.TOP;
                 params0.leftMargin = Utils.dp(getContext(), 16);
                 params0.rightMargin = Utils.dp(getContext(), 16);
-                params0.bottomMargin = Utils.dp(getContext(), 8);
+                params0.topMargin = Utils.dp(getContext(), 8);
+                params0.bottomMargin = Utils.dp(getContext(), 16);
 
                 titleTextView.setLayoutParams(params0);
                 containerView.addView(titleTextView);
@@ -251,18 +259,15 @@ public class BottomSheet extends Dialog {
                         return true;
                     }
                 });
-                topOffset += 48;
             }
 
             BottomSheetAdapter adapter = new BottomSheetAdapter();
 
             if (mItems != null || mItemsRes != null) {
                 if (contentType == LIST) {
-                    FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params2.topMargin = Utils.dp(getContext(), topOffset);
+                    LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                    ListView listView = new ListView(getContext());
+                    listView = new ListView(getContext());
                     listView.setSelector(itemSelector);
                     listView.setDividerHeight(0);
                     listView.setAdapter(adapter);
@@ -277,17 +282,15 @@ public class BottomSheet extends Dialog {
                     listView.setLayoutParams(params2);
                     containerView.addView(listView);
                 } else if (contentType == GRID) {
-                    FrameLayout.LayoutParams params3 = new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-                    );
+                    LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                    GridView gridView = new GridView(getContext());
+                    gridView = new GridView(getContext());
                     gridView.setSelector(itemSelector);
                     gridView.setAdapter(adapter);
                     gridView.setNumColumns(3);
                     gridView.setVerticalScrollBarEnabled(false);
                     gridView.setVerticalSpacing(Utils.dp(getContext(), 16));
-                    gridView.setPadding(Utils.dp(getContext(), 0), Utils.dp(getContext(), topOffset + 8), Utils.dp(getContext(), 0), Utils.dp(getContext(), 16));
+                    gridView.setPadding(Utils.dp(getContext(), 0), Utils.dp(getContext(), /*topOffset + */8), Utils.dp(getContext(), 0), Utils.dp(getContext(), 16));
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -339,8 +342,7 @@ public class BottomSheet extends Dialog {
         cancelSheetAnimation();
 
         if (containerView.getMeasuredHeight() == 0) {
-            containerView.measure(View.MeasureSpec.makeMeasureSpec(displaySize.x, View.MeasureSpec.AT_MOST),
-                    View.MeasureSpec.makeMeasureSpec(displaySize.y, View.MeasureSpec.AT_MOST));
+            containerView.measure(View.MeasureSpec.makeMeasureSpec(displaySize.x, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(displaySize.y, View.MeasureSpec.AT_MOST));
         }
 
         backDrawable.setAlpha(0);
@@ -497,7 +499,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onNestedScrollAccepted(View child, View target, int nestedScrollAxes) {
+        public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int nestedScrollAxes) {
             nestedScrollingParentHelper.onNestedScrollAccepted(child, target, nestedScrollAxes);
             if (dismissed) {
                 return;
@@ -506,7 +508,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onStopNestedScroll(View target) {
+        public void onStopNestedScroll(@NonNull View target) {
             nestedScrollingParentHelper.onStopNestedScroll(target);
             if (dismissed) {
                 return;
@@ -516,7 +518,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
             if (dismissed) {
                 return;
             }
@@ -532,7 +534,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Override
-        public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed) {
             if (dismissed) {
                 return;
             }
@@ -643,7 +645,7 @@ public class BottomSheet extends Dialog {
                     containerView.setTranslationY(translationY);
                     startedTrackingY = (int) ev.getY();
                 }
-            } else if (ev == null || ev != null && ev.getPointerId(0) == startedTrackingPointerId && (ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_UP)) {
+            } else if (ev == null || ev.getPointerId(0) == startedTrackingPointerId && (ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_UP)) {
                 if (velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain();
                 }
@@ -662,6 +664,7 @@ public class BottomSheet extends Dialog {
                 }
                 startedTrackingPointerId = -1;
             }
+
             return startedTracking || !canDismissWithSwipe();
         }
 
@@ -798,6 +801,7 @@ public class BottomSheet extends Dialog {
             if (maybeStartTracking && !startedTracking) {
                 onTouchEvent(null);
             }
+
             super.requestDisallowInterceptTouchEvent(disallowIntercept);
         }
 
@@ -807,7 +811,7 @@ public class BottomSheet extends Dialog {
         }
     }
 
-    protected boolean onContainerTouchEvent(MotionEvent event) {
+    public boolean onContainerTouchEvent(MotionEvent event) {
         return false;
     }
 
@@ -815,7 +819,7 @@ public class BottomSheet extends Dialog {
         return true;
     }
 
-    protected boolean canDismissWithTouchOutside() {
+    public boolean canDismissWithTouchOutside() {
         return true;
     }
 
@@ -1042,6 +1046,11 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        public Builder setTitleMultiline(boolean state) {
+            bottomSheet.titleTextMultiline = state;
+            return this;
+        }
+
         public Builder setCallback(@NonNull Callback callback) {
             bottomSheet.bottomSheetCallBack = callback;
             return this;
@@ -1050,6 +1059,18 @@ public class BottomSheet extends Dialog {
         public BottomSheet show() {
             bottomSheet.show();
             return bottomSheet;
+        }
+
+        public TextView getTitleTextView() {
+            return bottomSheet.titleTextView;
+        }
+
+        public ListView getListView() {
+            return bottomSheet.listView;
+        }
+
+        public GridView getGridView() {
+            return bottomSheet.gridView;
         }
     }
 
