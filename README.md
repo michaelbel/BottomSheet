@@ -20,7 +20,6 @@
 [![License][LicenseBadge]][ProjectLicenceUrl]
 [![Bintray][BintrayBadge]][ProjectBintrayUrl]
 [![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
-[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg)](https://github.com/michaelbel/BottomSheet)
 
 <!--[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]-->
 
