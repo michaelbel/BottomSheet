@@ -21,7 +21,7 @@
 [![Bintray][BintrayBadge]][ProjectBintrayUrl]
 [![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
 
-[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]
+<!--[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]-->
 
 BottomSheet dialogs library for Android with [material design concept][MDGuidelinesUrl].
 Bottom sheets slide up from the bottom of the screen to reveal more content.
