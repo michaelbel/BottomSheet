@@ -10,6 +10,7 @@
 
 [ApiBadge]:       https://img.shields.io/badge/API-14%2B-blue.svg
 [PlatformBadge]:  https://img.shields.io/badge/Platform-Android-blue.svg
+[IDEBadge]:       https://img.shields.io/badge/Android_Studio-3.0.1-blue.svg
 [LicenseBadge]:   https://img.shields.io/badge/License-Apache_v2.0-blue.svg
 [BintrayBadge]:   https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
 [PlaystoreBadge]: https://img.shields.io/badge/Google_Play-Demo-blue.svg
@@ -17,6 +18,7 @@
 # BottomSheet
 [![Platform][PlatformBadge]][ProjectGithubUrl]
 [![Api][ApiBadge]][ProjectGithubUrl]
+[![AndroidStudio][IDEBadge]][ProjectGithubUrl]
 [![License][LicenseBadge]][ProjectLicenceUrl]
 [![Bintray][BintrayBadge]][ProjectBintrayUrl]
 [![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
