@@ -1,7 +1,7 @@
 [ProjectGithubUrl]:     https://github.com/michaelbel/bottomsheet
 [ProjectLicenceUrl]:    http://www.apache.org/licenses/LICENSE-2.0
 [ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
-[ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog
+[ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
 [ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.1.apk
 [MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
 [AndroidArsenalUrl]:    https://android-arsenal.com/details/1/6623
