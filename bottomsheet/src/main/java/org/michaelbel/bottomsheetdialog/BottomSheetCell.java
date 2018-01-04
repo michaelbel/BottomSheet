@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2017 Michael Bel
+ * Copyright 2016-2018 Michael Bel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.michaelbel.bottomsheet;
+package org.michaelbel.bottomsheetdialog;
 
 import android.content.Context;
 import android.graphics.Canvas;
