@@ -23,18 +23,18 @@ public class LaunchActivity extends AppCompatActivity {
 
     private boolean theme;
 
-    private CharSequence[] items1 = new CharSequence[]{
-            getString(R.string.share),
-            getString(R.string.upload),
-            getString(R.string.copy),
-            getString(R.string.print_this_page)
+    private int[] items1 = new int[]{
+            R.string.share,
+            R.string.upload,
+            R.string.copy,
+            R.string.print_this_page
     };
 
-    private CharSequence[] items2 = new CharSequence[]{
-            getString(R.string.preview),
-            getString(R.string.share),
-            getString(R.string.get_link),
-            getString(R.string.make_copy)
+    private int[] items2 = new int[]{
+            R.string.preview,
+            R.string.share,
+            R.string.get_link,
+            R.string.make_copy
     };
 
     private int[] icons1 = new int[] {
@@ -106,7 +106,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setTitle(R.string.actions);
         builder.setDarkTheme(!theme);
         builder.setItems(items2, (dialogInterface, i) ->
-                Toast.makeText(this, items2[i], Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, items1[2], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -123,7 +123,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     @OnClick(R.id.grid_style)
     public void gridStyleButtonClick(View v) {
-        final int[] items = new int[]{
+        int[] items = new int[]{
                 R.string.gmail,
                 R.string.hangout,
                 R.string.google_plus,
