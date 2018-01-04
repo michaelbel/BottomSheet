@@ -5,10 +5,10 @@ android {
     buildToolsVersion "26.0.3"
 
     defaultConfig {
-        applicationId "org.michaelbel.bottomsheet"
+        applicationId "org.michaelbel.bottomsheetdialog"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 1
+        versionCode 11
         versionName "1.1.1"
     }
 
@@ -23,12 +23,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    /*databinding {
+        enabled = true
+    }*/
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation project(path: ':bottomsheet', configuration: 'default')
+
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

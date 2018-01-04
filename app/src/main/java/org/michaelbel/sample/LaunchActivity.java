@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import org.michaelbel.bottomsheet.BottomSheet;
-import org.michaelbel.bottomsheet.Utils;
+import org.michaelbel.bottomsheetdialog.BottomSheet;
+import org.michaelbel.bottomsheetdialog.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,6 +22,27 @@ import butterknife.OnClick;
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean theme;
+
+    private CharSequence[] items1 = new CharSequence[]{
+            getString(R.string.share),
+            getString(R.string.upload),
+            getString(R.string.copy),
+            getString(R.string.print_this_page)
+    };
+
+    private CharSequence[] items2 = new CharSequence[]{
+            getString(R.string.preview),
+            getString(R.string.share),
+            getString(R.string.get_link),
+            getString(R.string.make_copy)
+    };
+
+    private int[] icons1 = new int[] {
+            R.drawable.ic_share,
+            R.drawable.ic_upload,
+            R.drawable.ic_copy,
+            R.drawable.ic_printer
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,84 +67,56 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(R.string.view_on_github)
-                .setIcon(R.drawable.ic_github)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-                .setOnMenuItemClickListener(menuItem -> {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url))));
-                    return true;
-                });
+            .setIcon(R.drawable.ic_github)
+            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            .setOnMenuItemClickListener(menuItem -> {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url))));
+                return true;
+            });
 
         menu.add(R.string.change_theme)
-                .setIcon(R.drawable.ic_theme)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-                .setOnMenuItemClickListener(menuItem -> {
-                    SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    boolean appTheme = prefs.getBoolean("theme", true);
-                    editor.putBoolean("theme", !appTheme);
-                    editor.apply();
-                    recreate();
-                    return true;
-                });
+            .setIcon(R.drawable.ic_theme)
+            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            .setOnMenuItemClickListener(menuItem -> {
+                SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                boolean appTheme = prefs.getBoolean("theme", true);
+                editor.putBoolean("theme", !appTheme);
+                editor.apply();
+                recreate();
+                return true;
+            });
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @OnClick(R.id.list_style)
     public void listStyleButtonClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.share),
-                getString(R.string.upload),
-                getString(R.string.copy),
-                getString(R.string.print_this_page)
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
-        builder.setItems(items, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
     @OnClick(R.id.list_style_title)
     public void listStyleTitleButtonClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.preview),
-                getString(R.string.share),
-                getString(R.string.get_link),
-                getString(R.string.make_copy)
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setTitle(R.string.actions);
         builder.setDarkTheme(!theme);
-        builder.setItems(items, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items2, (dialogInterface, i) ->
+                Toast.makeText(this, items2[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
     @OnClick(R.id.list_style_icons)
     public void listStyleIconsButtonClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.share),
-                getString(R.string.upload),
-                getString(R.string.copy),
-                getString(R.string.print_this_page)
-        };
-
-        int[] icons = new int[] {
-                R.drawable.ic_share,
-                R.drawable.ic_upload,
-                R.drawable.ic_copy,
-                R.drawable.ic_printer
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
-        builder.setItems(items, icons, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, icons1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -163,20 +156,6 @@ public class LaunchActivity extends AppCompatActivity {
 
     @OnClick(R.id.custom_style)
     public void customStyleButtonClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.share),
-                getString(R.string.upload),
-                getString(R.string.copy),
-                getString(R.string.print_this_page)
-        };
-
-        int[] icons = new int[] {
-                R.drawable.ic_share,
-                R.drawable.ic_upload,
-                R.drawable.ic_copy,
-                R.drawable.ic_printer
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setTitle(R.string.actions);
         builder.setTitleTextColor(0xFFFFEB3B);
@@ -184,8 +163,8 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setBackgroundColor(0xFF3F51B5);
         builder.setIconColor(0xFFEEFF41);
         builder.setItemSelector(R.drawable.selectable_custom);
-        builder.setItems(items, icons, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, icons1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -200,24 +179,10 @@ public class LaunchActivity extends AppCompatActivity {
 
     @OnClick(R.id.callback_style)
     public void callbackClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.share),
-                getString(R.string.upload),
-                getString(R.string.copy),
-                getString(R.string.print_this_page)
-        };
-
-        int[] icons = new int[] {
-                R.drawable.ic_share,
-                R.drawable.ic_upload,
-                R.drawable.ic_copy,
-                R.drawable.ic_printer
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
-        builder.setItems(items, icons, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, icons1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.setCallback(new BottomSheet.Callback() {
             @Override
@@ -235,55 +200,34 @@ public class LaunchActivity extends AppCompatActivity {
 
     @OnClick(R.id.dividers_style)
     public void dividersClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.share),
-                getString(R.string.upload),
-                getString(R.string.copy),
-                getString(R.string.print_this_page)
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
         builder.setDividers(true);
-        builder.setItems(items, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
     @OnClick(R.id.cell_height_style)
     public void cellHeightClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.share),
-                getString(R.string.upload),
-                getString(R.string.copy),
-                getString(R.string.print_this_page)
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
         builder.setCellHeight(Utils.dp(this, 64));
-        builder.setItems(items, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
     @OnClick(R.id.title_multiline)
     public void titleMultilineButtonClick(View v) {
-        final CharSequence[] items = new CharSequence[]{
-                getString(R.string.preview),
-                getString(R.string.share),
-                getString(R.string.get_link),
-                getString(R.string.make_copy)
-        };
-
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setTitle(R.string.multi_title_text);
         builder.setTitleMultiline(true);
         builder.setDarkTheme(!theme);
-        builder.setItems(items, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+        builder.setItems(items2, (dialogInterface, i) ->
+                Toast.makeText(this, items2[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
