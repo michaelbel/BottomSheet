@@ -4,16 +4,18 @@
 [ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheet
 [ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.1.apk
 [MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
+[AndroidArsenalUrl]:    https://android-arsenal.com/details/1/6623
 
 [LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
 
-[ApiBadge]:       https://img.shields.io/badge/API-14%2B-blue.svg
-[PlatformBadge]:  https://img.shields.io/badge/Platform-Android-blue.svg
-[IDEBadge]:       https://img.shields.io/badge/Android_Studio-3.0.1-blue.svg
-[LicenseBadge]:   https://img.shields.io/badge/License-Apache_v2.0-blue.svg
-[BintrayBadge]:   https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
-[PlaystoreBadge]: https://img.shields.io/badge/Google_Play-Demo-blue.svg
+[ApiBadge]:            https://img.shields.io/badge/API-14%2B-blue.svg
+[PlatformBadge]:       https://img.shields.io/badge/Platform-Android-blue.svg
+[IDEBadge]:            https://img.shields.io/badge/Android_Studio-3.0.1-blue.svg
+[LicenseBadge]:        https://img.shields.io/badge/License-Apache_v2.0-blue.svg
+[BintrayBadge]:        https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
+[AndroidArsenalBadge]: https://img.shields.io/badge/Android%20Arsenal-BottomSheet-blue.svg?style=flat
+[PlaystoreBadge]:      https://img.shields.io/badge/Google_Play-Demo-blue.svg
 
 # BottomSheet
 [![Platform][PlatformBadge]][ProjectGithubUrl]
@@ -21,6 +23,7 @@
 [![AndroidStudio][IDEBadge]][ProjectGithubUrl]
 [![License][LicenseBadge]][ProjectLicenceUrl]
 [![Bintray][BintrayBadge]][ProjectBintrayUrl]
+[![AndroidArsenal][AndroidArsenalBadge]][AndroidArsenalUrl]
 [![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
 
 <!--[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]-->
