@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 11
-        versionName "1.1.1"
+        versionCode 14
+        versionName "1.1.2"
     }
 
     buildTypes {
@@ -42,10 +42,10 @@ ext {
     bintrayName = 'bottomsheet'
 
     publishedGroupId = 'org.michaelbel'
-    libraryName = 'Bottom Sheet'
+    libraryName = 'BottomSheet'
     artifact = 'bottomsheet'
 
-    libraryVersion = '1.1.1'
+    libraryVersion = '1.1.2'
     libraryDescription = 'Bottom Sheet dialogs library for Android'
 
     siteUrl = 'https://github.com/michaelbel/bottomsheet'
