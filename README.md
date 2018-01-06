@@ -17,6 +17,8 @@
 [AndroidArsenalBadge]: https://img.shields.io/badge/Android%20Arsenal-BottomSheet-blue.svg?style=flat
 [PlaystoreBadge]:      https://img.shields.io/badge/Google_Play-Demo-blue.svg
 
+
+[![Launcher][LauncherIconPath]][ProjectGooglePlayUrl]
 # BottomSheet
 [![Platform][PlatformBadge]][ProjectGithubUrl]
 [![Api][ApiBadge]][ProjectGithubUrl]
