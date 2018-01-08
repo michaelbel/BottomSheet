@@ -18,7 +18,7 @@
 [PlaystoreBadge]:      https://img.shields.io/badge/Google_Play-Demo-blue.svg
 
 
-[![Launcher][LauncherIconPath]][ProjectGooglePlayUrl]
+[![Launcher][LauncherIconPath]][ProjectGithubUrl]
 # BottomSheet
 [![Platform][PlatformBadge]][ProjectGithubUrl]
 [![Api][ApiBadge]][ProjectGithubUrl]
