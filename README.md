@@ -5,6 +5,7 @@
 [ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.2.apk
 [MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
 [AndroidArsenalUrl]:    https://android-arsenal.com/details/1/6623
+[MethodsSizeUrl]:       http://www.methodscount.com/?lib=org.michaelbel%3Abottomsheet%3A1.1.2
 
 [LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
@@ -16,7 +17,9 @@
 [BintrayBadge]:        https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
 [AndroidArsenalBadge]: https://img.shields.io/badge/Android%20Arsenal-BottomSheet-blue.svg?style=flat
 [PlaystoreBadge]:      https://img.shields.io/badge/Google_Play-Demo-blue.svg
+[MethodsSizeBadge]:    https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-blue.svg
 
+<!------------------------------------------------------------------------------------------------------------------------------------->
 
 [![Launcher][LauncherIconPath]][ProjectGithubUrl]
 # BottomSheet
@@ -27,6 +30,7 @@
 [![Bintray][BintrayBadge]][ProjectBintrayUrl]
 [![AndroidArsenal][AndroidArsenalBadge]][AndroidArsenalUrl]
 [![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
+[![MethodsSize][MethodsSizeBadge]][MethodsSizeUrl]
 
 <!--[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]-->
 
