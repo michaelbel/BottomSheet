@@ -50,11 +50,9 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 </div>    
 
 ## Demo
-
 [![GetApp][GooglePlayBadgePath]][ProjectGooglePlayUrl]
 
 Or [Download APK][ApkFileUrl]
-
 
 ## Download
 ```gradle
@@ -108,4 +106,4 @@ new BottomSheet.Builder(this)
     See the License for the specific language governing permissions and
     limitations under the License.
 
-<!-- Yes, this is a comment. -->
+<!-- Yes, this is a comment -->
