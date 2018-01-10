@@ -25,11 +25,11 @@
 
 [![Launcher][Launcher-path]][github-url]
 # BottomSheet
+[![Bintray][bintray-badge]][bintray-url]
 [![Platform][platform-badge]][github-url]
 [![MinSdk][minsdk-badge]][github-url]
 [![IDE][ide-badge]][github-url]
 [![License][license-badge]][licence-url]
-[![Bintray][bintray-badge]][bintray-url]
 [![AndroidArsenal][arsenal-badge]][arsenal-url]
 [![Playstore][googleplay-badge]][googleplay-url]
 [![Methodscount][methodscount-badge]][methodscount-url]
