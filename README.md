@@ -1,43 +1,41 @@
-[ProjectGithubUrl]:     https://github.com/michaelbel/bottomsheet
-[ProjectLicenceUrl]:    http://www.apache.org/licenses/LICENSE-2.0
-[ProjectBintrayUrl]:    https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
-[ProjectGooglePlayUrl]: https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog
-[ApkFileUrl]:           https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.2.apk
-[MDGuidelinesUrl]:      https://material.io/guidelines/components/bottom-sheets.html#
-[AndroidArsenalUrl]:    https://android-arsenal.com/details/1/6623
-[MethodsSizeUrl]:       http://www.methodscount.com/?lib=org.michaelbel%3Abottomsheet%3A1.1.2
-[paypal-url]:           https://paypal.me/michaelbel
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.2.apk
+[paypal-url]:       https://paypal.me/michaelbel
+[github-url]:       https://github.com/michaelbel/bottomsheet
+[licence-url]:      http://www.apache.org/licenses/LICENSE-2.0
+[bintray-url]:      https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
+[mdguides-url]:     https://material.io/guidelines/components/bottom-sheets.html#
+[arsenal-url]:      https://android-arsenal.com/details/1/6623
+[googleplay-url]:   https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog
+[methodscount-url]: http://www.methodscount.com/?lib=org.michaelbel%3Abottomsheet%3A1.1.2
 
-[LauncherIconPath]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-[GooglePlayBadgePath]: ../master/art/badges/google-play-badge.png
+[launcher-path]:    ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+[googleplay-path]: ../master/art/badges/google-play-badge.png
 
-[ApiBadge]:            https://img.shields.io/badge/API-14%2B-blue.svg
-[PlatformBadge]:       https://img.shields.io/badge/Platform-Android-blue.svg
-[IDEBadge]:            https://img.shields.io/badge/Android_Studio-3.0.1-blue.svg
-[LicenseBadge]:        https://img.shields.io/badge/License-Apache_v2.0-blue.svg
-[BintrayBadge]:        https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
-[AndroidArsenalBadge]: https://img.shields.io/badge/Android%20Arsenal-BottomSheet-blue.svg?style=flat
-[PlaystoreBadge]:      https://img.shields.io/badge/Google_Play-Demo-blue.svg
-[MethodsSizeBadge]:    https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-blue.svg
-[paypal-badge]:        https://img.shields.io/badge/Donate-Paypal-blue.svg
+[minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-21-009688.svg
+[paypal-badge]:       https://img.shields.io/badge/Donate-Paypal-009688.svg
+[platform-badge]:     https://img.shields.io/badge/Platform-Android-009688.svg
+[ide-badge]:          https://img.shields.io/badge/Android_Studio-3.0.1-009688.svg
+[license-badge]:      https://img.shields.io/badge/License-Apache_v2.0-009688.svg
+[arsenal-badge]:      https://img.shields.io/badge/Android%20Arsenal-BottomSheet-009688.svg?style=flat
+[googleplay-badge]:   https://img.shields.io/badge/Google_Play-Demo-009688.svg
+[methodscount-badge]: https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-009688.svg
+[bintray-badge]:      https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
 
 <!------------------------------------------------------------------------------------------------------------------------------------->
 
-[![Launcher][LauncherIconPath]][ProjectGithubUrl]
+[![Launcher][Launcher-path]][github-url]
 # BottomSheet
-[![Platform][PlatformBadge]][ProjectGithubUrl]
-[![Api][ApiBadge]][ProjectGithubUrl]
-[![AndroidStudio][IDEBadge]][ProjectGithubUrl]
-[![License][LicenseBadge]][ProjectLicenceUrl]
-[![Bintray][BintrayBadge]][ProjectBintrayUrl]
-[![AndroidArsenal][AndroidArsenalBadge]][AndroidArsenalUrl]
-[![Playstore][PlaystoreBadge]][ProjectGooglePlayUrl]
-[![MethodsSize][MethodsSizeBadge]][MethodsSizeUrl]
+[![Platform][platform-badge]][github-url]
+[![MinSdk][minsdk-badge]][github-url]
+[![IDE][ide-badge]][github-url]
+[![License][license-badge]][licence-url]
+[![Bintray][bintray-badge]][bintray-url]
+[![AndroidArsenal][arsenal-badge]][arsenal-url]
+[![Playstore][googleplay-badge]][googleplay-url]
+[![Methodscount][methodscount-badge]][methodscount-url]
 [![Paypal][paypal-badge]][paypal-url]
 
-<!--[![LauncherIcon][LauncherIconPath]][ProjectGithubUrl]-->
-
-BottomSheet dialogs library for Android with [material design concept][MDGuidelinesUrl].
+BottomSheet dialogs library for Android with [material design concept][mdguides-url].
 Bottom sheets slide up from the bottom of the screen to reveal more content.
 
 <div style="dispaly:flex;">
@@ -57,9 +55,9 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 </div>    
 
 ## Demo
-[![GetApp][GooglePlayBadgePath]][ProjectGooglePlayUrl]
+[![GetApp][googleplay-path]][googleplay-url]
 
-Or [Download APK][ApkFileUrl]
+Or [Download APK][apk-url]
 
 ## Download
 ```gradle
