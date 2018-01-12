@@ -21,7 +21,7 @@
 [methodscount-badge]: https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-009688.svg
 [bintray-badge]:      https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
 
-<!------------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------>
 
 [![Launcher][Launcher-path]][github-url]
 # BottomSheet
@@ -110,5 +110,3 @@ new BottomSheet.Builder(this)
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-<!-- Yes, this is a comment -->
