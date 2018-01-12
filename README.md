@@ -9,7 +9,6 @@
 [methodscount-url]: http://www.methodscount.com/?lib=org.michaelbel%3Abottomsheet%3A1.1.2
 
 [launcher-path]:   ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-[googleplay-path]: ../master/art/badges/google-play-badge.png
 
 [minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-21-009688.svg
 [paypal-badge]:       https://img.shields.io/badge/Donate-Paypal-009688.svg
@@ -55,7 +54,10 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 </div>    
 
 ## Demo
-[![GetApp][googleplay-path]][googleplay-url]
+<a href="https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog" target="_blank">
+  <img alt="Get it on Google Play"
+       src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="100"/>
+</a>
 
 Or [Download APK][apk-url]
 
