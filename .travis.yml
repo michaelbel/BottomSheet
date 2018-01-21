@@ -1,16 +1,24 @@
-if: branch = master
-
 language: android
-sudo: false
 
 android:
   components:
-  - tools
-  - build-tools-26.0.3
-  - android-27
-  
-before_install:
-  - yes | sdkmanager "platforms;android-27"
+    - tools
+    - platform-tools
+    - tools
+    
+    - build-tools-26.0.2
+    - android-26
+    
+    #- extra
+
+    #- extra-google-google_play_services
+    #- extra-google-m2repository
+    #- extra-android-m2repository
+    #- addon-google_apis-google-26
+    
+    #- sys-img-armeabi-v7a-android-26
+    #- sys-img-armeabi-v7a-android-17
+    
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -18,10 +26,4 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-    
-jobs:
-  - stage: deploy
-    if: branch = master AND type = push
-    script:
-    - git fetch --unshallow # Build number will be incorrect for shallow copy
-    - ./gradlew publishSample
+    - $HOME/.android/build-cache    
