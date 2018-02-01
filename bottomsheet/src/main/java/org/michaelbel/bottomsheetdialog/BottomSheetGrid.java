@@ -31,6 +31,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Date: Unknown
+ * Time: Unknown
+ *
+ * @author Michael Bel
+ */
+
 @SuppressWarnings("all")
 public class BottomSheetGrid extends LinearLayout {
 

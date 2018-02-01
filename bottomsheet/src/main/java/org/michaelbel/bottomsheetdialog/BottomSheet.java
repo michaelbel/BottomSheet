@@ -73,6 +73,13 @@ import java.util.ArrayList;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+/**
+ * Date: Unknown
+ * Time: Unknown
+ *
+ * @author Michael Bel
+ */
+
 @SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 

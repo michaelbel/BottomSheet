@@ -19,6 +19,13 @@ package org.michaelbel.bottomsheetdialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+/**
+ * Date: Unknown
+ * Time: Unknown
+ *
+ * @author Michael Bel
+ */
+
 @SuppressWarnings("all")
 public class Utils {
 

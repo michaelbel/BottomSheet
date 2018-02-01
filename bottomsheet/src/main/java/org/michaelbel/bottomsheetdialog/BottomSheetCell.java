@@ -33,6 +33,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Date: Unknown
+ * Time: Unknown
+ *
+ * @author Michael Bel
+ */
+
 @SuppressWarnings("all")
 public class BottomSheetCell extends FrameLayout {
 
