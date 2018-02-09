@@ -30,7 +30,7 @@
 [![IDE][ide-badge]][github-url]
 [![License][license-badge]][licence-url]
 [![AndroidArsenal][arsenal-badge]][arsenal-url]
-[![Playstore][googleplay-badge]][googleplay-url]
+[![GooglePlay][googleplay-badge]][googleplay-url]
 [![Methodscount][methodscount-badge]][methodscount-url]
 [![Paypal][paypal-badge]][paypal-url]
 
