@@ -37,7 +37,7 @@
 BottomSheet dialogs library for Android with [material design concept][mdguides-url].
 Bottom sheets slide up from the bottom of the screen to reveal more content.
 
-<div style="dispaly:flex;">
+<div style="dispaly:flex">
     <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
     <img style="margin-left:0px;" src="/art/screens/light_2.png" width="24%">
     <img style="margin-left:0px;" src="/art/screens/light_3.png" width="24%">
