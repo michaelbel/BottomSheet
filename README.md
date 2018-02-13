@@ -10,15 +10,15 @@
 
 [launcher-path]: ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
+[ide-badge]:          https://img.shields.io/badge/Android_Studio-3.0.1-009688.svg
 [minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-21-009688.svg
 [paypal-badge]:       https://img.shields.io/badge/Donate-Paypal-009688.svg
-[platform-badge]:     https://img.shields.io/badge/Platform-Android-009688.svg
-[ide-badge]:          https://img.shields.io/badge/Android_Studio-3.0.1-009688.svg
 [license-badge]:      https://img.shields.io/badge/License-Apache_v2.0-009688.svg
 [arsenal-badge]:      https://img.shields.io/badge/Android%20Arsenal-BottomSheet-009688.svg?style=flat
+[bintray-badge]:      https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
+[platform-badge]:     https://img.shields.io/badge/Platform-Android-009688.svg
 [googleplay-badge]:   https://img.shields.io/badge/Google_Play-Demo-009688.svg
 [methodscount-badge]: https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-009688.svg
-[bintray-badge]:      https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
 
 <!------------------------------------------------------------------------------------------------------------------>
 
