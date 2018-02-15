@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.2.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.3.apk
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
 [licence-url]:      http://www.apache.org/licenses/LICENSE-2.0
@@ -64,7 +64,7 @@ Or [Download APK][apk-url]
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.2'
+    implementation 'org.michaelbel:bottomsheet:1.1.3'
 }
 ```
 
@@ -85,6 +85,7 @@ new BottomSheet.Builder(this)
     .setDividers(...)
     .setTitleMultiline(...)
     .setDarkTheme(...)
+    .setWindowDimming(...)
     .setCallback(new BottomSheet.Callback() {
         @Override
         public void onOpen() {
