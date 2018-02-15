@@ -3,24 +3,24 @@
 [github-url]:       https://github.com/michaelbel/bottomsheet
 [licence-url]:      http://www.apache.org/licenses/LICENSE-2.0
 [bintray-url]:      https://bintray.com/michael-bel/maven/bottomsheet/_latestVersion
-[mdguides-url]:     https://material.io/guidelines/components/bottom-sheets.html#
 [arsenal-url]:      https://android-arsenal.com/details/1/6623
+[mdguides-url]:     https://material.io/guidelines/components/bottom-sheets.html#
 [googleplay-url]:   https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog
 [methodscount-url]: http://www.methodscount.com/?lib=org.michaelbel%3Abottomsheet%3A1.1.2
 
-[launcher-path]:   ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+[launcher-path]: ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
+[ide-badge]:          https://img.shields.io/badge/Android_Studio-3.0.1-009688.svg
 [minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-21-009688.svg
 [paypal-badge]:       https://img.shields.io/badge/Donate-Paypal-009688.svg
-[platform-badge]:     https://img.shields.io/badge/Platform-Android-009688.svg
-[ide-badge]:          https://img.shields.io/badge/Android_Studio-3.0.1-009688.svg
 [license-badge]:      https://img.shields.io/badge/License-Apache_v2.0-009688.svg
 [arsenal-badge]:      https://img.shields.io/badge/Android%20Arsenal-BottomSheet-009688.svg?style=flat
+[bintray-badge]:      https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
+[platform-badge]:     https://img.shields.io/badge/Platform-Android-009688.svg
 [googleplay-badge]:   https://img.shields.io/badge/Google_Play-Demo-009688.svg
 [methodscount-badge]: https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-009688.svg
-[bintray-badge]:      https://api.bintray.com/packages/michael-bel/maven/bottomsheet/images/download.svg
 
-<!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------->
 
 [![Launcher][Launcher-path]][github-url]
 # BottomSheet
@@ -30,14 +30,14 @@
 [![IDE][ide-badge]][github-url]
 [![License][license-badge]][licence-url]
 [![AndroidArsenal][arsenal-badge]][arsenal-url]
-[![Playstore][googleplay-badge]][googleplay-url]
+[![GooglePlay][googleplay-badge]][googleplay-url]
 [![Methodscount][methodscount-badge]][methodscount-url]
 [![Paypal][paypal-badge]][paypal-url]
 
 BottomSheet dialogs library for Android with [material design concept][mdguides-url].
 Bottom sheets slide up from the bottom of the screen to reveal more content.
 
-<div style="dispaly:flex;">
+<div style="dispaly:flex">
     <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
     <img style="margin-left:0px;" src="/art/screens/light_2.png" width="24%">
     <img style="margin-left:0px;" src="/art/screens/light_3.png" width="24%">
