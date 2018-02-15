@@ -31,4 +31,6 @@
     <string name="multi_title_text">This title is multiline. This means that you can place here a few lines of text</string>
     <string name="bottom_sheet_open">BottomSheet is Open</string>
     <string name="bottom_sheet_close">BottomSheet is Close</string>
+    <string name="window_dimming">Window dimming</string>
+    <string name="window_dimming_value">Window dimming (%d)</string>
 </resources>

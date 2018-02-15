@@ -10,11 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.michaelbel.bottomsheetdialog.BottomSheet;
 import org.michaelbel.bottomsheetdialog.Utils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -44,6 +47,12 @@ public class LaunchActivity extends AppCompatActivity {
             R.drawable.ic_printer
     };
 
+    @BindView(R.id.seekBar)
+    public SeekBar seekBar;
+
+    @BindView(R.id.dimmingText)
+    public TextView dimmingText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +64,24 @@ public class LaunchActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
         theme = prefs.getBoolean("theme", true);
+
+        seekBar.setMin(0);
+        seekBar.setMax(255);
+        seekBar.setProgress(80);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                dimmingText.setText(getString(R.string.window_dimming_value, progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        dimmingText.setText(getString(R.string.window_dimming_value, seekBar.getProgress()));
     }
 
     @Override
@@ -228,6 +255,17 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setDarkTheme(!theme);
         builder.setItems(items2, (dialogInterface, i) ->
                 Toast.makeText(this, items2[i], Toast.LENGTH_SHORT).show()
+        );
+        builder.show();
+    }
+
+    @OnClick(R.id.window_dimming)
+    public void windowDimmingButtonClick(View view) {
+        BottomSheet.Builder builder = new BottomSheet.Builder(this);
+        builder.setDarkTheme(!theme);
+        builder.setWindowDimming(seekBar.getProgress());
+        builder.setItems(items1, icons1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
