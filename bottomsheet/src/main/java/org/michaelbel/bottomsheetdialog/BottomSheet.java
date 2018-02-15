@@ -35,6 +35,7 @@ import android.support.annotation.BoolRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
@@ -117,13 +118,14 @@ public class BottomSheet extends Dialog {
 
     private ArrayList<Item> items = new ArrayList<>();
 
-    private LinearLayout containerView;
     private ContainerView container;
+    private LinearLayout containerView;
+
     private WindowInsets lastInsets;
     private Runnable startAnimationRunnable;
     private int layoutCount;
     private boolean dismissed;
-    private OnClickListener onClickListener;
+
     private ColorDrawable backDrawable = new ColorDrawable(0xFF000000);
     private boolean allowCustomAnimation = true;
     private int touchSlop;
@@ -143,6 +145,9 @@ public class BottomSheet extends Dialog {
     private GridView gridView;
 
     private Callback bottomSheetCallBack;
+    private OnClickListener onClickListener;
+
+    private int dimmingValue;
 
     private class Item {
 
@@ -181,6 +186,10 @@ public class BottomSheet extends Dialog {
 
         if (cellHeight == 0) {
             cellHeight = Utils.dp(getContext(), 48);
+        }
+
+        if (dimmingValue == 0) {
+            dimmingValue = 80;
         }
 
         Window window = getWindow();
@@ -433,7 +442,7 @@ public class BottomSheet extends Dialog {
         }
     }
 
-    public BottomSheet(Context context, boolean needFocus) {
+    private BottomSheet(Context context, boolean needFocus) {
         super(context, R.style.TransparentDialog);
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -473,10 +482,7 @@ public class BottomSheet extends Dialog {
                     return insets.consumeSystemWindowInsets();
                 }
             });
-            container.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            );
+            container.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
         backDrawable.setAlpha(0);
@@ -520,7 +526,7 @@ public class BottomSheet extends Dialog {
             if (dismissed) {
                 return;
             }
-            float currentTranslation = containerView.getTranslationY();
+            //float currentTranslation = containerView.getTranslationY();
             checkDismiss(0, 0);
         }
 
@@ -586,7 +592,7 @@ public class BottomSheet extends Dialog {
             } else {
                 currentAnimation = new AnimatorSet();
                 currentAnimation.playTogether(ObjectAnimator.ofFloat(containerView, "translationY", 0));
-                currentAnimation.setDuration((int) (150 * (translationY / getPixelsInCM(0.8f, false))));
+                currentAnimation.setDuration((int) (150 * (translationY / getPixelsInCM(0.8F, false))));
                 currentAnimation.setInterpolator(new DecelerateInterpolator());
                 currentAnimation.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -638,7 +644,7 @@ public class BottomSheet extends Dialog {
                 float dx = Math.abs((int) (ev.getX() - startedTrackingX));
                 float dy = (int) ev.getY() - startedTrackingY;
                 velocityTracker.addMovement(ev);
-                if (maybeStartTracking && !startedTracking && (dy > 0 && dy / 3.0f > Math.abs(dx) && Math.abs(dy) >= touchSlop)) {
+                if (maybeStartTracking && !startedTracking && (dy > 0 && dy / 3.0F > Math.abs(dx) && Math.abs(dy) >= touchSlop)) {
                     startedTrackingY = (int) ev.getY();
                     maybeStartTracking = false;
                     startedTracking = true;
@@ -754,7 +760,7 @@ public class BottomSheet extends Dialog {
                 int gravity = lp.gravity;
 
                 if (gravity == -1) {
-                    gravity = Gravity.TOP | Gravity.START;//left
+                    gravity = Gravity.TOP | Gravity.START;
                 }
 
                 final int absoluteGravity = gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
@@ -818,7 +824,7 @@ public class BottomSheet extends Dialog {
         }
     }
 
-    public boolean onContainerTouchEvent(MotionEvent event) {
+    private boolean onContainerTouchEvent(MotionEvent event) {
         return false;
     }
 
@@ -826,7 +832,7 @@ public class BottomSheet extends Dialog {
         return true;
     }
 
-    public boolean canDismissWithTouchOutside() {
+    private boolean canDismissWithTouchOutside() {
         return true;
     }
 
@@ -848,7 +854,7 @@ public class BottomSheet extends Dialog {
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
                 ObjectAnimator.ofFloat(containerView, "translationY", 0),
-                ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+                ObjectAnimator.ofInt(backDrawable, "alpha", dimmingValue)); // was be 51
         animatorSet.setDuration(200);
         animatorSet.setStartDelay(20);
         animatorSet.setInterpolator(new DecelerateInterpolator());
@@ -1055,6 +1061,11 @@ public class BottomSheet extends Dialog {
 
         public Builder setTitleMultiline(boolean state) {
             bottomSheet.titleTextMultiline = state;
+            return this;
+        }
+
+        public Builder setWindowDimming(@IntRange(from = 0, to = 255) int value) {
+            bottomSheet.dimmingValue = value;
             return this;
         }
 
