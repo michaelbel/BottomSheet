@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.3.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.4.apk
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
 [licence-url]:      http://www.apache.org/licenses/LICENSE-2.0
@@ -64,38 +64,44 @@ Or [Download APK][apk-url]
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.3'
+    implementation 'org.michaelbel:bottomsheet:1.1.4'
 }
 ```
 
 ## Usage
 ```java
-new BottomSheet.Builder(this)
-    .setTitle(...)
-    .setItems(..., ..., ...)
-    .setCustomView(...)
-    .setContentType(...)
-    .setTitleTextColor(...)
-    .setItemTextColor(...)
-    .setBackgroundColor(...)
-    .setIconColor(...)
-    .setItemSelector(...)
-    .setFullWidth(...)
-    .setCellHeight(...)
-    .setDividers(...)
-    .setTitleMultiline(...)
-    .setDarkTheme(...)
-    .setWindowDimming(...)
-    .setCallback(new BottomSheet.Callback() {
-        @Override
-        public void onOpen() {
-        }
-        
-        @Override
-        public void onClose() {
-        }
-    })
-    .show();
+BottomSheet.Builder builder = new BottomSheet.Builder(context);
+builder
+   .setTitle(...)
+   .setItems(..., ..., ...);
+   .setCustomView(...)
+   .setContentType(...)
+   .setTitleTextColor(...)
+   .setItemTextColor(...)
+   .setBackgroundColor(...)
+   .setIconColor(...)
+   .setItemSelector(...)
+   .setFullWidth(...)
+   .setCellHeight(...)
+   .setDividers(...)
+   .setTitleMultiline(...)
+   .setDarkTheme(...)
+   .setWindowDimming(...)
+   .setCallback(new BottomSheetCallback() {
+       @Override
+       public void onShown() {
+       }
+       
+       @Override
+       public void onDismissed() {
+       }
+   })
+   .show();
+   
+// Getters
+builder.getTitleTextView();
+builder.getListView();
+builder.getGridView();
 ```
 
 ## License
