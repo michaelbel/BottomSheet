@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.michaelbel.bottomsheetdialog.BottomSheet;
-import org.michaelbel.bottomsheetdialog.Utils;
+import org.michaelbel.bottomsheet.BottomSheet;
+import org.michaelbel.bottomsheet.Utils;
+import org.michaelbel.bottomsheet.BottomSheetCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,18 +42,20 @@ public class LaunchActivity extends AppCompatActivity {
             R.string.make_copy
     };
 
-    private int[] icons1 = new int[] {
+    private int[] icons = new int[] {
             R.drawable.ic_share,
             R.drawable.ic_upload,
             R.drawable.ic_copy,
             R.drawable.ic_printer
     };
 
-    @BindView(R.id.seekBar)
-    public SeekBar seekBar;
-
-    @BindView(R.id.dimmingText)
-    public TextView dimmingText;
+    @BindView(R.id.dimmingSeekBar) public SeekBar dimmingSeekBar;
+    @BindView(R.id.heightSeekBar) public SeekBar heightSeekBar;
+    @BindView(R.id.dimmingText) public TextView dimmingText;
+    @BindView(R.id.cellHeightText) public TextView cellHeightText;
+    @BindView(R.id.callbackCheckBox) public CheckBox callbackCheckBox;
+    @BindView(R.id.dividersCheckBox) public CheckBox dividersCheckBox;
+    @BindView(R.id.multilineCheckBox) public CheckBox multilineCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +69,13 @@ public class LaunchActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
         theme = prefs.getBoolean("theme", true);
 
-        seekBar.setMin(0);
-        seekBar.setMax(255);
-        seekBar.setProgress(80);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        dimmingSeekBar.setMin(0);
+        dimmingSeekBar.setMax(255);
+        dimmingSeekBar.setProgress(80);
+        dimmingSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                dimmingText.setText(getString(R.string.window_dimming_value, progress));
+                dimmingText.setText(getString(R.string.WindowDimmingValue, progress));
             }
 
             @Override
@@ -80,8 +84,24 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+        dimmingText.setText(getString(R.string.WindowDimmingValue, dimmingSeekBar.getProgress()));
 
-        dimmingText.setText(getString(R.string.window_dimming_value, seekBar.getProgress()));
+        heightSeekBar.setMin(0);
+        heightSeekBar.setMax(16);
+        heightSeekBar.setProgress(0);
+        heightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                cellHeightText.setText(getString(R.string.CellHeightValue, progress + 48));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        cellHeightText.setText(getString(R.string.CellHeightValue, heightSeekBar.getProgress() + 48));
     }
 
     @Override
@@ -93,15 +113,15 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(R.string.view_on_github)
+        menu.add(R.string.ViewOnGithub)
             .setIcon(R.drawable.ic_github)
             .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             .setOnMenuItemClickListener(menuItem -> {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url))));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.GithubUrl))));
                 return true;
             });
 
-        menu.add(R.string.change_theme)
+        menu.add(R.string.ChangeTheme)
             .setIcon(R.drawable.ic_theme)
             .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             .setOnMenuItemClickListener(menuItem -> {
@@ -117,38 +137,81 @@ public class LaunchActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick(R.id.list_style)
-    public void listStyleButtonClick(View v) {
+    @OnClick(R.id.listStyleButton)
+    public void listStyleButtonClick(View view) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
+        builder.setDividers(dividersCheckBox.isChecked());
+        builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress()  + 48));
+        builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
+            @Override
+            public void onShown() {
+                showToast(R.string.Shown);
+            }
+
+            @Override
+            public void onDismissed() {
+                showToast(R.string.Dismissed);
+            }
+        });
         builder.setItems(items1, (dialogInterface, i) ->
                 Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
-    @OnClick(R.id.list_style_title)
-    public void listStyleTitleButtonClick(View v) {
+    @OnClick(R.id.listStyleTitleButton)
+    public void listStyleTitleButtonClick(View view) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setTitle(R.string.actions);
         builder.setDarkTheme(!theme);
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
+        builder.setDividers(dividersCheckBox.isChecked());
+        builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
+        builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
+            @Override
+            public void onShown() {
+                showToast(R.string.Shown);
+            }
+
+            @Override
+            public void onDismissed() {
+                showToast(R.string.Dismissed);
+            }
+        });
+        builder.setTitle(R.string.MultilineText);
+        builder.setTitleMultiline(multilineCheckBox.isChecked());
         builder.setItems(items2, (dialogInterface, i) ->
                 Toast.makeText(this, items1[2], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
-    @OnClick(R.id.list_style_icons)
+    @OnClick(R.id.listStyleIconsButton)
     public void listStyleIconsButtonClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
-        builder.setItems(items1, icons1, (dialogInterface, i) ->
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
+        builder.setDividers(dividersCheckBox.isChecked());
+        builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
+        builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
+            @Override
+            public void onShown() {
+                showToast(R.string.Shown);
+            }
+
+            @Override
+            public void onDismissed() {
+                showToast(R.string.Dismissed);
+            }
+        });
+        builder.setItems(items1, icons, (dialogInterface, i) ->
                 Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
-    @OnClick(R.id.grid_style)
+    @OnClick(R.id.gridStyleButton)
     public void gridStyleButtonClick(View v) {
         int[] items = new int[]{
                 R.string.gmail,
@@ -175,13 +238,31 @@ public class LaunchActivity extends AppCompatActivity {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
         builder.setContentType(BottomSheet.GRID);
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
+        builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
+            @Override
+            public void onShown() {
+                showToast(R.string.Shown);
+            }
+
+            @Override
+            public void onDismissed() {
+                showToast(R.string.Dismissed);
+            }
+        });
         builder.setItems(items, icons, (dialogInterface, i) ->
                 Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
-    @OnClick(R.id.custom_style)
+    private void showToast(int stringId) {
+        Toast.makeText(LaunchActivity.this, stringId, Toast.LENGTH_SHORT).show();
+    }
+
+//--------------------------------------------------------------------------------------------------
+
+    /*@OnClick(R.id.custom_style)
     public void customStyleButtonClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setTitle(R.string.actions);
@@ -189,84 +270,20 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setItemTextColor(0xFFB2FF59);
         builder.setBackgroundColor(0xFF3F51B5);
         builder.setIconColor(0xFFEEFF41);
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setItemSelector(R.drawable.selectable_custom);
-        builder.setItems(items1, icons1, (dialogInterface, i) ->
+        builder.setItems(items1, icons, (dialogInterface, i) ->
                 Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
-    }
+    }*/
 
-    @OnClick(R.id.custom_view)
+    /*@OnClick(R.id.custom_view)
     public void customViewButtonClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setCustomView(R.layout.custom_view);
         builder.show();
-    }
-
-    @OnClick(R.id.callback_style)
-    public void callbackClick(View v) {
-        BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!theme);
-        builder.setItems(items1, icons1, (dialogInterface, i) ->
-                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
-        );
-        builder.setCallback(new BottomSheet.Callback() {
-            @Override
-            public void onOpen() {
-                Toast.makeText(LaunchActivity.this, R.string.bottom_sheet_open, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onClose() {
-                Toast.makeText(LaunchActivity.this, R.string.bottom_sheet_close, Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.show();
-    }
-
-    @OnClick(R.id.dividers_style)
-    public void dividersClick(View v) {
-        BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!theme);
-        builder.setDividers(true);
-        builder.setItems(items1, (dialogInterface, i) ->
-                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
-        );
-        builder.show();
-    }
-
-    @OnClick(R.id.cell_height_style)
-    public void cellHeightClick(View v) {
-        BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!theme);
-        builder.setCellHeight(Utils.dp(this, 64));
-        builder.setItems(items1, (dialogInterface, i) ->
-                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
-        );
-        builder.show();
-    }
-
-    @OnClick(R.id.title_multiline)
-    public void titleMultilineButtonClick(View v) {
-        BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setTitle(R.string.multi_title_text);
-        builder.setTitleMultiline(true);
-        builder.setDarkTheme(!theme);
-        builder.setItems(items2, (dialogInterface, i) ->
-                Toast.makeText(this, items2[i], Toast.LENGTH_SHORT).show()
-        );
-        builder.show();
-    }
-
-    @OnClick(R.id.window_dimming)
-    public void windowDimmingButtonClick(View view) {
-        BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!theme);
-        builder.setWindowDimming(seekBar.getProgress());
-        builder.setItems(items1, icons1, (dialogInterface, i) ->
-                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
-        );
-        builder.show();
-    }
+    }*/
 }
