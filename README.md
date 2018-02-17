@@ -73,7 +73,7 @@ dependencies {
 BottomSheet.Builder builder = new BottomSheet.Builder(context);
 builder
    .setTitle(...)
-   .setItems(..., ..., ...);
+   .setItems(..., ..., ...)
    .setCustomView(...)
    .setContentType(...)
    .setTitleTextColor(...)
