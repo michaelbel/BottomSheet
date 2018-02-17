@@ -38,7 +38,6 @@ import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.NestedScrollingParent;
@@ -73,11 +72,7 @@ import org.michaelbel.bottomsheetdialog.BottomSheetGrid;
 import org.michaelbel.bottomsheetdialog.R;
 import org.michaelbel.bottomsheetdialog.Utils;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Date: 17.02.2018
@@ -94,37 +89,37 @@ public class BottomSheet extends Dialog {
     public static final int LIST = 1;
     public static final int GRID = 2;
 
-    @RestrictTo(LIBRARY_GROUP)
-    @Retention(RetentionPolicy.SOURCE)
+    //@RestrictTo(LIBRARY_GROUP)
+    //@Retention(RetentionPolicy.SOURCE)
     @IntDef({ LIST, GRID })
     public @interface Type {}
 
+    private boolean dividers;
     private boolean fullWidth;
     private boolean darkTheme;
-
-    private @ColorInt int backgroundColor;
-    private @ColorInt int titleTextColor;
-    private @ColorInt int itemTextColor;
-    private @ColorInt int iconColor;
-    private int itemSelector;
-
-    private View customView;
-
-    private CharSequence titleText;
     private boolean titleTextMultiline;
 
-    private int contentType = LIST;
     private int cellHeight;
-    private boolean dividers;
+    private int itemSelector;
+    private int dimmingValue = 80;
+    private @Type int contentType = LIST;
+    private @ColorInt int titleTextColor;
+    private @ColorInt int backgroundColor = darkTheme ? 0xFF424242 : 0xFFFFFFFF;
+    private @ColorInt int iconColor;
+    private @ColorInt int itemTextColor;
 
-    private CharSequence[] mItems;
-    private @StringRes int[] mItemsRes;
-    private @DrawableRes int[] mIcons;
-
-    private ArrayList<Item> items = new ArrayList<>();
-
+    private View customView;
+    private TextView titleTextView;
+    private ListView listView;
+    private GridView gridView;
     private ContainerView container;
     private LinearLayout containerView;
+
+    private CharSequence titleText;
+    private CharSequence[] mItems;
+    private @DrawableRes int[] mIcons;
+    private @StringRes int[] mItemsRes;
+    private ArrayList<Item> items = new ArrayList<>();
 
     private WindowInsets lastInsets;
     private Runnable startAnimationRunnable;
@@ -145,14 +140,8 @@ public class BottomSheet extends Dialog {
     private DisplayMetrics metrics = new DisplayMetrics();
     private Handler handler = new Handler(Looper.getMainLooper());
 
-    private TextView titleTextView;
-    private ListView listView;
-    private GridView gridView;
-
     private OnClickListener onClickListener;
     private BottomSheetCallback bottomSheetCallback;
-
-    private int dimmingValue;
 
     private class Item {
 
@@ -190,11 +179,7 @@ public class BottomSheet extends Dialog {
         }
 
         if (cellHeight == 0) {
-            cellHeight = org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 48);
-        }
-
-        if (dimmingValue == 0) {
-            dimmingValue = 80;
+            cellHeight = Utils.dp(getContext(), 48);
         }
 
         Window window = getWindow();

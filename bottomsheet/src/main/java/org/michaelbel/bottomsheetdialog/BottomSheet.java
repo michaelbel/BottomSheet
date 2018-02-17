@@ -152,7 +152,7 @@ public class BottomSheet extends Dialog {
     private OnClickListener onClickListener;
     private BottomSheetCallback bottomSheetCallback2;
 
-    private int dimmingValue;
+    private int dimmingValue = 80;
 
     private class Item {
 
@@ -193,10 +193,6 @@ public class BottomSheet extends Dialog {
             cellHeight = Utils.dp(getContext(), 48);
         }
 
-        if (dimmingValue == 0) {
-            dimmingValue = 80;
-        }
-
         Window window = getWindow();
         if (window != null) {
             window.setWindowAnimations(R.style.DialogNoAnimation);
@@ -235,12 +231,6 @@ public class BottomSheet extends Dialog {
         if (customView != null) {
             if (customView.getParent() != null) {
                 ViewGroup viewGroup = (ViewGroup) customView.getParent();
-                /*viewGroup.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        return true;
-                    }
-                });*/
                 viewGroup.removeView(customView);
             }
 
