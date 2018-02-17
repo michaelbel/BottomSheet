@@ -68,6 +68,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.michaelbel.bottomsheet.BottomSheetCallback;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -144,8 +146,11 @@ public class BottomSheet extends Dialog {
     private ListView listView;
     private GridView gridView;
 
+    @Deprecated
     private Callback bottomSheetCallBack;
+
     private OnClickListener onClickListener;
+    private BottomSheetCallback bottomSheetCallback2;
 
     private int dimmingValue;
 
@@ -383,6 +388,10 @@ public class BottomSheet extends Dialog {
         if (bottomSheetCallBack != null) {
             bottomSheetCallBack.onOpen();
         }
+
+        if (bottomSheetCallback2 != null) {
+            bottomSheetCallback2.onShown();
+        }
     }
 
     @Override
@@ -439,6 +448,10 @@ public class BottomSheet extends Dialog {
 
         if (bottomSheetCallBack != null) {
             bottomSheetCallBack.onClose();
+        }
+
+        if (bottomSheetCallback2 != null) {
+            bottomSheetCallback2.onDismissed();
         }
     }
 
@@ -932,6 +945,10 @@ public class BottomSheet extends Dialog {
         if (bottomSheetCallBack != null) {
             bottomSheetCallBack.onClose();
         }
+
+        if (bottomSheetCallback2 != null) {
+            bottomSheetCallback2.onDismissed();
+        }
     }
 
     private void dismissInternal() {
@@ -1069,6 +1086,12 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        public Builder setCallback(@NonNull BottomSheetCallback callback) {
+            bottomSheet.bottomSheetCallback2 = callback;
+            return this;
+        }
+
+        @Deprecated
         public Builder setCallback(@NonNull Callback callback) {
             bottomSheet.bottomSheetCallBack = callback;
             return this;
@@ -1153,6 +1176,10 @@ public class BottomSheet extends Dialog {
         }
     }
 
+    /**
+     * @deprecated Please, use {@link BottomSheetCallback} interface.
+     */
+    @Deprecated
     public interface Callback {
         void onOpen();
         void onClose();
