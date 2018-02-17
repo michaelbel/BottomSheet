@@ -1,16 +1,25 @@
 <resources>
     <string name="app_name">BottomSheet</string>
-    <string name="github_url">https://github.com/michaelbel/bottomsheet</string>
-    <string name="view_on_github">View on Github</string>
-    <string name="change_theme">Change Theme</string>
-    <string name="list_style">List style</string>
-    <string name="list_style_with_title">List style with title</string>
-    <string name="list_style_with_icons">List style with icons</string>
-    <string name="actions">Actions</string>
+
+    <string name="ChangeTheme">Change Theme</string>
+    <string name="ViewOnGithub">View on Github</string>
+    <string name="GithubUrl">https://github.com/michaelbel/bottomsheet</string>
+
+    <string name="Shown">Shown</string>
+    <string name="Dismissed">Dismissed</string>
+    <string name="Dividers">Dividers</string>
+    <string name="Callback">Callback</string>
+    <string name="TitleMultiline">Title Multiline</string>
+    <string name="WindowDimmingValue">Window dimming (%d)</string>
+    <string name="CellHeightValue">Cell Height (%ddp)</string>
+    <string name="WindowDimming">Window dimming</string>
+    <string name="MultilineText">This title is multiline. This means that you can place here a few lines of text</string>
+    <string name="ListStyle">List style</string>
+    <string name="ListStyleWithTitle">List style with title</string>
+    <string name="ListStyleWithIcons">List style with icons</string>
+    <string name="GridStyle">Grid style</string>
+
     <string name="message">Message</string>
-    <string name="custom_view">Custom view</string>
-    <string name="grid_style">Grid style</string>
-    <string name="custom_style">Custom style</string>
     <string name="print_this_page">Print this page</string>
     <string name="share">Share</string>
     <string name="upload">Upload</string>
@@ -24,13 +33,4 @@
     <string name="mail">Mail</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
-    <string name="callback">With callback</string>
-    <string name="with_dividers">With dividers</string>
-    <string name="custom_cell_height">Custom cell height</string>
-    <string name="multiline_title">Title multiline</string>
-    <string name="multi_title_text">This title is multiline. This means that you can place here a few lines of text</string>
-    <string name="bottom_sheet_open">BottomSheet is Open</string>
-    <string name="bottom_sheet_close">BottomSheet is Close</string>
-    <string name="window_dimming">Window dimming</string>
-    <string name="window_dimming_value">Window dimming (%d)</string>
 </resources>
