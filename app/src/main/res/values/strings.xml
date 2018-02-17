@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">BottomSheet</string>
 
+    <string name="Ok">OK</string>
+    <string name="About">About</string>
     <string name="ChangeTheme">Change Theme</string>
     <string name="ViewOnGithub">View on Github</string>
     <string name="GithubUrl">https://github.com/michaelbel/bottomsheet</string>
+    <string name="VersionBuildDate">Version %1$s (Build %2$d) of %3$s</string>
 
     <string name="Shown">Shown</string>
     <string name="Dismissed">Dismissed</string>
     <string name="Dividers">Dividers</string>
+    <string name="FullWidth">Full Width</string>
     <string name="Callback">Callback</string>
     <string name="TitleMultiline">Title Multiline</string>
     <string name="WindowDimmingValue">Window dimming (%d)</string>

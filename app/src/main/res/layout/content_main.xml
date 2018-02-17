@@ -109,11 +109,19 @@
             android:layout_height="wrap_content"
             android:text="@string/Dividers"/>
 
+        <!--FullWidth-->
+        <CheckBox
+            android:id="@+id/fullWidthCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/FullWidth"/>
+
         <!--Title Multiline-->
         <CheckBox
             android:id="@+id/multilineCheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/TitleMultiline"/>
 
     </LinearLayout>

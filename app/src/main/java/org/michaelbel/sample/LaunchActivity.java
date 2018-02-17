@@ -2,11 +2,14 @@ package org.michaelbel.sample;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StyleRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.michaelbel.bottomsheet.BottomSheet;
-import org.michaelbel.bottomsheet.Utils;
 import org.michaelbel.bottomsheet.BottomSheetCallback;
+import org.michaelbel.bottomsheet.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean theme;
@@ -55,6 +58,7 @@ public class LaunchActivity extends AppCompatActivity {
     @BindView(R.id.cellHeightText) public TextView cellHeightText;
     @BindView(R.id.callbackCheckBox) public CheckBox callbackCheckBox;
     @BindView(R.id.dividersCheckBox) public CheckBox dividersCheckBox;
+    @BindView(R.id.fullWidthCheckBox) public CheckBox fullWidthCheckBox;
     @BindView(R.id.multilineCheckBox) public CheckBox multilineCheckBox;
 
     @Override
@@ -113,6 +117,22 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(R.string.About)
+            .setIcon(R.drawable.ic_about)
+            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            .setOnMenuItemClickListener(item -> {
+                View view = LayoutInflater.from(LaunchActivity.this).inflate(R.layout.about_view, null);
+                TextView textView = view.findViewById(R.id.text_view);
+                textView.setText(getString(R.string.VersionBuildDate, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, BuildConfig.VERSION_DATE));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(LaunchActivity.this);
+                builder.setTitle(R.string.About);
+                builder.setView(view);
+                builder.setPositiveButton(R.string.Ok, null);
+                builder.show();
+                return true;
+            });
+
         menu.add(R.string.ViewOnGithub)
             .setIcon(R.drawable.ic_github)
             .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
@@ -143,6 +163,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setDarkTheme(!theme);
         builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(dividersCheckBox.isChecked());
+        builder.setFullWidth(fullWidthCheckBox.isChecked());
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress()  + 48));
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
@@ -167,6 +188,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setDarkTheme(!theme);
         builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(dividersCheckBox.isChecked());
+        builder.setFullWidth(fullWidthCheckBox.isChecked());
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
@@ -193,6 +215,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setDarkTheme(!theme);
         builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(dividersCheckBox.isChecked());
+        builder.setFullWidth(fullWidthCheckBox.isChecked());
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
@@ -239,6 +262,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setDarkTheme(!theme);
         builder.setContentType(BottomSheet.GRID);
         builder.setWindowDimming(dimmingSeekBar.getProgress());
+        builder.setFullWidth(fullWidthCheckBox.isChecked());
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
