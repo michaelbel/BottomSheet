@@ -256,7 +256,7 @@ public class BottomSheet extends Dialog {
                 titleTextView.setText(titleText);
                 titleTextView.setTextColor(titleTextColor);
                 titleTextView.setGravity(Gravity.CENTER_VERTICAL);
-                titleTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+                titleTextView.setEllipsize(TextUtils.TruncateAt.END);
                 titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
                 if (titleTextMultiline) {
                     titleTextView.setSingleLine(false);
