@@ -42,7 +42,7 @@ ext {
     artifact = 'bottomsheet'
     publishedGroupId = 'org.michaelbel'
 
-    libraryVersion = '1.1.4'
+    libraryVersion = '1.1.5'
     libraryName = 'BottomSheet'
     libraryDescription = 'Bottom Sheet dialogs library for Android'
 
@@ -60,7 +60,6 @@ ext {
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-
 
 javadoc {
     options {
