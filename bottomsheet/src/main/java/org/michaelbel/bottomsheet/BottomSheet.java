@@ -104,7 +104,7 @@ public class BottomSheet extends Dialog {
     private int dimmingValue = 80;
     private @Type int contentType = LIST;
     private @ColorInt int titleTextColor;
-    private @ColorInt int backgroundColor = darkTheme ? 0xFF424242 : 0xFFFFFFFF;
+    private @ColorInt int backgroundColor;
     private @ColorInt int iconColor;
     private @ColorInt int itemTextColor;
 
