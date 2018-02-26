@@ -104,6 +104,10 @@ builder.getListView();
 builder.getGridView();
 ```
 
+## Wiki
+Coming soon
+<!--For all information check BottomSheet Wiki-->
+
 ## License
 
     Copyright 2016-2018 Michael Bel
