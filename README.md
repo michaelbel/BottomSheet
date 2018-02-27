@@ -1,4 +1,5 @@
 [apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.5.apk
+[wiki-url]:         https://github.com/michaelbel/BottomSheet/wiki/usage
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
 [licence-url]:      http://www.apache.org/licenses/LICENSE-2.0
@@ -11,7 +12,7 @@
 [launcher-path]: ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
 [ide-badge]:          https://img.shields.io/badge/Android_Studio-3.0.1-009688.svg
-[minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-21-009688.svg
+[minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-14-009688.svg
 [paypal-badge]:       https://img.shields.io/badge/Donate-Paypal-009688.svg
 [license-badge]:      https://img.shields.io/badge/License-Apache_v2.0-009688.svg
 [arsenal-badge]:      https://img.shields.io/badge/Android%20Arsenal-BottomSheet-009688.svg?style=flat
@@ -105,8 +106,7 @@ builder.getGridView();
 ```
 
 ## Wiki
-Coming soon
-<!--For all information check BottomSheet Wiki-->
+For all information check [BottomSheet Wiki][wiki-url]
 
 ## License
 
