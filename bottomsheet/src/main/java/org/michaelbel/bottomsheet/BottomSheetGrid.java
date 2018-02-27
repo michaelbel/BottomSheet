@@ -31,11 +31,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.michaelbel.bottomsheetdialog.Utils;
-
 /**
- * Date: 17.02.2018
- * Time: 00:31
+ * Date: Sat, 17 Feb 2018
+ * Time: 00:31 MSK
  *
  * @author Michael Bel
  */
