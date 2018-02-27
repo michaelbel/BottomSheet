@@ -83,6 +83,10 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * @author Michael Bel
  */
 
+/**
+ * @deprecated Use {@link #org.michaelbel.bottomsheet.BottomSheet} instead.
+ */
+@Deprecated
 @SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 

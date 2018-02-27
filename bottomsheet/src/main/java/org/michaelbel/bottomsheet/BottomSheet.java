@@ -937,6 +937,12 @@ public class BottomSheet extends Dialog {
         private Context context;
         private BottomSheet bottomSheet;
 
+
+        /**
+         * Default constructor.
+         *
+         * @param context
+         */
         public Builder(@NonNull Context context) {
             this.context = context;
             bottomSheet = new BottomSheet(context, false);
@@ -988,28 +994,49 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        /**
+         * Sets the view which will host in the BottomSheet.
+         *
+         * @param view a view which will added as child.
+         */
         public Builder setCustomView(@NonNull View view) {
             bottomSheet.customView = view;
             return this;
         }
 
+        /**
+         * Sets the view which will host in the BottomSheet.
+         *
+         * @param layoutId the id of a view which will added as child.
+         */
         public Builder setCustomView(@LayoutRes int layoutId) {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             setCustomView(layoutInflater.inflate(layoutId, null));
             return this;
         }
 
-        public Builder setTitle(@NonNull CharSequence title) {
-            bottomSheet.titleText = title;
+        /**
+         * Sets the BottomSheet Title text.
+         *
+         * @param text a string of text
+         * @return
+         */
+        public Builder setTitle(@NonNull CharSequence text) {
+            bottomSheet.titleText = text;
             return this;
         }
 
-        public Builder setTitle(@StringRes int stringId) {
-            setTitle(context.getText(stringId));
+        public Builder setTitle(@StringRes int textId) {
+            setTitle(context.getText(textId));
             return this;
         }
 
         public Builder setTitleTextColor(@ColorInt int color) {
+            /*if (color == @ColorRes) {
+                bottomSheet.titleTextColor = ContextCompat.getColor(context, color);
+                return this;
+            }*/
+
             bottomSheet.titleTextColor = color;
             return this;
         }
@@ -1024,6 +1051,11 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        public Builder setDarkTheme(@BoolRes int value) {
+            bottomSheet.darkTheme = context.getResources().getBoolean(value);
+            return this;
+        }
+
         public Builder setIconColor(@ColorInt int color) {
             bottomSheet.iconColor = color;
             return this;
@@ -1031,6 +1063,11 @@ public class BottomSheet extends Dialog {
 
         public Builder setFullWidth(boolean value) {
             bottomSheet.fullWidth = value;
+            return this;
+        }
+
+        public Builder setFullWidth(@BoolRes int value) {
+            bottomSheet.fullWidth = context.getResources().getBoolean(value);
             return this;
         }
 
@@ -1044,13 +1081,27 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        /*public Builder setCellHeight(@DimenRes int value) {
+            return this;
+        }*/
+
         public Builder setDividers(boolean value) {
             bottomSheet.dividers = value;
             return this;
         }
 
+        public Builder setDividers(@BoolRes int value) {
+            bottomSheet.dividers = context.getResources().getBoolean(value);
+            return this;
+        }
+
         public Builder setTitleMultiline(boolean state) {
             bottomSheet.titleTextMultiline = state;
+            return this;
+        }
+
+        public Builder setTitleMultiline(@BoolRes int value) {
+            bottomSheet.titleTextMultiline = context.getResources().getBoolean(value);
             return this;
         }
 

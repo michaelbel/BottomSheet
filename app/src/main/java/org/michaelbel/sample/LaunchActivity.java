@@ -2,7 +2,6 @@ package org.michaelbel.sample;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StyleRes;
@@ -14,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//@SuppressWarnings("all")
+@SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
     private boolean theme;
@@ -52,6 +52,7 @@ public class LaunchActivity extends AppCompatActivity {
             R.drawable.ic_printer
     };
 
+    @BindView(R.id.main_view) public LinearLayout linearLayout;
     @BindView(R.id.dimmingSeekBar) public SeekBar dimmingSeekBar;
     @BindView(R.id.heightSeekBar) public SeekBar heightSeekBar;
     @BindView(R.id.dimmingText) public TextView dimmingText;
@@ -168,6 +169,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
+                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
@@ -193,6 +195,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
+                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
@@ -220,6 +223,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
+                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
@@ -266,6 +270,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
+                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 

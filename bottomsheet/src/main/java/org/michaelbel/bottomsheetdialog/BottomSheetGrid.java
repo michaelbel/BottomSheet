@@ -38,6 +38,10 @@ import android.widget.TextView;
  * @author Michael Bel
  */
 
+/**
+ * @deprecated Use {@link #org.michaelbel.bottomsheet.BottomSheetGrid} instead.
+ */
+@Deprecated
 @SuppressWarnings("all")
 public class BottomSheetGrid extends LinearLayout {
 

@@ -40,6 +40,10 @@ import android.widget.TextView;
  * @author Michael Bel
  */
 
+/**
+ * @deprecated Use {@link #org.michaelbel.bottomsheet.BottomSheetCell} instead.
+ */
+@Deprecated
 @SuppressWarnings("all")
 public class BottomSheetCell extends FrameLayout {
 

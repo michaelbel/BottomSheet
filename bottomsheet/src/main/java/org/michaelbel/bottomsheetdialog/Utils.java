@@ -26,6 +26,10 @@ import android.support.annotation.NonNull;
  * @author Michael Bel
  */
 
+/**
+ * @deprecated Use {@link #org.michaelbel.bottomsheet.Utils} instead.
+ */
+@Deprecated
 @SuppressWarnings("all")
 public class Utils {
 
