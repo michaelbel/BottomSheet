@@ -194,7 +194,6 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
-                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
@@ -222,7 +221,6 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
-                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
@@ -269,7 +267,6 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
-                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
