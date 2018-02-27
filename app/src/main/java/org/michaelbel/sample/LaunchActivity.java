@@ -31,25 +31,25 @@ public class LaunchActivity extends AppCompatActivity {
 
     private boolean theme;
 
-    private int[] items1 = new int[]{
-            R.string.share,
-            R.string.upload,
-            R.string.copy,
-            R.string.print_this_page
+    private int[] items1 = new int[] {
+        R.string.share,
+        R.string.upload,
+        R.string.copy,
+        R.string.print_this_page
     };
 
-    private int[] items2 = new int[]{
-            R.string.preview,
-            R.string.share,
-            R.string.get_link,
-            R.string.make_copy
+    private int[] items2 = new int[] {
+        R.string.preview,
+        R.string.share,
+        R.string.get_link,
+        R.string.make_copy
     };
 
     private int[] icons = new int[] {
-            R.drawable.ic_share,
-            R.drawable.ic_upload,
-            R.drawable.ic_copy,
-            R.drawable.ic_printer
+        R.drawable.ic_share,
+        R.drawable.ic_upload,
+        R.drawable.ic_copy,
+        R.drawable.ic_printer
     };
 
     @BindView(R.id.main_view) public LinearLayout linearLayout;
@@ -169,7 +169,6 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
-                linearLayout.setVisibility(View.INVISIBLE);
                 showToast(R.string.Shown);
             }
 
@@ -179,7 +178,7 @@ public class LaunchActivity extends AppCompatActivity {
             }
         });
         builder.setItems(items1, (dialogInterface, i) ->
-                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -207,7 +206,7 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setTitle(R.string.MultilineText);
         builder.setTitleMultiline(multilineCheckBox.isChecked());
         builder.setItems(items2, (dialogInterface, i) ->
-                Toast.makeText(this, items1[2], Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, items1[2], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -233,33 +232,33 @@ public class LaunchActivity extends AppCompatActivity {
             }
         });
         builder.setItems(items1, icons, (dialogInterface, i) ->
-                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
     @OnClick(R.id.gridStyleButton)
     public void gridStyleButtonClick(View v) {
-        int[] items = new int[]{
-                R.string.gmail,
-                R.string.hangout,
-                R.string.google_plus,
-                R.string.mail,
-                R.string.message,
-                R.string.copy,
-                R.string.facebook,
-                R.string.twitter
+        int[] items = new int[] {
+            R.string.gmail,
+            R.string.hangout,
+            R.string.google_plus,
+            R.string.mail,
+            R.string.message,
+            R.string.copy,
+            R.string.facebook,
+            R.string.twitter
         };
 
         int[] icons = new int[] {
-                R.drawable.ic_gmail,
-                R.drawable.ic_hangouts,
-                R.drawable.ic_google_plus,
-                R.drawable.ic_mail,
-                R.drawable.ic_message,
-                R.drawable.ic_copy_48,
-                R.drawable.ic_facebook,
-                R.drawable.ic_twitter
+            R.drawable.ic_gmail,
+            R.drawable.ic_hangouts,
+            R.drawable.ic_google_plus,
+            R.drawable.ic_mail,
+            R.drawable.ic_message,
+            R.drawable.ic_copy_48,
+            R.drawable.ic_facebook,
+            R.drawable.ic_twitter
         };
 
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
@@ -280,13 +279,13 @@ public class LaunchActivity extends AppCompatActivity {
             }
         });
         builder.setItems(items, icons, (dialogInterface, i) ->
-                Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, items[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
 
-    private void showToast(int stringId) {
-        Toast.makeText(LaunchActivity.this, stringId, Toast.LENGTH_SHORT).show();
+    private void showToast(int textId) {
+        Toast.makeText(LaunchActivity.this, textId, Toast.LENGTH_SHORT).show();
     }
 
 //--------------------------------------------------------------------------------------------------
