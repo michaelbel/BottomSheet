@@ -42,7 +42,7 @@ ext {
     artifact = 'bottomsheet'
     publishedGroupId = 'org.michaelbel'
 
-    libraryVersion = '1.1.5'
+    libraryVersion = '1.1.6'
     libraryName = 'BottomSheet'
     libraryDescription = 'Bottom Sheet dialogs library for Android'
 
@@ -70,4 +70,11 @@ javadoc {
 artifacts {
     archives javadocJar
     archives sourcesJar
+}
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
 }
