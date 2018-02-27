@@ -22,8 +22,8 @@ import android.support.annotation.NonNull;
 import org.michaelbel.bottomsheetdialog.R;
 
 /**
- * Date: 17.02.2018
- * Time: 00:32
+ * Date: Sat, 17 Feb 2018
+ * Time: 00:32 MSK
  *
  * @author Michael Bel
  */
