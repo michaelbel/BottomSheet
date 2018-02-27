@@ -33,11 +33,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.michaelbel.bottomsheetdialog.Utils;
-
 /**
- * Date: 17.02.2018
- * Time: 00:30
+ * Date: Sat, 17 Feb 2018
+ * Time: 00:30 MSK
  *
  * @author Michael Bel
  */
@@ -66,10 +64,7 @@ public class BottomSheetCell extends FrameLayout {
         iconView = new ImageView(context);
         iconView.setScaleType(ImageView.ScaleType.CENTER);
 
-        LayoutParams params1 = new LayoutParams(
-                Utils.dp(context, 24),
-                Utils.dp(context, 24)
-        );
+        LayoutParams params1 = new LayoutParams(Utils.dp(context, 24), Utils.dp(context, 24));
         params1.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
         params1.leftMargin = Utils.dp(context, 16);
         params1.rightMargin = Utils.dp(context, 16);
@@ -84,10 +79,7 @@ public class BottomSheetCell extends FrameLayout {
         textView.setEllipsize(TextUtils.TruncateAt.END);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
 
-        LayoutParams params2 = new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
+        LayoutParams params2 = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params2.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
         params2.leftMargin = Utils.dp(context, 16);
         params2.rightMargin = Utils.dp(context, 16);
@@ -148,10 +140,8 @@ public class BottomSheetCell extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         int width = MeasureSpec.makeMeasureSpec(widthMeasureSpec, MeasureSpec.EXACTLY);
         int height = cellHeight + (divider ? 1 : 0);
-
         setMeasuredDimension(width, height);
     }
 
