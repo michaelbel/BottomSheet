@@ -38,6 +38,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.NestedScrollingParent;
@@ -67,21 +68,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.michaelbel.bottomsheetdialog.BottomSheetCell;
-import org.michaelbel.bottomsheetdialog.BottomSheetGrid;
 import org.michaelbel.bottomsheetdialog.R;
-import org.michaelbel.bottomsheetdialog.Utils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 /**
- * Date: 17.02.2018
- * Time: 00:33
+ * Date: Sat, 17 Feb 2018
+ * Time: 00:33 MSK
  *
  * @author Michael Bel
  */
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -89,10 +91,18 @@ public class BottomSheet extends Dialog {
     public static final int LIST = 1;
     public static final int GRID = 2;
 
-    //@RestrictTo(LIBRARY_GROUP)
-    //@Retention(RetentionPolicy.SOURCE)
+    public static final int LIGHT_THEME = 10;
+    public static final int DARK_THEME = 11;
+
+    @RestrictTo(LIBRARY_GROUP)
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({ LIST, GRID })
     public @interface Type {}
+
+    @RestrictTo(LIBRARY_GROUP)
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({ LIGHT_THEME, DARK_THEME })
+    public @interface Theme {}
 
     private boolean dividers;
     private boolean fullWidth;
@@ -103,6 +113,7 @@ public class BottomSheet extends Dialog {
     private int itemSelector;
     private int dimmingValue = 80;
     private @Type int contentType = LIST;
+    private @Theme int theme = LIGHT_THEME;
     private @ColorInt int titleTextColor;
     private @ColorInt int backgroundColor;
     private @ColorInt int iconColor;
@@ -340,7 +351,7 @@ public class BottomSheet extends Dialog {
             try {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             } catch (Exception e) {
-                Log.e(TAG, e.toString());
+                e.printStackTrace();
             }
         }
 
@@ -386,8 +397,8 @@ public class BottomSheet extends Dialog {
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
-                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 10)),
-                ObjectAnimator.ofInt(backDrawable, "alpha", 0)
+            ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 10)),
+            ObjectAnimator.ofInt(backDrawable, "alpha", 0)
         );
         if (useFastDismiss) {
             int height = containerView.getMeasuredHeight();
@@ -409,7 +420,7 @@ public class BottomSheet extends Dialog {
                             try {
                                 dismissInternal();
                             } catch (Exception e) {
-                                Log.e(TAG, e.getMessage());
+                                e.printStackTrace();
                             }
                         }
                     });
@@ -437,9 +448,9 @@ public class BottomSheet extends Dialog {
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR |
-                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
-                    WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
+                 WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR |
+                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
+                 WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
             );
         }
 
@@ -843,8 +854,8 @@ public class BottomSheet extends Dialog {
         containerView.setTranslationY(containerView.getMeasuredHeight());
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
-                ObjectAnimator.ofFloat(containerView, "translationY", 0),
-                ObjectAnimator.ofInt(backDrawable, "alpha", dimmingValue)); // was be 51
+            ObjectAnimator.ofFloat(containerView, "translationY", 0),
+            ObjectAnimator.ofInt(backDrawable, "alpha", dimmingValue)); // was be 51
         animatorSet.setDuration(200);
         animatorSet.setStartDelay(20);
         animatorSet.setInterpolator(new DecelerateInterpolator());
@@ -879,8 +890,8 @@ public class BottomSheet extends Dialog {
         cancelSheetAnimation();
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
-                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-                ObjectAnimator.ofInt(backDrawable, "alpha", 0)
+            ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+            ObjectAnimator.ofInt(backDrawable, "alpha", 0)
         );
         animatorSet.setDuration(180);
         animatorSet.setInterpolator(new AccelerateInterpolator());
@@ -936,7 +947,6 @@ public class BottomSheet extends Dialog {
 
         private Context context;
         private BottomSheet bottomSheet;
-
 
         /**
          * Default constructor.
@@ -1085,6 +1095,15 @@ public class BottomSheet extends Dialog {
             return this;
         }*/
 
+        /*public Builder setDismissWithSwipe(boolean value) {
+            return this;
+        }*/
+
+        /*public Builder setTheme(@Theme int theme) {
+            bottomSheet.theme = theme;
+            return this;
+        }*/
+
         public Builder setDividers(boolean value) {
             bottomSheet.dividers = value;
             return this;
@@ -1137,7 +1156,7 @@ public class BottomSheet extends Dialog {
 
         @Override
         public int getCount() {
-            return items.size();
+            return items != null ? items.size() : 0;
         }
 
         @Override
