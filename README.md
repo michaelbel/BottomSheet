@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.5.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.6.apk
 [wiki-url]:         https://github.com/michaelbel/BottomSheet/wiki/usage
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
@@ -21,7 +21,7 @@
 [googleplay-badge]:   https://img.shields.io/badge/Google_Play-Demo-009688.svg
 [methodscount-badge]: https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-009688.svg
 
-<!--------------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------------->
 
 [![Launcher][Launcher-path]][github-url]
 # BottomSheet
@@ -65,7 +65,7 @@ Or [Download APK][apk-url]
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.5'
+    implementation 'org.michaelbel:bottomsheet:1.1.6'
 }
 ```
 
@@ -98,11 +98,6 @@ builder
        }
    })
    .show();
-   
-// Getters
-builder.getTitleTextView();
-builder.getListView();
-builder.getGridView();
 ```
 
 ## Wiki
