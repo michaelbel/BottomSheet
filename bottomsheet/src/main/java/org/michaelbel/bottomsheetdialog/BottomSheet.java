@@ -953,6 +953,7 @@ public class BottomSheet extends Dialog {
         return (cm / 2.54f) * (isX ? metrics.xdpi : metrics.ydpi);
     }
 
+    @Deprecated
     public static class Builder {
 
         private Context context;
