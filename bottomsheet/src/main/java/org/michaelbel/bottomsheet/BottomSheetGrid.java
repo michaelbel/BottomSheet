@@ -84,6 +84,17 @@ public class BottomSheetGrid extends LinearLayout {
         return this;
     }
 
+    public BottomSheetGrid setIcon(Drawable resId, @ColorInt int color) {
+        Drawable icon = resId;
+        if (icon != null) {
+            icon.clearColorFilter();
+            icon.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        }
+
+        iconView.setImageDrawable(icon);
+        return this;
+    }
+
     public BottomSheetGrid setText(@NonNull CharSequence text, @ColorInt int color) {
         textView.setText(text);
         textView.setTextColor(color);

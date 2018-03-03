@@ -114,6 +114,32 @@ public class BottomSheetCell extends FrameLayout {
         return this;
     }
 
+    public BottomSheetCell setIcon(Drawable resId, @ColorInt int color) {
+        if (resId != null) {
+            Drawable res = resId;
+            if (res != null) {
+                res.clearColorFilter();
+                res.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+            }
+
+            iconView.setImageDrawable(res);
+
+            LayoutParams params2 = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params2.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
+            params2.leftMargin = Utils.dp(getContext(), 72);
+            params2.rightMargin = Utils.dp(getContext(), 16);
+            textView.setLayoutParams(params2);
+        } else {
+            LayoutParams params2 = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params2.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
+            params2.leftMargin = Utils.dp(getContext(), 16);
+            params2.rightMargin = Utils.dp(getContext(), 16);
+            textView.setLayoutParams(params2);
+        }
+
+        return this;
+    }
+
     public BottomSheetCell setText(@NonNull CharSequence text, @ColorInt int color) {
         textView.setText(text);
         textView.setTextColor(color);
