@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
 }
 
 Properties properties = new Properties()
@@ -42,7 +42,7 @@ ext {
     artifact = 'bottomsheet'
     publishedGroupId = 'org.michaelbel'
 
-    libraryVersion = '1.1.6'
+    libraryVersion = '1.1.7'
     libraryName = 'BottomSheet'
     libraryDescription = 'Bottom Sheet dialogs library for Android'
 

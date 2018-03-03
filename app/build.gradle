@@ -8,9 +8,9 @@ android {
         applicationId "org.michaelbel.bottomsheetdialog"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 18
-        versionName "1.1.6"
-        buildConfigField "String", "VERSION_DATE", '"27 Feb 2018"'
+        versionCode 19
+        versionName "1.1.7"
+        buildConfigField "String", "VERSION_DATE", '"03 Mar 2018"'
     }
 
     buildTypes {
@@ -27,8 +27,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation project(path: ':bottomsheet', configuration: 'default')
 
     implementation 'com.jakewharton:butterknife:8.4.0'
