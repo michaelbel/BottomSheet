@@ -31,6 +31,12 @@
             android:text="@string/ListStyleWithIcons"/>
 
         <Button
+            android:id="@+id/inflateMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/MenuInflate"/>
+
+        <Button
             android:id="@+id/gridStyleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
