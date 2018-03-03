@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/share"
+          android:icon="@drawable/ic_share"/>
+
+    <item android:title="@string/upload"
+          android:icon="@drawable/ic_upload"/>
+
+    <item android:title="@string/copy"
+          android:icon="@drawable/ic_copy"/>
+
+    <item android:title="@string/print_this_page"
+          android:icon="@drawable/ic_printer"/>
+</menu>
