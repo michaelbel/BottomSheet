@@ -21,7 +21,9 @@
     <string name="ListStyle">List style</string>
     <string name="ListStyleWithTitle">List style with title</string>
     <string name="ListStyleWithIcons">List style with icons</string>
+    <string name="MenuInflate">Menu inflate</string>
     <string name="GridStyle">Grid style</string>
+    <string name="Actions">Actions</string>
 
     <string name="message">Message</string>
     <string name="print_this_page">Print this page</string>
