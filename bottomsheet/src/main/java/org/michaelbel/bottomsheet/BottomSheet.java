@@ -33,10 +33,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.BoolRes;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
@@ -50,6 +50,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -68,11 +69,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.michaelbel.bottomsheet.menu.BottomSheetMenu;
 import org.michaelbel.bottomsheetdialog.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
@@ -83,7 +87,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * @author Michael Bel
  */
 
-//@SuppressWarnings("all")
+@SuppressWarnings("all")
 public class BottomSheet extends Dialog {
 
     private static final String TAG = BottomSheet.class.getSimpleName();
@@ -126,11 +130,11 @@ public class BottomSheet extends Dialog {
     private ContainerView container;
     private LinearLayout containerView;
 
+    private List<Drawable> ICONS = new ArrayList<>();
+    private List<CharSequence> ITEMS = new ArrayList<>();
+
     private CharSequence titleText;
-    private CharSequence[] mItems;
-    private @DrawableRes int[] mIcons;
-    private @StringRes int[] mItemsRes;
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<BottomSheetItem> bottomsheetItems = new ArrayList<>();
 
     private WindowInsets lastInsets;
     private Runnable startAnimationRunnable;
@@ -153,17 +157,6 @@ public class BottomSheet extends Dialog {
 
     private OnClickListener onClickListener;
     private BottomSheetCallback bottomSheetCallback;
-
-    private class Item {
-
-        public int icon;
-        public CharSequence text;
-
-        private Item(CharSequence text, int icon) {
-            this.text = text;
-            this.icon = icon;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,7 +273,7 @@ public class BottomSheet extends Dialog {
 
             BottomSheetAdapter adapter = new BottomSheetAdapter();
 
-            if (mItems != null || mItemsRes != null) {
+            if (!ITEMS.isEmpty()) {
                 if (contentType == LIST) {
                     LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -292,8 +285,8 @@ public class BottomSheet extends Dialog {
                     listView.setVerticalScrollBarEnabled(false);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            dismissWithButtonClick(i);
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            dismissWithButtonClick(position);
                         }
                     });
                     listView.setLayoutParams(params2);
@@ -306,8 +299,8 @@ public class BottomSheet extends Dialog {
                     gridView.setAdapter(adapter);
                     gridView.setNumColumns(3);
                     gridView.setVerticalScrollBarEnabled(false);
-                    gridView.setVerticalSpacing(org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 16));
-                    gridView.setPadding(org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 0), org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), /*topOffset + */8), org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 0), org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 16));
+                    gridView.setVerticalSpacing(Utils.dp(getContext(), 16));
+                    gridView.setPadding(Utils.dp(getContext(), 0), Utils.dp(getContext(), /*topOffset + */8), org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 0), org.michaelbel.bottomsheetdialog.Utils.dp(getContext(), 16));
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -318,13 +311,9 @@ public class BottomSheet extends Dialog {
                     containerView.addView(gridView);
                 }
 
-                if (mItems != null) {
-                    for (int a = 0; a < mItems.length; a++) {
-                        items.add(new Item(mItems[a], mIcons != null ? mIcons[a] : 0));
-                    }
-                } else {
-                    for (int a = 0; a < mItemsRes.length; a++) {
-                        items.add(new Item(getContext().getText(mItemsRes[a]), mIcons != null ? mIcons[a] : 0));
+                if (!ITEMS.isEmpty()) {
+                    for (int a = 0; a < ITEMS.size(); a++) {
+                        bottomsheetItems.add(new BottomSheetItem(ITEMS.get(a), !ICONS.isEmpty() ? ICONS.get(a) : null));
                     }
                 }
 
@@ -949,9 +938,9 @@ public class BottomSheet extends Dialog {
         private BottomSheet bottomSheet;
 
         /**
-         * Default constructor.
+         * Default constructor for creating a {@link BottomSheet}
          *
-         * @param context
+         * @param context App context.
          */
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -969,7 +958,7 @@ public class BottomSheet extends Dialog {
         }
 
         public Builder setItems(@NonNull CharSequence[] items, final OnClickListener onClickListener) {
-            bottomSheet.mItems = items;
+            bottomSheet.ITEMS.addAll(Arrays.asList(items));
             bottomSheet.onClickListener = onClickListener;
             return this;
         }
@@ -985,21 +974,29 @@ public class BottomSheet extends Dialog {
         }
 
         public Builder setItems(@StringRes int[] items, final OnClickListener onClickListener) {
-            bottomSheet.mItemsRes = items;
+            for (int i : items) {
+                bottomSheet.ITEMS.add(context.getResources().getString(i));
+            }
             bottomSheet.onClickListener = onClickListener;
             return this;
         }
 
         public Builder setItems(@NonNull CharSequence[] items, int[] icons, final OnClickListener onClickListener) {
-            bottomSheet.mItems = items;
-            bottomSheet.mIcons = icons;
+            bottomSheet.ITEMS.addAll(Arrays.asList(items));
+            for (int i: icons) {
+                bottomSheet.ICONS.add(ContextCompat.getDrawable(context, i));
+            }
             bottomSheet.onClickListener = onClickListener;
             return this;
         }
 
         public Builder setItems(@StringRes int[] items, int[] icons, final OnClickListener onClickListener) {
-            bottomSheet.mItemsRes = items;
-            bottomSheet.mIcons = icons;
+            for (int i : items) {
+                bottomSheet.ITEMS.add(context.getResources().getString(i));
+            }
+            for (int j: icons) {
+                bottomSheet.ICONS.add(ContextCompat.getDrawable(context, j));
+            }
             bottomSheet.onClickListener = onClickListener;
             return this;
         }
@@ -1009,7 +1006,7 @@ public class BottomSheet extends Dialog {
          *
          * @param view a view which will added as child.
          */
-        public Builder setCustomView(@NonNull View view) {
+        public Builder setView(@NonNull View view) {
             bottomSheet.customView = view;
             return this;
         }
@@ -1019,9 +1016,9 @@ public class BottomSheet extends Dialog {
          *
          * @param layoutId the id of a view which will added as child.
          */
-        public Builder setCustomView(@LayoutRes int layoutId) {
+        public Builder setView(@LayoutRes int layoutId) {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            setCustomView(layoutInflater.inflate(layoutId, null));
+            setView(layoutInflater.inflate(layoutId, null));
             return this;
         }
 
@@ -1029,13 +1026,17 @@ public class BottomSheet extends Dialog {
          * Sets the BottomSheet Title text.
          *
          * @param text a string of text
-         * @return
          */
         public Builder setTitle(@NonNull CharSequence text) {
             bottomSheet.titleText = text;
             return this;
         }
 
+        /**
+         * Sets the BottomSheet Title text.
+         *
+         * @param textId
+         */
         public Builder setTitle(@StringRes int textId) {
             setTitle(context.getText(textId));
             return this;
@@ -1104,6 +1105,25 @@ public class BottomSheet extends Dialog {
             return this;
         }*/
 
+        /*public Builder setMenu(@Nullable Menu menu, OnClickListener onClickListener) {
+            bottomSheet.menu = menu;
+            bottomSheet.onClickListener = onClickListener;
+            return this;
+        }*/
+
+        public Builder setMenu(@MenuRes int menuId, OnClickListener onClickListener) {
+            BottomSheetMenu menu = new BottomSheetMenu(context);
+            new MenuInflater(context).inflate(menuId, menu);
+
+            for (int i = 0; i < menu.size(); i++) {
+                bottomSheet.ITEMS.add(menu.getItem(i).getTitle());
+                bottomSheet.ICONS.add(menu.getItem(i).getIcon());
+            }
+
+            bottomSheet.onClickListener = onClickListener;
+            return this;
+        }
+
         public Builder setDividers(boolean value) {
             bottomSheet.dividers = value;
             return this;
@@ -1150,13 +1170,27 @@ public class BottomSheet extends Dialog {
         public GridView getGridView() {
             return bottomSheet.gridView;
         }
+
+        // Deprecated:
+
+        @Deprecated
+        public Builder setCustomView(@NonNull View view) {
+            bottomSheet.customView = view;
+            return this;
+        }
+
+        @Deprecated
+        public Builder setCustomView(@LayoutRes int layoutId) {
+            setCustomView(LayoutInflater.from(context).inflate(layoutId, null));
+            return this;
+        }
     }
 
     private class BottomSheetAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return items != null ? items.size() : 0;
+            return ITEMS != null ? ITEMS.size() : 0;
         }
 
         @Override
@@ -1172,7 +1206,7 @@ public class BottomSheet extends Dialog {
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
             int type = getItemViewType(position);
-            Item item = items.get(position);
+            BottomSheetItem item = bottomsheetItems.get(position);
 
             if (type == 0) {
                 if (contentType == LIST) {
@@ -1184,7 +1218,7 @@ public class BottomSheet extends Dialog {
                     cell.setIcon(item.icon, iconColor);
                     cell.setText(item.text, itemTextColor);
                     cell.setHeight(cellHeight);
-                    if (position != items.size() - 1) {
+                    if (position != bottomsheetItems.size() - 1) {
                         cell.setDivider(dividers);
                         cell.setDividerColor(darkTheme);
                     }
