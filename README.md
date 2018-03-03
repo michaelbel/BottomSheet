@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.6.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.7.apk
 [wiki-url]:         https://github.com/michaelbel/BottomSheet/wiki/usage
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
@@ -65,7 +65,7 @@ Or [Download APK][apk-url]
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.6'
+    implementation 'org.michaelbel:bottomsheet:1.1.7'
 }
 ```
 
@@ -75,7 +75,8 @@ BottomSheet.Builder builder = new BottomSheet.Builder(context);
 builder
    .setTitle(...)
    .setItems(..., ..., ...)
-   .setCustomView(...)
+   .setMenu(..., ...)
+   .setView(...)
    .setContentType(...)
    .setTitleTextColor(...)
    .setItemTextColor(...)
