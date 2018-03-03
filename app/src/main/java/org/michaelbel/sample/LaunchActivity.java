@@ -30,6 +30,7 @@ import butterknife.OnClick;
 @SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
+    private int counter;
     private boolean theme;
 
     private int[] items1 = new int[] {
@@ -53,6 +54,7 @@ public class LaunchActivity extends AppCompatActivity {
         R.drawable.ic_printer
     };
 
+    @BindView(R.id.toolbar) public Toolbar toolbar;
     @BindView(R.id.main_view) public LinearLayout linearLayout;
     @BindView(R.id.dimmingSeekBar) public SeekBar dimmingSeekBar;
     @BindView(R.id.heightSeekBar) public SeekBar heightSeekBar;
@@ -69,8 +71,17 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter++;
+                if (counter == 5) {
+                    startActivity(new Intent(LaunchActivity.this, SecondActivity.class));
+                    counter = 0;
+                }
+            }
+        });
 
         SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
         theme = prefs.getBoolean("theme", true);

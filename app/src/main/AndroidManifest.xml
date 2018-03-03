@@ -16,6 +16,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SecondActivity" android:configChanges="orientation|screenSize|keyboard|keyboardHidden"/>
+
     </application>
 
 </manifest>
