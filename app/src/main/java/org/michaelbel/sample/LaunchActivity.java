@@ -1,5 +1,6 @@
 package org.michaelbel.sample;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -204,8 +205,8 @@ public class LaunchActivity extends AppCompatActivity {
         });
         builder.setTitle(R.string.MultilineText);
         builder.setTitleMultiline(multilineCheckBox.isChecked());
-        builder.setItems(items2, (dialogInterface, i) ->
-            Toast.makeText(this, items1[2], Toast.LENGTH_SHORT).show()
+        builder.setItems(items1, (dialogInterface, i) ->
+                Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
         builder.show();
     }
@@ -232,6 +233,36 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setItems(items1, icons, (dialogInterface, i) ->
             Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
         );
+        builder.show();
+    }
+
+    @OnClick(R.id.inflateMenu)
+    public void inflateMenuButtonClick(View v) {
+        BottomSheet.Builder builder = new BottomSheet.Builder(this);
+        builder.setDarkTheme(!theme);
+        builder.setWindowDimming(dimmingSeekBar.getProgress());
+        builder.setDividers(dividersCheckBox.isChecked());
+        builder.setFullWidth(fullWidthCheckBox.isChecked());
+        builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
+        builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
+            @Override
+            public void onShown() {
+                showToast(R.string.Shown);
+            }
+
+            @Override
+            public void onDismissed() {
+                showToast(R.string.Dismissed);
+            }
+        });
+        builder.setTitle(R.string.Actions);
+        builder.setTitleMultiline(multilineCheckBox.isChecked());
+        builder.setMenu(R.menu.menu_items_icons, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(LaunchActivity.this, "Item: " + which, Toast.LENGTH_SHORT).show();
+            }
+        });
         builder.show();
     }
 
