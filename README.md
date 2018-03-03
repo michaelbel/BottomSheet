@@ -21,7 +21,7 @@
 [googleplay-badge]:   https://img.shields.io/badge/Google_Play-Demo-009688.svg
 [methodscount-badge]: https://img.shields.io/badge/Methods_and_Size-355_%20%7C%20_55KB-009688.svg
 
-<!------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------------------------->
 
 [![Launcher][Launcher-path]][github-url]
 # BottomSheet
@@ -102,7 +102,7 @@ builder
 ```
 
 ## Wiki
-For all information check [BottomSheet Wiki][wiki-url]
+For all information check [BottomSheet Wiki][wiki-url].
 
 ## License
 
