@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * @author Michael Bel
  */
 
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.SOURCE)
 @Target({
         ElementType.ANNOTATION_TYPE,
         ElementType.CONSTRUCTOR,
