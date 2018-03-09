@@ -78,17 +78,31 @@ builder
    .setMenu(..., ...)
    .setView(...)
    .setContentType(...)
-   .setTitleTextColor(...)
-   .setItemTextColor(...)
-   .setBackgroundColor(...)
-   .setIconColor(...)
-   .setItemSelector(...)
+   .setDarkTheme(...)
    .setFullWidth(...)
    .setCellHeight(...)
    .setDividers(...)
-   .setTitleMultiline(...)
-   .setDarkTheme(...)
    .setWindowDimming(...)
+   .setTitleMultiline(...)
+   .setBackgroundColor(...)
+   .setBackgroundColorRes(...)
+   .setTitleTextColor(...)
+   .setTitleTextColorRes(...)
+   .setItemTextColor(...)
+   .setItemTextColorRes(...)
+   .setIconColor(...)
+   .setIconColorRes(...)
+   .setItemSelector(...)
+   .setOnShowListener(new DialogInterface.OnShowListener() {
+       @Override
+       public void onShow(DialogInterface dialog) {
+       }
+   });
+   .setOnDismissListener(new DialogInterface.OnDismissListener() {
+       @Override
+       public void onDismiss(DialogInterface dialog) {
+       }
+   });
    .setCallback(new BottomSheetCallback() {
        @Override
        public void onShown() {
