@@ -39,4 +39,11 @@
     <string name="mail">Mail</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
+
+    <string-array name="items">
+        <item>Share</item>
+        <item>Upload</item>
+        <item>Copy</item>
+        <item>Print</item>
+    </string-array>
 </resources>
