@@ -23,6 +23,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -31,13 +32,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.BoolRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -69,6 +73,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.michaelbel.bottomsheet.annotation.New;
 import org.michaelbel.bottomsheet.menu.BottomSheetMenu;
 import org.michaelbel.bottomsheetdialog.R;
 
@@ -76,6 +81,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
@@ -156,6 +162,9 @@ public class BottomSheet extends Dialog {
 
     private OnClickListener onClickListener;
     private BottomSheetCallback bottomSheetCallback;
+
+    private DialogInterface.OnShowListener onShowListener;
+    private DialogInterface.OnDismissListener onDismissListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -378,6 +387,10 @@ public class BottomSheet extends Dialog {
         if (bottomSheetCallback != null) {
             bottomSheetCallback.onShown();
         }
+
+        if (onShowListener != null) {
+            onShowListener.onShow(this);
+        }
     }
 
     @Override
@@ -438,14 +451,12 @@ public class BottomSheet extends Dialog {
         if (bottomSheetCallback != null) {
             bottomSheetCallback.onDismissed();
         }
+
+        if (onDismissListener != null) {
+            onDismissListener.onDismiss(this);
+        }
     }
 
-    /**
-     * Default constructor.
-     *
-     * @param context App context.
-     * @param needFocus
-     */
     private BottomSheet(Context context, boolean needFocus) {
         super(context, R.style.TransparentDialog);
 
@@ -628,6 +639,7 @@ public class BottomSheet extends Dialog {
             }
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouchEvent(MotionEvent ev) {
             if (dismissed) {
@@ -724,11 +736,11 @@ public class BottomSheet extends Dialog {
                 } else {
                     int widthSpec;
 
-                    if (Utils.isTablet(getContext())) {
-                        widthSpec = MeasureSpec.makeMeasureSpec((int) (Math.min(displaySize.x, displaySize.y) * 0.8f) + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY);
-                    } else {
+                    //if (Utils.isTablet(getContext())) {
+                    //    widthSpec = MeasureSpec.makeMeasureSpec((int) (Math.min(displaySize.x, displaySize.y) * 0.8f) + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY);
+                    //} else {
                         widthSpec = MeasureSpec.makeMeasureSpec(isPortrait ? width + backgroundPaddingLeft * 2 : (int) Math.max(width * 0.8f, Math.min(Utils.dp(getContext(), 480), width)) + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY);
-                    }
+                    //}
 
                     containerView.measure(widthSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
                 }
@@ -869,12 +881,11 @@ public class BottomSheet extends Dialog {
 
     private void startOpenAnimation() {
         containerView.setVisibility(View.VISIBLE);
-
         if (Build.VERSION.SDK_INT >= 20) {
             container.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         }
-
         containerView.setTranslationY(containerView.getMeasuredHeight());
+
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
             ObjectAnimator.ofFloat(containerView, "translationY", 0),
@@ -912,6 +923,7 @@ public class BottomSheet extends Dialog {
 
         dismissed = true;
         cancelSheetAnimation();
+
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
             ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
@@ -955,6 +967,7 @@ public class BottomSheet extends Dialog {
         animatorSet.start();
         currentSheetAnimation = animatorSet;
 
+        // Test it.
         if (bottomSheetCallback != null) {
             bottomSheetCallback.onDismissed();
         }
@@ -968,26 +981,11 @@ public class BottomSheet extends Dialog {
         return (cm / 2.54f) * (isX ? metrics.xdpi : metrics.ydpi);
     }
 
-    /**
-     * Builder factory to create {@link BottomSheet}
-     */
     public static class Builder {
 
-        /**
-         * App context.
-         */
         private Context context;
-
-        /**
-         * An instance of {@link BottomSheet}
-         */
         private BottomSheet bottomSheet;
 
-        /**
-         * Default constructor for creating {@link BottomSheet}
-         *
-         * @param context App context.
-         */
         public Builder(@NonNull Context context) {
             this.context = context;
             bottomSheet = new BottomSheet(context, false);
@@ -998,24 +996,29 @@ public class BottomSheet extends Dialog {
             bottomSheet = new BottomSheet(context, focus);
         }
 
-        public Builder(@NonNull Context context, @BoolRes int needFocus) {
+        public Builder(@NonNull Context context, @BoolRes int focus) {
             this.context = context;
-            bottomSheet = new BottomSheet(context, context.getResources().getBoolean(needFocus));
+            bottomSheet = new BottomSheet(context, context.getResources().getBoolean(focus));
         }
 
-        public Builder setItems(@NonNull CharSequence[] items, final OnClickListener listener) {
-            bottomSheet.ITEMS.addAll(Arrays.asList(items));
+        public Builder setTitle(@StringRes int titleId) {
+            bottomSheet.titleText = context.getText(titleId);
+            return this;
+        }
+
+        public Builder setTitle(@Nullable CharSequence title) {
+            bottomSheet.titleText = title;
+            return this;
+        }
+
+        /*public Builder setCustomTitle(@Nullable View customTitleView) {
+            return this;
+        }*/
+
+        @New(version = "1.1.9")
+        public Builder setItems(@ArrayRes int itemsId, final OnClickListener listener) {
+            bottomSheet.ITEMS.addAll(Arrays.asList(context.getResources().getTextArray(itemsId)));
             bottomSheet.onClickListener = listener;
-            return this;
-        }
-
-        public Builder setContentType(@Type int type) {
-            bottomSheet.contentType = type;
-            return this;
-        }
-
-        public Builder setBackgroundColor(@ColorInt int color) {
-            bottomSheet.backgroundColor = color;
             return this;
         }
 
@@ -1027,11 +1030,26 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        public Builder setItems(@NonNull CharSequence[] items, int[] icons, final OnClickListener listener) {
+        public Builder setItems(CharSequence[] items, final OnClickListener listener) {
             bottomSheet.ITEMS.addAll(Arrays.asList(items));
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setItems(@ArrayRes int itemsId, int[] icons, final OnClickListener listener) {
+            bottomSheet.ITEMS.addAll(Arrays.asList(context.getResources().getTextArray(itemsId)));
             for (int i: icons) {
                 bottomSheet.ICONS.add(ContextCompat.getDrawable(context, i));
             }
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setItems(@ArrayRes int itemsId, Drawable[] icons, final OnClickListener listener) {
+            Collections.addAll(bottomSheet.ITEMS, context.getResources().getTextArray(itemsId));
+            Collections.addAll(bottomSheet.ICONS, icons);
             bottomSheet.onClickListener = listener;
             return this;
         }
@@ -1047,84 +1065,187 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        /**
-         * Sets the view which will host in the BottomSheet.
-         *
-         * @param view a view which will added as child.
-         */
-        public Builder setView(@NonNull View view) {
+        @New(version = "1.1.9")
+        public Builder setItems(@StringRes int[] items, Drawable[] icons, final OnClickListener listener) {
+            for (int i : items) {
+                bottomSheet.ITEMS.add(context.getResources().getString(i));
+            }
+            Collections.addAll(bottomSheet.ICONS, icons);
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        public Builder setItems(@NonNull CharSequence[] items, int[] icons, final OnClickListener listener) {
+            bottomSheet.ITEMS.addAll(Arrays.asList(items));
+            for (int i: icons) {
+                bottomSheet.ICONS.add(ContextCompat.getDrawable(context, i));
+            }
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setItems(@NonNull CharSequence[] items, Drawable[] icons, final OnClickListener listener) {
+            bottomSheet.ITEMS.addAll(Arrays.asList(items));
+            Collections.addAll(bottomSheet.ICONS, icons);
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        /*public Builder setMultiChoiceItems() {
+            return this;
+        }*/
+
+        /*public Builder setSingleChoiceItems() {
+            return this;
+        }*/
+
+        public Builder setMenu(@MenuRes int menuResId, final OnClickListener listener) {
+            BottomSheetMenu menu = new BottomSheetMenu(context);
+            new MenuInflater(context).inflate(menuResId, menu);
+
+            for (int i = 0; i < menu.size(); i++) {
+                bottomSheet.ITEMS.add(menu.getItem(i).getTitle());
+                bottomSheet.ICONS.add(menu.getItem(i).getIcon());
+            }
+
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        public Builder setMenu(Menu menu, final OnClickListener listener) {
+            for (int i = 0; i < menu.size(); i++) {
+                bottomSheet.ITEMS.add(menu.getItem(i).getTitle());
+                bottomSheet.ICONS.add(menu.getItem(i).getIcon());
+            }
+
+            bottomSheet.onClickListener = listener;
+            return this;
+        }
+
+        public Builder setView(@LayoutRes int layoutResId) {
+            bottomSheet.customView = LayoutInflater.from(context).inflate(layoutResId, null);
+            return this;
+        }
+
+        public Builder setView(View view) {
             bottomSheet.customView = view;
             return this;
         }
 
-        /**
-         * Sets the view which will host in the BottomSheet.
-         *
-         * @param layoutId the id of a view which will added as child.
-         */
-        public Builder setView(@LayoutRes int layoutId) {
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
-            setView(layoutInflater.inflate(layoutId, null));
+//----- Styles -------------------------------------------------------------------------------------
+
+        public Builder setContentType(@Type int type) {
+            bottomSheet.contentType = type;
             return this;
         }
 
-        /**
-         * Sets the BottomSheet Title text.
-         *
-         * @param text a string of text
-         */
-        public Builder setTitle(@NonNull CharSequence text) {
-            bottomSheet.titleText = text;
+        public Builder setDarkTheme(boolean theme) {
+            bottomSheet.darkTheme = theme;
             return this;
         }
 
-        /**
-         * Sets the BottomSheet Title text.
-         *
-         * @param textId
-         */
-        public Builder setTitle(@StringRes int textId) {
-            setTitle(context.getText(textId));
+        public Builder setDarkTheme(@BoolRes int theme) {
+            bottomSheet.darkTheme = context.getResources().getBoolean(theme);
             return this;
         }
 
-        public Builder setTitleTextColor(@ColorInt int color) {
-            /*if (color == @ColorRes) {
-                bottomSheet.titleTextColor = ContextCompat.getColor(context, color);
-                return this;
-            }*/
+        /*public Builder setTheme(@Theme int theme) {
+            bottomSheet.theme = theme;
+            return this;
+        }*/
 
-            bottomSheet.titleTextColor = color;
+        public Builder setFullWidth(boolean fullWidth) {
+            bottomSheet.fullWidth = fullWidth;
             return this;
         }
 
-        public Builder setItemTextColor(@ColorInt int color) {
-            bottomSheet.itemTextColor = color;
+        public Builder setFullWidth(@BoolRes int fullWidth) {
+            bottomSheet.fullWidth = context.getResources().getBoolean(fullWidth);
             return this;
         }
 
-        public Builder setDarkTheme(boolean value) {
-            bottomSheet.darkTheme = value;
+        public Builder setCellHeight(int cellHeight) {
+            bottomSheet.cellHeight = cellHeight;
             return this;
         }
 
-        public Builder setDarkTheme(@BoolRes int value) {
-            bottomSheet.darkTheme = context.getResources().getBoolean(value);
+        /*public Builder setCellHeight(@DimenRes int cellHeight) {
+            return this;
+        }*/
+
+        public Builder setDividers(boolean dividers) {
+            bottomSheet.dividers = dividers;
             return this;
         }
 
-        public Builder setIconColor(@ColorInt int color) {
-            bottomSheet.iconColor = color;
+        public Builder setDividers(@BoolRes int dividers) {
+            bottomSheet.dividers = context.getResources().getBoolean(dividers);
             return this;
         }
 
-        public Builder setFullWidth(boolean value) {
-            bottomSheet.fullWidth = value;
+        /*public Builder setDismissWithSwipe(boolean dismissWithSwipe) {
+            return this;
+        }*/
+
+        public Builder setWindowDimming(@IntRange(from = 0, to = 255) int windowDimming) {
+            bottomSheet.dimmingValue = windowDimming;
             return this;
         }
 
-        public Builder setFullWidth(@BoolRes int value) {
-            bottomSheet.fullWidth = context.getResources().getBoolean(value);
+        public Builder setTitleMultiline(boolean titleMultiline) {
+            bottomSheet.titleTextMultiline = titleMultiline;
+            return this;
+        }
+
+        public Builder setTitleMultiline(@BoolRes int titleMultiline) {
+            bottomSheet.titleTextMultiline = context.getResources().getBoolean(titleMultiline);
+            return this;
+        }
+
+//----- Colors -------------------------------------------------------------------------------------
+
+        public Builder setBackgroundColor(@ColorInt int backgroundColor) {
+            bottomSheet.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setBackgroundColorRes(@ColorRes int backgroundColorRes) {
+            bottomSheet.backgroundColor = ContextCompat.getColor(context, backgroundColorRes);
+            return this;
+        }
+
+        public Builder setTitleTextColor(@ColorInt int titleTextColor) {
+            bottomSheet.titleTextColor = titleTextColor;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setTitleTextColorRes(@ColorRes int titleTextColorRes) {
+            bottomSheet.titleTextColor = ContextCompat.getColor(context, titleTextColorRes);
+            return this;
+        }
+
+        public Builder setItemTextColor(@ColorInt int itemTextColor) {
+            bottomSheet.itemTextColor = itemTextColor;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setItemTextColorRes(@ColorRes int itemTextColorRes) {
+            bottomSheet.itemTextColor = ContextCompat.getColor(context, itemTextColorRes);
+            return this;
+        }
+
+        public Builder setIconColor(@ColorInt int iconColor) {
+            bottomSheet.iconColor = iconColor;
+            return this;
+        }
+
+        @New(version = "1.1.9")
+        public Builder setIconColorRes(@ColorInt int iconColorRes) {
+            bottomSheet.iconColor = ContextCompat.getColor(context, iconColorRes);
             return this;
         }
 
@@ -1133,81 +1254,33 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        public Builder setCellHeight(int height) {
-            bottomSheet.cellHeight = height;
+//----- Interfaces ---------------------------------------------------------------------------------
+
+        @New(version = "1.1.9")
+        public Builder setOnShowListener(DialogInterface.OnShowListener listener) {
+            bottomSheet.onShowListener = listener;
             return this;
         }
 
-        /*public Builder setCellHeight(@DimenRes int value) {
-            return this;
-        }*/
-
-        /*public Builder setDismissWithSwipe(boolean value) {
-            return this;
-        }*/
-
-        /*public Builder setTheme(@Theme int theme) {
-            bottomSheet.theme = theme;
-            return this;
-        }*/
-
-        public Builder setMenu(@MenuRes int menuId, OnClickListener listener) {
-            BottomSheetMenu menu = new BottomSheetMenu(context);
-            new MenuInflater(context).inflate(menuId, menu);
-
-            for (int i = 0; i < menu.size(); i++) {
-                bottomSheet.ITEMS.add(menu.getItem(i).getTitle());
-                bottomSheet.ICONS.add(menu.getItem(i).getIcon());
-            }
-
-            bottomSheet.onClickListener = listener;
+        @New(version = "1.1.9")
+        public Builder setOnDismissListener(DialogInterface.OnDismissListener listener) {
+            bottomSheet.onDismissListener = listener;
             return this;
         }
 
-        public Builder setMenu(@NonNull Menu menu, OnClickListener listener) {
-            for (int i = 0; i < menu.size(); i++) {
-                bottomSheet.ITEMS.add(menu.getItem(i).getTitle());
-                bottomSheet.ICONS.add(menu.getItem(i).getIcon());
-            }
-
-            bottomSheet.onClickListener = listener;
-            return this;
-        }
-
-        public Builder setDividers(boolean value) {
-            bottomSheet.dividers = value;
-            return this;
-        }
-
-        public Builder setDividers(@BoolRes int value) {
-            bottomSheet.dividers = context.getResources().getBoolean(value);
-            return this;
-        }
-
-        public Builder setTitleMultiline(boolean state) {
-            bottomSheet.titleTextMultiline = state;
-            return this;
-        }
-
-        public Builder setTitleMultiline(@BoolRes int value) {
-            bottomSheet.titleTextMultiline = context.getResources().getBoolean(value);
-            return this;
-        }
-
-        public Builder setWindowDimming(@IntRange(from = 0, to = 255) int value) {
-            bottomSheet.dimmingValue = value;
-            return this;
-        }
-
-        public Builder setCallback(@NonNull BottomSheetCallback callback) {
+        public Builder setCallback(BottomSheetCallback callback) {
             bottomSheet.bottomSheetCallback = callback;
             return this;
         }
+
+//----- Build --------------------------------------------------------------------------------------
 
         public BottomSheet show() {
             bottomSheet.show();
             return bottomSheet;
         }
+
+//----- Getters ------------------------------------------------------------------------------------
 
         public TextView getTitleTextView() {
             return bottomSheet.titleTextView;
@@ -1221,27 +1294,22 @@ public class BottomSheet extends Dialog {
             return bottomSheet.gridView;
         }
 
-        // Deprecated:
+        @New(version = "1.1.9")
+        public View getView() {
+            return bottomSheet.customView;
+        }
 
-        /**
-         * Deprecated method. Please, use setView instead.
-         *
-         * @param view
-         */
+//----- Deprecated ---------------------------------------------------------------------------------
+
         @Deprecated
-        public Builder setCustomView(@NonNull View view) {
+        public Builder setCustomView(View view) {
             bottomSheet.customView = view;
             return this;
         }
 
-        /**
-         * Deprecated method. Please, use setView instead.
-         *
-         * @param layoutId
-         */
         @Deprecated
-        public Builder setCustomView(@LayoutRes int layoutId) {
-            setCustomView(LayoutInflater.from(context).inflate(layoutId, null));
+        public Builder setCustomView(@LayoutRes int layoutResId) {
+            bottomSheet.customView = LayoutInflater.from(context).inflate(layoutResId, null);
             return this;
         }
     }
