@@ -10,5 +10,5 @@
           android:icon="@drawable/ic_copy"/>
 
     <item android:title="@string/print_this_page"
-          android:icon="@drawable/ic_printer"/>
+          android:icon="@drawable/ic_print"/>
 </menu>
