@@ -40,7 +40,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         R.drawable.ic_share,
         R.drawable.ic_upload,
         R.drawable.ic_copy,
-        R.drawable.ic_printer
+        R.drawable.ic_print
     };
 
     @BindView(R.id.button)
@@ -91,23 +91,8 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
         builder.setDarkTheme(!theme);
-        //builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(true);
-        //builder.setFullWidth(fullWidthCheckBox.isChecked());
-        //builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
-        /*builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
-            @Override
-            public void onShown() {
-                showToast(R.string.Shown);
-            }
-
-            @Override
-            public void onDismissed() {
-                showToast(R.string.Dismissed);
-            }
-        });*/
         builder.setTitle(R.string.Actions);
-        //builder.setTitleMultiline(multilineCheckBox.isChecked());
         builder.setMenu(R.menu.menu_items_icons, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
