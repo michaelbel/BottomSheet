@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.7.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.8.apk
 [wiki-url]:         https://github.com/michaelbel/BottomSheet/wiki/usage
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
@@ -60,12 +60,12 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="100"/>
 </a>
 
-Or [Download APK][apk-url]
+Or [Download APK][apk-url].
 
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.7'
+    implementation 'org.michaelbel:bottomsheet:1.1.8'
 }
 ```
 
@@ -78,17 +78,31 @@ builder
    .setMenu(..., ...)
    .setView(...)
    .setContentType(...)
-   .setTitleTextColor(...)
-   .setItemTextColor(...)
-   .setBackgroundColor(...)
-   .setIconColor(...)
-   .setItemSelector(...)
+   .setDarkTheme(...)
    .setFullWidth(...)
    .setCellHeight(...)
    .setDividers(...)
-   .setTitleMultiline(...)
-   .setDarkTheme(...)
    .setWindowDimming(...)
+   .setTitleMultiline(...)
+   .setBackgroundColor(...)
+   .setBackgroundColorRes(...)
+   .setTitleTextColor(...)
+   .setTitleTextColorRes(...)
+   .setItemTextColor(...)
+   .setItemTextColorRes(...)
+   .setIconColor(...)
+   .setIconColorRes(...)
+   .setItemSelector(...)
+   .setOnShowListener(new DialogInterface.OnShowListener() {
+       @Override
+       public void onShow(DialogInterface dialog) {
+       }
+   });
+   .setOnDismissListener(new DialogInterface.OnDismissListener() {
+       @Override
+       public void onDismiss(DialogInterface dialog) {
+       }
+   });
    .setCallback(new BottomSheetCallback() {
        @Override
        public void onShown() {
