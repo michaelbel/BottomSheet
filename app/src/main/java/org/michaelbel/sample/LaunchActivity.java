@@ -30,7 +30,6 @@ import butterknife.OnClick;
 @SuppressWarnings("all")
 public class LaunchActivity extends AppCompatActivity {
 
-    private int counter;
     private boolean theme;
 
     private int[] items1 = new int[] {
@@ -51,7 +50,7 @@ public class LaunchActivity extends AppCompatActivity {
         R.drawable.ic_share,
         R.drawable.ic_upload,
         R.drawable.ic_copy,
-        R.drawable.ic_printer
+        R.drawable.ic_print
     };
 
     @BindView(R.id.toolbar) public Toolbar toolbar;
@@ -72,16 +71,12 @@ public class LaunchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        /*toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter++;
-                if (counter == 5) {
-                    startActivity(new Intent(LaunchActivity.this, SecondActivity.class));
-                    counter = 0;
-                }
+                startActivity(new Intent(LaunchActivity.this, SecondActivity.class));
             }
-        });
+        });*/
 
         SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
         theme = prefs.getBoolean("theme", true);
@@ -274,6 +269,7 @@ public class LaunchActivity extends AppCompatActivity {
                 Toast.makeText(LaunchActivity.this, "Item: " + which, Toast.LENGTH_SHORT).show();
             }
         });
+        builder.setTitleTextColorRes(R.color.selector);
         builder.show();
     }
 
@@ -337,7 +333,6 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setItemTextColor(0xFFB2FF59);
         builder.setBackgroundColor(0xFF3F51B5);
         builder.setIconColor(0xFFEEFF41);
-        builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setItemSelector(R.drawable.selectable_custom);
         builder.setItems(items1, icons, (dialogInterface, i) ->
                 Toast.makeText(this, items1[i], Toast.LENGTH_SHORT).show()
@@ -348,8 +343,6 @@ public class LaunchActivity extends AppCompatActivity {
     /*@OnClick(R.id.custom_view)
     public void customViewButtonClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setDarkTheme(!theme);
-        builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setCustomView(R.layout.custom_view);
         builder.show();
     }*/
