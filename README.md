@@ -60,7 +60,7 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="100"/>
 </a>
 
-Or [Download APK][apk-url]
+Or [Download APK][apk-url].
 
 ## Download
 ```gradle
