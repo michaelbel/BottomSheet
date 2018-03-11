@@ -56,8 +56,7 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 
 ## Demo
 <a href="https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog" target="_blank">
-  <img alt="Get it on Google Play"
-       src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="100"/>
+  <img alt="App on Google Play" src="https://goo.gl/cR2qQH" height="100"/>
 </a>
 
 Or [Download APK][apk-url].
