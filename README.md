@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.8.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.9.apk
 [wiki-url]:         https://github.com/michaelbel/BottomSheet/wiki/usage
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
@@ -56,8 +56,7 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 
 ## Demo
 <a href="https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog" target="_blank">
-  <img alt="Get it on Google Play"
-       src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="100"/>
+  <img alt="App on Google Play" src="https://goo.gl/cR2qQH" height="100"/>
 </a>
 
 Or [Download APK][apk-url].
@@ -65,7 +64,7 @@ Or [Download APK][apk-url].
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.8'
+    implementation 'org.michaelbel:bottomsheet:1.1.9'
 }
 ```
 
