@@ -269,7 +269,6 @@ public class LaunchActivity extends AppCompatActivity {
                 Toast.makeText(LaunchActivity.this, "Item: " + which, Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setTitleTextColorRes(R.color.selector);
         builder.show();
     }
 
@@ -343,7 +342,7 @@ public class LaunchActivity extends AppCompatActivity {
     /*@OnClick(R.id.custom_view)
     public void customViewButtonClick(View v) {
         BottomSheet.Builder builder = new BottomSheet.Builder(this);
-        builder.setCustomView(R.layout.custom_view);
+        builder.setView(R.layout.custom_view);
         builder.show();
     }*/
 }
