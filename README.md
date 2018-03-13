@@ -64,7 +64,7 @@ Or [Download APK][apk-url].
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.9'
+    implementation 'org.michaelbel:bottomsheet:1.2.0'
 }
 ```
 
