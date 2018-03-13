@@ -24,7 +24,10 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -73,6 +76,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.michaelbel.bottomsheet.annotation.Beta;
 import org.michaelbel.bottomsheet.annotation.New;
 import org.michaelbel.bottomsheet.menu.BottomSheetMenu;
 import org.michaelbel.bottomsheetdialog.R;
@@ -152,8 +156,8 @@ public class BottomSheet extends Dialog {
     private boolean useFastDismiss;
     private boolean focusable;
     private Drawable shadowDrawable;
-    private static int backgroundPaddingTop;
-    private static int backgroundPaddingLeft;
+    private int backgroundPaddingTop;
+    private int backgroundPaddingLeft;
     private AnimatorSet currentSheetAnimation;
 
     private Point displaySize = new Point();
@@ -165,6 +169,9 @@ public class BottomSheet extends Dialog {
 
     private DialogInterface.OnShowListener onShowListener;
     private DialogInterface.OnDismissListener onDismissListener;
+
+    private boolean allowDrawContent = true; // todo ADDED
+    private boolean useHardwareLayer = true; // todo Added
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,16 +213,16 @@ public class BottomSheet extends Dialog {
                 public boolean hasOverlappingRendering() {
                     return false;
                 }
+
+                @Override
+                public void setTranslationY(float translationY) {
+                    super.setTranslationY(translationY);
+                    onContainerTranslationYChanged(translationY);
+                }
             };
 
             containerView.setOrientation(LinearLayout.VERTICAL);
-
-            if (Build.VERSION.SDK_INT >= 16) {
-                containerView.setBackground(shadowDrawable);
-            } else {
-                containerView.setBackgroundDrawable(shadowDrawable);
-            }
-
+            containerView.setBackgroundDrawable(shadowDrawable);
             containerView.setPadding(0, backgroundPaddingTop, 0, Utils.dp(getContext(), 8));
         }
 
@@ -235,12 +242,6 @@ public class BottomSheet extends Dialog {
         if (customView != null) {
             if (customView.getParent() != null) {
                 ViewGroup viewGroup = (ViewGroup) customView.getParent();
-                /*viewGroup.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        return true;
-                    }
-                });*/
                 viewGroup.removeView(customView);
             }
 
@@ -275,12 +276,6 @@ public class BottomSheet extends Dialog {
 
                 titleTextView.setLayoutParams(params0);
                 containerView.addView(titleTextView);
-                titleTextView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        return true;
-                    }
-                });
             }
 
             BottomSheetAdapter adapter = new BottomSheetAdapter();
@@ -360,15 +355,13 @@ public class BottomSheet extends Dialog {
 
         dismissed = false;
         cancelSheetAnimation();
-
-        if (containerView.getMeasuredHeight() == 0) {
-            containerView.measure(View.MeasureSpec.makeMeasureSpec(displaySize.x, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(displaySize.y, View.MeasureSpec.AT_MOST));
-        }
+        containerView.measure(View.MeasureSpec.makeMeasureSpec(displaySize.x, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(displaySize.y, View.MeasureSpec.AT_MOST));
 
         backDrawable.setAlpha(0);
 
         if (Build.VERSION.SDK_INT >= 18) {
             layoutCount = 2;
+            containerView.setTranslationY(containerView.getMeasuredHeight()); // todo ADDED
             handler.postDelayed(startAnimationRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -473,18 +466,24 @@ public class BottomSheet extends Dialog {
 
         Rect padding = new Rect();
         shadowDrawable = ContextCompat.getDrawable(context, R.drawable.sheet_shadow);
+        shadowDrawable.setColorFilter(new PorterDuffColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY)); // todo ADDED
         shadowDrawable.getPadding(padding);
         backgroundPaddingLeft = padding.left;
         backgroundPaddingTop = padding.top;
 
-        container = new ContainerView(getContext());
+        container = new BottomSheet.ContainerView(getContext()) {
+            @Override
+            public boolean drawChild(Canvas canvas, View child, long drawingTime) {
+                try {
+                    return allowDrawContent && super.drawChild(canvas, child, drawingTime);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        };
 
-        if (Build.VERSION.SDK_INT >= 16) {
-            container.setBackground(backDrawable);
-        } else {
-            container.setBackgroundDrawable(backDrawable);
-        }
-
+        container.setBackgroundDrawable(backDrawable);
         focusable = needFocus;
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -542,7 +541,6 @@ public class BottomSheet extends Dialog {
             if (dismissed) {
                 return;
             }
-            //float currentTranslation = containerView.getTranslationY();
             checkDismiss(0, 0);
         }
 
@@ -639,30 +637,24 @@ public class BottomSheet extends Dialog {
             }
         }
 
-        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouchEvent(MotionEvent ev) {
             if (dismissed) {
                 return false;
             }
-
             if (onContainerTouchEvent(ev)) {
                 return true;
             }
-
             if (canDismissWithTouchOutside() && ev != null && (ev.getAction() == MotionEvent.ACTION_DOWN || ev.getAction() == MotionEvent.ACTION_MOVE) && !startedTracking && !maybeStartTracking) {
                 startedTrackingX = (int) ev.getX();
                 startedTrackingY = (int) ev.getY();
-
                 if (startedTrackingY < containerView.getTop() || startedTrackingX < containerView.getLeft() || startedTrackingX > containerView.getRight()) {
                     dismiss();
                     return true;
                 }
-
                 startedTrackingPointerId = ev.getPointerId(0);
                 maybeStartTracking = true;
                 cancelCurrentAnimation();
-
                 if (velocityTracker != null) {
                     velocityTracker.clear();
                 }
@@ -670,12 +662,10 @@ public class BottomSheet extends Dialog {
                 if (velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain();
                 }
-
                 float dx = Math.abs((int) (ev.getX() - startedTrackingX));
                 float dy = (int) ev.getY() - startedTrackingY;
                 velocityTracker.addMovement(ev);
-
-                if (maybeStartTracking && !startedTracking && (dy > 0 && dy / 3.0F > Math.abs(dx) && Math.abs(dy) >= touchSlop)) {
+                if (maybeStartTracking && !startedTracking && (dy > 0 && dy / 3.0f > Math.abs(dx) && Math.abs(dy) >= touchSlop)) {
                     startedTrackingY = (int) ev.getY();
                     maybeStartTracking = false;
                     startedTracking = true;
@@ -683,22 +673,18 @@ public class BottomSheet extends Dialog {
                 } else if (startedTracking) {
                     float translationY = containerView.getTranslationY();
                     translationY += dy;
-
                     if (translationY < 0) {
                         translationY = 0;
                     }
-
                     containerView.setTranslationY(translationY);
                     startedTrackingY = (int) ev.getY();
                 }
-            } else if (ev == null || ev.getPointerId(0) == startedTrackingPointerId && (ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_UP)) {
+            } else if (ev == null || ev != null && ev.getPointerId(0) == startedTrackingPointerId && (ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_UP)) {
                 if (velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain();
                 }
-
                 velocityTracker.computeCurrentVelocity(1000);
                 float translationY = containerView.getTranslationY();
-
                 if (startedTracking || translationY != 0) {
                     checkDismiss(velocityTracker.getXVelocity(), velocityTracker.getYVelocity());
                     startedTracking = false;
@@ -706,14 +692,12 @@ public class BottomSheet extends Dialog {
                     maybeStartTracking = false;
                     startedTracking = false;
                 }
-
                 if (velocityTracker != null) {
                     velocityTracker.recycle();
                     velocityTracker = null;
                 }
                 startedTrackingPointerId = -1;
             }
-
             return startedTracking || !canDismissWithSwipe();
         }
 
@@ -721,114 +705,111 @@ public class BottomSheet extends Dialog {
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             int width = MeasureSpec.getSize(widthMeasureSpec);
             int height = MeasureSpec.getSize(heightMeasureSpec);
-            boolean isPortrait = width < height;
-
             if (lastInsets != null && Build.VERSION.SDK_INT >= 21) {
-                width -= lastInsets.getSystemWindowInsetRight() + lastInsets.getSystemWindowInsetLeft();
                 height -= lastInsets.getSystemWindowInsetBottom();
             }
 
             setMeasuredDimension(width, height);
+            if (lastInsets != null && Build.VERSION.SDK_INT >= 21) {
+                width -= lastInsets.getSystemWindowInsetRight() + lastInsets.getSystemWindowInsetLeft();
+            }
+            boolean isPortrait = width < height;
 
             if (containerView != null) {
-                if (fullWidth) {
-                    containerView.measure(MeasureSpec.makeMeasureSpec(width + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
-                } else {
+                if (!fullWidth) {
                     int widthSpec;
-
-                    //if (Utils.isTablet(getContext())) {
-                    //    widthSpec = MeasureSpec.makeMeasureSpec((int) (Math.min(displaySize.x, displaySize.y) * 0.8f) + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY);
-                    //} else {
+                    if (Utils.isTablet(getContext())) {
+                        widthSpec = MeasureSpec.makeMeasureSpec((int) (Math.min(displaySize.x, displaySize.y) * 0.8f) + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY);
+                    } else {
                         widthSpec = MeasureSpec.makeMeasureSpec(isPortrait ? width + backgroundPaddingLeft * 2 : (int) Math.max(width * 0.8f, Math.min(Utils.dp(getContext(), 480), width)) + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY);
-                    //}
-
+                    }
                     containerView.measure(widthSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
+                } else {
+                    containerView.measure(MeasureSpec.makeMeasureSpec(width + backgroundPaddingLeft * 2, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
                 }
             }
-
             int childCount = getChildCount();
-
             for (int i = 0; i < childCount; i++) {
                 View child = getChildAt(i);
-
                 if (child.getVisibility() == GONE || child == containerView) {
                     continue;
                 }
-
-                measureChildWithMargins(child, MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), 0, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY), 0);
+                if (!onCustomMeasure(child, width, height)) {
+                    measureChildWithMargins(child, MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), 0, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY), 0);
+                }
             }
         }
 
         @Override
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             layoutCount--;
-
             if (containerView != null) {
-                int t = (bottom - top) - containerView.getMeasuredHeight();
-
                 if (lastInsets != null && Build.VERSION.SDK_INT >= 21) {
                     left += lastInsets.getSystemWindowInsetLeft();
-                    right += lastInsets.getSystemWindowInsetLeft();
+                    right -= lastInsets.getSystemWindowInsetRight();
                 }
-
+                int t = (bottom - top) - containerView.getMeasuredHeight();
                 int l = ((right - left) - containerView.getMeasuredWidth()) / 2;
+                if (lastInsets != null && Build.VERSION.SDK_INT >= 21) {
+                    l += lastInsets.getSystemWindowInsetLeft();
+                }
                 containerView.layout(l, t, l + containerView.getMeasuredWidth(), t + containerView.getMeasuredHeight());
             }
 
             final int count = getChildCount();
-
             for (int i = 0; i < count; i++) {
                 final View child = getChildAt(i);
-
                 if (child.getVisibility() == GONE || child == containerView) {
                     continue;
                 }
+                if (!onCustomLayout(child, left, top, right, bottom)) {
+                    final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
-                final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                    final int width = child.getMeasuredWidth();
+                    final int height = child.getMeasuredHeight();
 
-                final int width = child.getMeasuredWidth();
-                final int height = child.getMeasuredHeight();
+                    int childLeft;
+                    int childTop;
 
-                int childLeft;
-                int childTop;
-                int gravity = lp.gravity;
+                    int gravity = lp.gravity;
+                    if (gravity == -1) {
+                        gravity = Gravity.TOP | Gravity.LEFT;
+                    }
 
-                if (gravity == -1) {
-                    gravity = Gravity.TOP | Gravity.START;
+                    final int absoluteGravity = gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+                    final int verticalGravity = gravity & Gravity.VERTICAL_GRAVITY_MASK;
+
+                    switch (absoluteGravity & Gravity.HORIZONTAL_GRAVITY_MASK) {
+                        case Gravity.CENTER_HORIZONTAL:
+                            childLeft = (right - left - width) / 2 + lp.leftMargin - lp.rightMargin;
+                            break;
+                        case Gravity.RIGHT:
+                            childLeft = right - width - lp.rightMargin;
+                            break;
+                        case Gravity.LEFT:
+                        default:
+                            childLeft = lp.leftMargin;
+                    }
+
+                    switch (verticalGravity) {
+                        case Gravity.TOP:
+                            childTop = lp.topMargin;
+                            break;
+                        case Gravity.CENTER_VERTICAL:
+                            childTop = (bottom - top - height) / 2 + lp.topMargin - lp.bottomMargin;
+                            break;
+                        case Gravity.BOTTOM:
+                            childTop = (bottom - top) - height - lp.bottomMargin;
+                            break;
+                        default:
+                            childTop = lp.topMargin;
+                    }
+                    if (lastInsets != null && Build.VERSION.SDK_INT >= 21) {
+                        childLeft += lastInsets.getSystemWindowInsetLeft();
+                    }
+                    child.layout(childLeft, childTop, childLeft + width, childTop + height);
                 }
-
-                final int absoluteGravity = gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
-                final int verticalGravity = gravity & Gravity.VERTICAL_GRAVITY_MASK;
-
-                switch (absoluteGravity & Gravity.HORIZONTAL_GRAVITY_MASK) {
-                    case Gravity.CENTER_HORIZONTAL:
-                        childLeft = (right - left - width) / 2 + lp.leftMargin - lp.rightMargin;
-                        break;
-                    case Gravity.END:
-                        childLeft = right - width - lp.rightMargin;
-                        break;
-                    case Gravity.START:
-                    default:
-                        childLeft = lp.leftMargin;
-                }
-
-                switch (verticalGravity) {
-                    case Gravity.TOP:
-                        childTop = lp.topMargin;
-                        break;
-                    case Gravity.CENTER_VERTICAL:
-                        childTop = (bottom - top - height) / 2 + lp.topMargin - lp.bottomMargin;
-                        break;
-                    case Gravity.BOTTOM:
-                        childTop = (bottom - top) - height - lp.bottomMargin;
-                        break;
-                    default:
-                        childTop = lp.topMargin;
-                }
-
-                child.layout(childLeft, childTop, childLeft + width, childTop + height);
             }
-
             if (layoutCount == 0 && startAnimationRunnable != null) {
                 handler.removeCallbacks(startAnimationRunnable);
                 startAnimationRunnable.run();
@@ -858,6 +839,12 @@ public class BottomSheet extends Dialog {
         public boolean hasOverlappingRendering() {
             return false;
         }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            onContainerDraw(canvas);
+        }
     }
 
     private boolean onContainerTouchEvent(MotionEvent event) {
@@ -880,40 +867,43 @@ public class BottomSheet extends Dialog {
     }
 
     private void startOpenAnimation() {
-        containerView.setVisibility(View.VISIBLE);
-        if (Build.VERSION.SDK_INT >= 20) {
-            container.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        if (dismissed) {
+            return;
         }
-        containerView.setTranslationY(containerView.getMeasuredHeight());
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(
-            ObjectAnimator.ofFloat(containerView, "translationY", 0),
-            ObjectAnimator.ofInt(backDrawable, "alpha", dimmingValue));
-        animatorSet.setDuration(200);
-        animatorSet.setStartDelay(20);
-        animatorSet.setInterpolator(new DecelerateInterpolator());
-        animatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
-                    currentSheetAnimation = null;
-                    container.setLayerType(View.LAYER_TYPE_NONE, null);
-                }
+        containerView.setVisibility(View.VISIBLE);
+        if (!onCustomOpenAnimation()) {
+            if (Build.VERSION.SDK_INT >= 20 && useHardwareLayer) {
+                container.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-
-                if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
-                    currentSheetAnimation = null;
+            containerView.setTranslationY(containerView.getMeasuredHeight());
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(
+                ObjectAnimator.ofFloat(containerView, "translationY", 0),
+                ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+            animatorSet.setDuration(200);
+            animatorSet.setStartDelay(20);
+            animatorSet.setInterpolator(new DecelerateInterpolator());
+            animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
+                        currentSheetAnimation = null;
+                        if (useHardwareLayer) {
+                            container.setLayerType(View.LAYER_TYPE_NONE, null);
+                        }
+                    }
                 }
-            }
-        });
-        animatorSet.start();
-        currentSheetAnimation = animatorSet;
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
+                        currentSheetAnimation = null;
+                    }
+                }
+            });
+            animatorSet.start();
+            currentSheetAnimation = animatorSet;
+        }
     }
 
     private void dismissWithButtonClick(final int viewId) {
@@ -967,7 +957,7 @@ public class BottomSheet extends Dialog {
         animatorSet.start();
         currentSheetAnimation = animatorSet;
 
-        // Test it.
+        // Do not testes.
         if (bottomSheetCallback != null) {
             bottomSheetCallback.onDismissed();
         }
@@ -978,7 +968,31 @@ public class BottomSheet extends Dialog {
     }
 
     private float getPixelsInCM(float cm, boolean isX) {
-        return (cm / 2.54f) * (isX ? metrics.xdpi : metrics.ydpi);
+        return (cm / 2.54F) * (isX ? metrics.xdpi : metrics.ydpi);
+    }
+
+    protected void onContainerTranslationYChanged(float translationY) {}
+
+    public void setAllowDrawContent(boolean value) {
+        if (allowDrawContent != value) {
+            allowDrawContent = value;
+            container.setBackgroundDrawable(allowDrawContent ? backDrawable : null);
+            container.invalidate();
+        }
+    }
+
+    protected boolean onCustomMeasure(View view, int width, int height) {
+        return false;
+    }
+
+    protected boolean onCustomLayout(View view, int left, int top, int right, int bottom) {
+        return false;
+    }
+
+    public void onContainerDraw(Canvas canvas) {}
+
+    protected boolean onCustomOpenAnimation() {
+        return false;
     }
 
     public static class Builder {
@@ -1277,6 +1291,18 @@ public class BottomSheet extends Dialog {
 
         public BottomSheet show() {
             bottomSheet.show();
+            return bottomSheet;
+        }
+
+        @Beta
+        @New(version = "1.2.0")
+        public BottomSheet dismiss() {
+            bottomSheet.dismiss();
+            return bottomSheet;
+        }
+
+        @Beta
+        public BottomSheet create() {
             return bottomSheet;
         }
 
