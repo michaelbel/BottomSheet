@@ -42,7 +42,7 @@ ext {
     artifact = 'bottomsheet'
     publishedGroupId = 'org.michaelbel'
 
-    libraryVersion = '1.1.9'
+    libraryVersion = '1.2.0'
     libraryName = 'BottomSheet'
     libraryDescription = 'Bottom Sheet dialogs library for Android'
 
