@@ -47,6 +47,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
@@ -106,15 +107,23 @@ public class BottomSheet extends Dialog {
     public static final int LIGHT_THEME = 10;
     public static final int DARK_THEME = 11;
 
+    public static final int FAB_SLIDE_UP = 20;
+    public static final int FAB_SHOW_HIDE = 21;
+
     @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ LIST, GRID })
+    @IntDef({LIST, GRID})
     public @interface Type {}
 
     @RestrictTo(LIBRARY_GROUP)
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ LIGHT_THEME, DARK_THEME })
+    @IntDef({LIGHT_THEME, DARK_THEME})
     public @interface Theme {}
+
+    @RestrictTo(LIBRARY_GROUP)
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({FAB_SHOW_HIDE, FAB_SLIDE_UP})
+    public @interface FabBehavior {}
 
     private boolean dividers;
     private boolean fullWidth;
@@ -127,6 +136,8 @@ public class BottomSheet extends Dialog {
 
     private @Type int contentType = LIST;
     private @Theme int theme = LIGHT_THEME;
+    private @FabBehavior int fabBehavior = FAB_SHOW_HIDE;
+
     private @ColorInt int titleTextColor;
     private @ColorInt int backgroundColor;
     private @ColorInt int iconColor;
@@ -170,8 +181,10 @@ public class BottomSheet extends Dialog {
     private DialogInterface.OnShowListener onShowListener;
     private DialogInterface.OnDismissListener onDismissListener;
 
-    private boolean allowDrawContent = true; // todo ADDED
-    private boolean useHardwareLayer = true; // todo Added
+    private boolean allowDrawContent = true;
+    private boolean useHardwareLayer = true;
+
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +233,6 @@ public class BottomSheet extends Dialog {
                     onContainerTranslationYChanged(translationY);
                 }
             };
-
             containerView.setOrientation(LinearLayout.VERTICAL);
             containerView.setBackgroundDrawable(shadowDrawable);
             containerView.setPadding(0, backgroundPaddingTop, 0, Utils.dp(getContext(), 8));
@@ -361,7 +373,7 @@ public class BottomSheet extends Dialog {
 
         if (Build.VERSION.SDK_INT >= 18) {
             layoutCount = 2;
-            containerView.setTranslationY(containerView.getMeasuredHeight()); // todo ADDED
+            containerView.setTranslationY(containerView.getMeasuredHeight());
             handler.postDelayed(startAnimationRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -370,11 +382,11 @@ public class BottomSheet extends Dialog {
                     }
 
                     startAnimationRunnable = null;
-                    startOpenAnimation();
+                    startShowAnimation();
                 }
             }, 150);
         } else {
-            startOpenAnimation();
+            startShowAnimation();
         }
 
         if (bottomSheetCallback != null) {
@@ -396,10 +408,18 @@ public class BottomSheet extends Dialog {
         cancelSheetAnimation();
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(
-            ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-            ObjectAnimator.ofInt(backDrawable, "alpha", 0)
-        );
+        if (floatingActionButton != null && fabBehavior == FAB_SLIDE_UP) {
+            animatorSet.playTogether(
+                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+                ObjectAnimator.ofInt(backDrawable, "alpha", 0),
+                ObjectAnimator.ofFloat(floatingActionButton, "translationY", 0)
+            );
+        } else if (floatingActionButton == null || fabBehavior != FAB_SLIDE_UP) {
+            animatorSet.playTogether(
+                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+                ObjectAnimator.ofInt(backDrawable, "alpha", 0)
+            );
+        }
 
         if (useFastDismiss) {
             int height = containerView.getMeasuredHeight();
@@ -411,6 +431,11 @@ public class BottomSheet extends Dialog {
 
         animatorSet.setInterpolator(new AccelerateInterpolator());
         animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+            }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -426,6 +451,10 @@ public class BottomSheet extends Dialog {
                             }
                         }
                     });
+                }
+
+                if (floatingActionButton != null && fabBehavior == FAB_SHOW_HIDE) {
+                    floatingActionButton.show();
                 }
             }
 
@@ -866,7 +895,7 @@ public class BottomSheet extends Dialog {
         }
     }
 
-    private void startOpenAnimation() {
+    private void startShowAnimation() {
         if (dismissed) {
             return;
         }
@@ -877,13 +906,31 @@ public class BottomSheet extends Dialog {
             }
             containerView.setTranslationY(containerView.getMeasuredHeight());
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(
-                ObjectAnimator.ofFloat(containerView, "translationY", 0),
-                ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+
+            if (floatingActionButton != null && fabBehavior == FAB_SLIDE_UP) {
+                animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(floatingActionButton, "translationY", -(containerView.getMeasuredHeight())),
+                    ObjectAnimator.ofFloat(containerView, "translationY", 0),
+                    ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+            } else if (floatingActionButton == null || fabBehavior != FAB_SLIDE_UP) {
+                animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(containerView, "translationY", 0),
+                    ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+            }
+
             animatorSet.setDuration(200);
             animatorSet.setStartDelay(20);
             animatorSet.setInterpolator(new DecelerateInterpolator());
             animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+
+                    if (floatingActionButton != null && fabBehavior == FAB_SHOW_HIDE) {
+                        floatingActionButton.hide();
+                    }
+                }
+
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
@@ -994,6 +1041,8 @@ public class BottomSheet extends Dialog {
     protected boolean onCustomOpenAnimation() {
         return false;
     }
+
+//--------------------------------------------------------------------------------------------------
 
     public static class Builder {
 
@@ -1217,6 +1266,21 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
+        @Beta
+        @New(version = "0.2.1")
+        public Builder setFabBehavior(FloatingActionButton fab) {
+            bottomSheet.floatingActionButton = fab;
+            return this;
+        }
+
+        @Beta
+        @New(version = "0.2.1")
+        public Builder setFabBehavior(FloatingActionButton fab, @FabBehavior int fabBehavior) {
+            bottomSheet.floatingActionButton = fab;
+            bottomSheet.fabBehavior = fabBehavior;
+            return this;
+        }
+
 //----- Colors -------------------------------------------------------------------------------------
 
         public Builder setBackgroundColor(@ColorInt int backgroundColor) {
@@ -1302,6 +1366,7 @@ public class BottomSheet extends Dialog {
         }
 
         @Beta
+        @New(version = "1.2.0")
         public BottomSheet create() {
             return bottomSheet;
         }
@@ -1339,6 +1404,8 @@ public class BottomSheet extends Dialog {
             return this;
         }
     }
+
+//--------------------------------------------------------------------------------------------------
 
     private class BottomSheetAdapter extends BaseAdapter {
 
