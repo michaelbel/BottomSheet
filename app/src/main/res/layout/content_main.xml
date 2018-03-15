@@ -123,6 +123,13 @@
             android:layout_height="wrap_content"
             android:text="@string/FullWidth"/>
 
+        <!--FabBehavior-->
+        <CheckBox
+            android:id="@+id/fabBehaviorCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/FabBehavior"/>
+
         <!--Title Multiline-->
         <CheckBox
             android:id="@+id/multilineCheckBox"

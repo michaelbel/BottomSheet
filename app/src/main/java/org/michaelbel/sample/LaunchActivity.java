@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StyleRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -62,7 +63,9 @@ public class LaunchActivity extends AppCompatActivity {
     @BindView(R.id.callbackCheckBox) public CheckBox callbackCheckBox;
     @BindView(R.id.dividersCheckBox) public CheckBox dividersCheckBox;
     @BindView(R.id.fullWidthCheckBox) public CheckBox fullWidthCheckBox;
+    @BindView(R.id.fabBehaviorCheckBox) public CheckBox fabBehaviorCheckBox;
     @BindView(R.id.multilineCheckBox) public CheckBox multilineCheckBox;
+    @BindView(R.id.fab) public FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +176,9 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setDividers(dividersCheckBox.isChecked());
         builder.setFullWidth(fullWidthCheckBox.isChecked());
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress()  + 48));
+        if (fabBehaviorCheckBox.isChecked()) {
+            builder.setFabBehavior(floatingActionButton);
+        }
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
             public void onShown() {
@@ -197,6 +203,9 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(dividersCheckBox.isChecked());
         builder.setFullWidth(fullWidthCheckBox.isChecked());
+        if (fabBehaviorCheckBox.isChecked()) {
+            builder.setFabBehavior(floatingActionButton);
+        }
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
@@ -224,6 +233,9 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(dividersCheckBox.isChecked());
         builder.setFullWidth(fullWidthCheckBox.isChecked());
+        if (fabBehaviorCheckBox.isChecked()) {
+            builder.setFabBehavior(floatingActionButton, BottomSheet.FAB_SLIDE_UP);
+        }
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
@@ -249,6 +261,9 @@ public class LaunchActivity extends AppCompatActivity {
         builder.setWindowDimming(dimmingSeekBar.getProgress());
         builder.setDividers(dividersCheckBox.isChecked());
         builder.setFullWidth(fullWidthCheckBox.isChecked());
+        if (fabBehaviorCheckBox.isChecked()) {
+            builder.setFabBehavior(floatingActionButton, BottomSheet.FAB_SLIDE_UP);
+        }
         builder.setCellHeight(Utils.dp(this, heightSeekBar.getProgress() + 48));
         builder.setCallback(!callbackCheckBox.isChecked() ? null : new BottomSheetCallback() {
             @Override
