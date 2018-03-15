@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support:appcompat-v7:27.1.0'
 }
 
@@ -42,9 +43,9 @@ ext {
     artifact = 'bottomsheet'
     publishedGroupId = 'org.michaelbel'
 
-    libraryVersion = '1.2.0'
+    libraryVersion = '1.2.1'
     libraryName = 'BottomSheet'
-    libraryDescription = 'Bottom Sheet dialogs library for Android'
+    libraryDescription = 'BottomSheet dialogs library for Android'
 
     siteUrl = 'https://github.com/michaelbel/bottomsheet'
     gitUrl = 'https://github.com/michaelbel/bottomsheet.git'
