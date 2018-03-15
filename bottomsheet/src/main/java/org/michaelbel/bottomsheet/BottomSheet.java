@@ -911,11 +911,11 @@ public class BottomSheet extends Dialog {
                 animatorSet.playTogether(
                     ObjectAnimator.ofFloat(floatingActionButton, "translationY", -(containerView.getMeasuredHeight())),
                     ObjectAnimator.ofFloat(containerView, "translationY", 0),
-                    ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+                    ObjectAnimator.ofInt(backDrawable, "alpha", dimmingValue));
             } else if (floatingActionButton == null || fabBehavior != FAB_SLIDE_UP) {
                 animatorSet.playTogether(
                     ObjectAnimator.ofFloat(containerView, "translationY", 0),
-                    ObjectAnimator.ofInt(backDrawable, "alpha", 51));
+                    ObjectAnimator.ofInt(backDrawable, "alpha", dimmingValue));
             }
 
             animatorSet.setDuration(200);
