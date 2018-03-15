@@ -81,7 +81,7 @@ builder
    .setFullWidth(boolean fullWidth)
    .setCellHeight(int cellHeightDp)
    .setDividers(boolean dividers)
-   .setWindowDimming(@Range(from = 0, to 255) int windowDimming)
+   .setWindowDimming(@Range(from = 0, to = 255) int windowDimming)
    .setTitleMultiline(boolean multiline)
    .setBackgroundColor(@ColorInt int color)
    .setBackgroundColorRes(@ColorRes int color)
