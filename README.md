@@ -1,4 +1,4 @@
-[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.1.9.apk
+[apk-url]:          https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.2.2.apk
 [wiki-url]:         https://github.com/michaelbel/BottomSheet/wiki/usage
 [paypal-url]:       https://paypal.me/michaelbel
 [github-url]:       https://github.com/michaelbel/bottomsheet
@@ -64,7 +64,7 @@ Or [Download APK][apk-url].
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.2.0'
+    implementation 'org.michaelbel:bottomsheet:1.2.2'
 }
 ```
 
@@ -83,6 +83,8 @@ builder
    .setDividers(boolean dividers)
    .setWindowDimming(@Range(from = 0, to = 255) int windowDimming)
    .setTitleMultiline(boolean multiline)
+   .setFabBehavior(FloatingActionButton button)
+   .setFabBehavior(FloatingActionButton button, @BottomSheet.FabBehavior int fabBehavior)
    .setBackgroundColor(@ColorInt int color)
    .setBackgroundColorRes(@ColorRes int color)
    .setTitleTextColor(@ColorInt int color)
