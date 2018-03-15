@@ -64,7 +64,7 @@ Or [Download APK][apk-url].
 ## Download
 ```gradle
 dependencies {
-    implementation 'org.michaelbel:bottomsheet:1.1.9'
+    implementation 'org.michaelbel:bottomsheet:1.2.0'
 }
 ```
 
@@ -72,26 +72,26 @@ dependencies {
 ```java
 BottomSheet.Builder builder = new BottomSheet.Builder(context);
 builder
-   .setTitle(...)
-   .setItems(..., ..., ...)
-   .setMenu(..., ...)
-   .setView(...)
-   .setContentType(...)
-   .setDarkTheme(...)
-   .setFullWidth(...)
-   .setCellHeight(...)
-   .setDividers(...)
-   .setWindowDimming(...)
-   .setTitleMultiline(...)
-   .setBackgroundColor(...)
-   .setBackgroundColorRes(...)
-   .setTitleTextColor(...)
-   .setTitleTextColorRes(...)
-   .setItemTextColor(...)
-   .setItemTextColorRes(...)
-   .setIconColor(...)
-   .setIconColorRes(...)
-   .setItemSelector(...)
+   .setTitle(CharSequence title)
+   .setItems(CharSequence[] items, Drawable[] icons, DialogInterface.OnClickListener listener)
+   .setMenu(@MenuRes int menuResId, DialogInterface.OnClickListener listener)
+   .setView(@LayoutRes int layoutResId)
+   .setContentType(@BottomSheet.Type int type)
+   .setDarkTheme(boolean darkTheme)
+   .setFullWidth(boolean fullWidth)
+   .setCellHeight(int cellHeightDp)
+   .setDividers(boolean dividers)
+   .setWindowDimming(@Range(from = 0, to = 255) int windowDimming)
+   .setTitleMultiline(boolean multiline)
+   .setBackgroundColor(@ColorInt int color)
+   .setBackgroundColorRes(@ColorRes int color)
+   .setTitleTextColor(@ColorInt int color)
+   .setTitleTextColorRes(@ColorRes int color)
+   .setItemTextColor(@ColorInt int color)
+   .setItemTextColorRes(@ColorRes int color)
+   .setIconColor(@ColorInt int color)
+   .setIconColorRes(@ColorRes int color)
+   .setItemSelector(int selector);
    .setOnShowListener(new DialogInterface.OnShowListener() {
        @Override
        public void onShow(DialogInterface dialog) {
