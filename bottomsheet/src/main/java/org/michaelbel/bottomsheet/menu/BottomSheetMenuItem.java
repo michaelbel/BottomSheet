@@ -27,7 +27,7 @@ import android.view.SubMenu;
 import android.view.View;
 
 /**
- * Date: Sut, Mar 3 2018
+ * Date: 3 MAR 2018
  * Time: 14:04 MSK
  *
  * @author Michael Bel

@@ -17,7 +17,7 @@
 package org.michaelbel.bottomsheet;
 
 /**
- * Date: Sat, 17 Feb 2018
+ * Date: 17 FEB 2018
  * Time: 22:52 MSK
  *
  * @author Michael Bel

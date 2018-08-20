@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Date: Sut, Mar 3 2018
+ * Date: 3 MAR 2018
  * Time: 14:03 MSK
  *
  * @author Michael Bel

@@ -34,7 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Date: Sat, 17 Feb 2018
+ * Date: 17 FEB 2018
  * Time: 00:30 MSK
  *
  * @author Michael Bel

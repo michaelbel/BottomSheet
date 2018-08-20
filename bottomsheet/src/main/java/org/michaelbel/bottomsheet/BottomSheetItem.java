@@ -19,7 +19,7 @@ package org.michaelbel.bottomsheet;
 import android.graphics.drawable.Drawable;
 
 /**
- * Date: Sut, Mar 3 2018
+ * Date: 3 MAR 2018
  * Time: 13:58 MSK
  *
  * @author Michael Bel

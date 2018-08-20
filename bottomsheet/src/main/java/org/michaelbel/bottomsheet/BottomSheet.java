@@ -92,7 +92,7 @@ import java.util.List;
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
- * Date: Sat, 17 Feb 2018
+ * Date: 17 FEB 2018
  * Time: 00:33 MSK
  *
  * @author Michael Bel
@@ -400,6 +400,10 @@ public class BottomSheet extends Dialog {
 
     @Override
     public void dismiss() {
+        dismissWithButtonClick(-1);
+    }
+
+    private void dismissWithButtonClick(final int viewId) {
         if (dismissed) {
             return;
         }
@@ -410,16 +414,50 @@ public class BottomSheet extends Dialog {
         AnimatorSet animatorSet = new AnimatorSet();
         if (floatingActionButton != null && fabBehavior == FAB_SLIDE_UP) {
             animatorSet.playTogether(
-                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-                ObjectAnimator.ofInt(backDrawable, "alpha", 0),
-                ObjectAnimator.ofFloat(floatingActionButton, "translationY", 0)
+                    ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+                    ObjectAnimator.ofInt(backDrawable, "alpha", 0),
+                    ObjectAnimator.ofFloat(floatingActionButton, "translationY", 0)
             );
         } else if (floatingActionButton == null || fabBehavior != FAB_SLIDE_UP) {
             animatorSet.playTogether(
-                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-                ObjectAnimator.ofInt(backDrawable, "alpha", 0)
+                    ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+                    ObjectAnimator.ofInt(backDrawable, "alpha", 0)
             );
         }
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                super.onAnimationCancel(animation);
+                if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
+                    currentSheetAnimation = null;
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
+                    currentSheetAnimation = null;
+
+                    if (viewId != -1) {
+                        if (onClickListener != null) {
+                            onClickListener.onClick(BottomSheet.this, viewId);
+                        }
+                    }
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                BottomSheet.super.dismiss();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         if (useFastDismiss) {
             int height = containerView.getMeasuredHeight();
@@ -881,7 +919,7 @@ public class BottomSheet extends Dialog {
     }
 
     private boolean canDismissWithSwipe() {
-        return true;
+        return false; // todo: true
     }
 
     private boolean canDismissWithTouchOutside() {
@@ -950,63 +988,6 @@ public class BottomSheet extends Dialog {
             });
             animatorSet.start();
             currentSheetAnimation = animatorSet;
-        }
-    }
-
-    private void dismissWithButtonClick(final int viewId) {
-        if (dismissed) {
-            return;
-        }
-
-        dismissed = true;
-        cancelSheetAnimation();
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(
-            ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-            ObjectAnimator.ofInt(backDrawable, "alpha", 0)
-        );
-        animatorSet.setDuration(180);
-        animatorSet.setInterpolator(new AccelerateInterpolator());
-        animatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
-                    currentSheetAnimation = null;
-
-                    if (onClickListener != null) {
-                        onClickListener.onClick(BottomSheet.this, viewId);
-                    }
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                BottomSheet.super.dismiss();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-                if (currentSheetAnimation != null && currentSheetAnimation.equals(animation)) {
-                    currentSheetAnimation = null;
-                }
-            }
-        });
-
-        animatorSet.start();
-        currentSheetAnimation = animatorSet;
-
-        // Do not testes.
-        if (bottomSheetCallback != null) {
-            bottomSheetCallback.onDismissed();
         }
     }
 
