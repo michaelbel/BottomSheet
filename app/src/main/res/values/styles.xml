@@ -2,6 +2,7 @@
     <style name="AppThemeLight" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#009688</item>
         <item name="colorPrimaryDark">#00796B</item>
+        <item name="colorAccent">#FF5252</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -9,6 +10,7 @@
     <style name="AppThemeDark" parent="Theme.AppCompat">
         <item name="colorPrimary">#607D8B</item>
         <item name="colorPrimaryDark">#455A64</item>
+        <item name="colorAccent">#7C4DFF</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

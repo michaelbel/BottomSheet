@@ -1,30 +1,27 @@
 <resources>
     <string name="app_name">BottomSheet</string>
-
-    <string name="Ok">OK</string>
-    <string name="About">About</string>
-    <string name="ChangeTheme">Change Theme</string>
-    <string name="ViewOnGithub">View on Github</string>
-    <string name="GithubUrl">https://github.com/michaelbel/bottomsheet</string>
-    <string name="VersionBuildDate">Version %1$s (Build %2$d) of %3$s</string>
-
-    <string name="Shown">Shown</string>
-    <string name="Dismissed">Dismissed</string>
-    <string name="Dividers">Dividers</string>
-    <string name="FullWidth">Full Width</string>
-    <string name="Callback">Callback</string>
-    <string name="TitleMultiline">Title Multiline</string>
-    <string name="WindowDimmingValue">Window dimming (%d)</string>
-    <string name="CellHeightValue">Cell Height (%ddp)</string>
-    <string name="WindowDimming">Window dimming</string>
-    <string name="MultilineText">This title is multiline. This means that you can place here a few lines of text</string>
-    <string name="ListStyle">List style</string>
-    <string name="ListStyleWithTitle">List style with title</string>
-    <string name="ListStyleWithIcons">List style with icons</string>
-    <string name="MenuInflate">Menu inflate</string>
-    <string name="GridStyle">Grid style</string>
-    <string name="Actions">Actions</string>
-    <string name="FabBehavior">Fab Behavior</string>
+    <string name="ok">OK</string>
+    <string name="about">About</string>
+    <string name="version_build_date">Version %1$s (Build %2$d) of %3$s</string>
+    <string name="github_url">https://github.com/michaelbel/bottomsheet</string>
+    <string name="view_github">View on Github</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="title">Title</string>
+    <string name="title_multiline">Title Multiline</string>
+    <string name="title_text">Actions</string>
+    <string name="title_multiline_text">This title is multiline. This means that you can place here a few lines of text</string>
+    <string name="icons">Icons</string>
+    <string name="dividers">Dividers</string>
+    <string name="full_width">Full Width</string>
+    <string name="callback">Callback</string>
+    <string name="shown">Shown</string>
+    <string name="dismissed">Dismissed</string>
+    <string name="fab_behavior">Fab Behavior</string>
+    <string name="slide_up">Slide</string>
+    <string name="show_hide">Show hide</string>
+    <string name="window_dimming">Window dimming</string>
+    <string name="cell_height">Cell height</string>
 
     <string name="message">Message</string>
     <string name="print_this_page">Print this page</string>
@@ -40,11 +37,4 @@
     <string name="mail">Mail</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
-
-    <string-array name="items">
-        <item>Share</item>
-        <item>Upload</item>
-        <item>Copy</item>
-        <item>Print</item>
-    </string-array>
 </resources>
