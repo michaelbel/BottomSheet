@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.3"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 14
@@ -24,8 +24,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:design:27.1.0'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 }
 
 Properties properties = new Properties()
@@ -43,7 +43,7 @@ ext {
     artifact = 'bottomsheet'
     publishedGroupId = 'org.michaelbel'
 
-    libraryVersion = '1.2.2'
+    libraryVersion = '1.2.3'
     libraryName = 'BottomSheet'
     libraryDescription = 'BottomSheet dialogs library for Android'
 

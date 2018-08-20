@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.3"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "org.michaelbel.bottomsheetdialog"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 27
-        versionCode 25
-        versionName "1.2.2"
-        buildConfigField "String", "VERSION_DATE", '"15 Mar 2018"'
+        versionCode 26
+        versionName "1.2.3"
+        buildConfigField "String", "VERSION_DATE", '"20 Aug 2018"'
     }
 
     buildTypes {
@@ -27,11 +27,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:design:27.1.0'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.jakewharton:butterknife:8.4.0'
-
-    compile project(':bottomsheet')
-
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'org.michaelbel:material:0.3.5'
+    implementation project(':bottomsheet')
 }
