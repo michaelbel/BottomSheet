@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.michaelbel.sample">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.michaelbel.sample">
 
     <application
         android:allowBackup="true"
@@ -10,17 +9,13 @@
         android:theme="@style/AppTheme.Start">
 
         <activity
-            android:name=".LaunchActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".SecondActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
 
     </application>
 
