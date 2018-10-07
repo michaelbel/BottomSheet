@@ -8,8 +8,7 @@
 [mdguides-url]:     https://material.io/guidelines/components/bottom-sheets.html#
 [googleplay-url]:   https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog
 [methodscount-url]: http://www.methodscount.com/?lib=org.michaelbel%3Abottomsheet%3A1.1.2
-
-[launcher-path]: ../master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+[bsdf-url]:         https://developer.android.com/reference/android/support/design/widget/BottomSheetDialogFragment
 
 [ide-badge]:          https://img.shields.io/badge/Android_Studio-3.1.4-009688.svg
 [minsdk-badge]:       https://img.shields.io/badge/minSdkVersion-21-009688.svg
@@ -23,7 +22,9 @@
 
 <!------------------------------------------------------------------------------------------------------------------------------------->
 
-[![Launcher][Launcher-path]][github-url]
+# DEPRECATED
+BottomSheet is deprecated. No more development will be taking place. Existing version will continue to function. Please, use [BottomSheetDialogFragment][bsdf-url] from Google  AppCompat instead. Thanks!
+
 # BottomSheet
 [![Bintray][bintray-badge]][bintray-url]
 [![Platform][platform-badge]][github-url]
