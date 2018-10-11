@@ -51,8 +51,8 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 </div>
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/art/screens/light_landscape.png" width="49%">
-    <img style="margin-left:0px;" src="/art/screens/dark_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_landscape.png" width="49%">
 </div>    
 
 ## Demo
