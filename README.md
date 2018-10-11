@@ -40,14 +40,14 @@ BottomSheet dialogs library for Android with [material design concept][mdguides-
 Bottom sheets slide up from the bottom of the screen to reveal more content.
 
 <div style="dispaly:flex">
-    <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/light_2.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/light_3.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/light_4.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_1.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_2.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_3.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_4.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_1.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_2.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_3.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_4.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_1.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_2.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_3.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_4.png" width="24%">
 </div>
 
 <div style="dispaly:flex;">
