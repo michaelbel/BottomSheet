@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '28.0.2'
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "org.michaelbel.bottomsheetdialog"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 26
         versionName "1.2.3"
         buildConfigField "String", "VERSION_DATE", '"20 Aug 2018"'
@@ -27,8 +26,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'org.michaelbel:material:0.3.6'
     implementation project(':bottomsheet')
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 Michael Bel
+ * Copyright 2016 Michael Bely
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,6 @@ public class BottomSheetMenu implements Menu {
 
     public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
         BottomSheetMenuItem item = new BottomSheetMenuItem(getContext(), groupId, itemId, 0, order, title);
-        // TODO Order is ignored here.
         mItems.add(item);
         return item;
     }
@@ -97,22 +96,18 @@ public class BottomSheetMenu implements Menu {
     }
 
     public SubMenu addSubMenu(CharSequence title) {
-        // TODO Implement submenus
         return null;
     }
 
     public SubMenu addSubMenu(int titleRes) {
-        // TODO Implement submenus
         return null;
     }
 
     public SubMenu addSubMenu(int groupId, int itemId, int order, CharSequence title) {
-        // TODO Implement submenus
         return null;
     }
 
     public SubMenu addSubMenu(int groupId, int itemId, int order, int titleRes) {
-        // TODO Implement submenus
         return null;
     }
 
@@ -157,19 +152,18 @@ public class BottomSheetMenu implements Menu {
     }
 
     private BottomSheetMenuItem findItemWithShortcut(int keyCode, KeyEvent event) {
-        // TODO Make this smarter.
         final boolean qwerty = mIsQwerty;
         final ArrayList<BottomSheetMenuItem> items = mItems;
         final int itemCount = items.size();
 
         for (int i = 0; i < itemCount; i++) {
             BottomSheetMenuItem item = items.get(i);
-            final char shortcut = qwerty ? item.getAlphabeticShortcut() :
-                    item.getNumericShortcut();
+            final char shortcut = qwerty ? item.getAlphabeticShortcut() : item.getNumericShortcut();
             if (keyCode == shortcut) {
                 return item;
             }
         }
+
         return null;
     }
 

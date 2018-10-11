@@ -1,4 +1,4 @@
-package org.michaelbel.sample;
+package org.michaelbel.sample.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,10 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import org.michaelbel.sample.BuildConfig;
+import org.michaelbel.sample.R;
+
 public class MainActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
-    public FloatingActionButton floatingActionButton;
+    public FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        floatingActionButton = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
     }
 
     @Override

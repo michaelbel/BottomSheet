@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 Michael Bel
+ * Copyright 2016 Michael Bely
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -414,14 +414,14 @@ public class BottomSheet extends Dialog {
         AnimatorSet animatorSet = new AnimatorSet();
         if (floatingActionButton != null && fabBehavior == FAB_SLIDE_UP) {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-                    ObjectAnimator.ofInt(backDrawable, "alpha", 0),
-                    ObjectAnimator.ofFloat(floatingActionButton, "translationY", 0)
+                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+                ObjectAnimator.ofInt(backDrawable, "alpha", 0),
+                ObjectAnimator.ofFloat(floatingActionButton, "translationY", 0)
             );
         } else if (floatingActionButton == null || fabBehavior != FAB_SLIDE_UP) {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
-                    ObjectAnimator.ofInt(backDrawable, "alpha", 0)
+                ObjectAnimator.ofFloat(containerView, "translationY", containerView.getMeasuredHeight() + Utils.dp(getContext(), 10)),
+                ObjectAnimator.ofInt(backDrawable, "alpha", 0)
             );
         }
         animatorSet.addListener(new AnimatorListenerAdapter() {
@@ -1055,11 +1055,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        /*public Builder setCustomTitle(@Nullable View customTitleView) {
-            return this;
-        }*/
-
-        @New(version = "1.1.9")
         public Builder setItems(@ArrayRes int itemsId, final OnClickListener listener) {
             bottomSheet.ITEMS.addAll(Arrays.asList(context.getResources().getTextArray(itemsId)));
             bottomSheet.onClickListener = listener;
@@ -1080,7 +1075,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setItems(@ArrayRes int itemsId, int[] icons, final OnClickListener listener) {
             bottomSheet.ITEMS.addAll(Arrays.asList(context.getResources().getTextArray(itemsId)));
             for (int i: icons) {
@@ -1090,7 +1084,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setItems(@ArrayRes int itemsId, Drawable[] icons, final OnClickListener listener) {
             Collections.addAll(bottomSheet.ITEMS, context.getResources().getTextArray(itemsId));
             Collections.addAll(bottomSheet.ICONS, icons);
@@ -1109,7 +1102,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setItems(@StringRes int[] items, Drawable[] icons, final OnClickListener listener) {
             for (int i : items) {
                 bottomSheet.ITEMS.add(context.getResources().getString(i));
@@ -1128,21 +1120,12 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setItems(@NonNull CharSequence[] items, Drawable[] icons, final OnClickListener listener) {
             bottomSheet.ITEMS.addAll(Arrays.asList(items));
             Collections.addAll(bottomSheet.ICONS, icons);
             bottomSheet.onClickListener = listener;
             return this;
         }
-
-        /*public Builder setMultiChoiceItems() {
-            return this;
-        }*/
-
-        /*public Builder setSingleChoiceItems() {
-            return this;
-        }*/
 
         public Builder setMenu(@MenuRes int menuResId, final OnClickListener listener) {
             BottomSheetMenu menu = new BottomSheetMenu(context);
@@ -1194,11 +1177,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        /*public Builder setTheme(@Theme int theme) {
-            bottomSheet.theme = theme;
-            return this;
-        }*/
-
         public Builder setFullWidth(boolean fullWidth) {
             bottomSheet.fullWidth = fullWidth;
             return this;
@@ -1214,10 +1192,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        /*public Builder setCellHeight(@DimenRes int cellHeight) {
-            return this;
-        }*/
-
         public Builder setDividers(boolean dividers) {
             bottomSheet.dividers = dividers;
             return this;
@@ -1227,10 +1201,6 @@ public class BottomSheet extends Dialog {
             bottomSheet.dividers = context.getResources().getBoolean(dividers);
             return this;
         }
-
-        /*public Builder setDismissWithSwipe(boolean dismissWithSwipe) {
-            return this;
-        }*/
 
         public Builder setWindowDimming(@IntRange(from = 0, to = 255) int windowDimming) {
             bottomSheet.dimmingValue = windowDimming;
@@ -1247,15 +1217,11 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @Beta
-        @New(version = "0.2.1")
         public Builder setFabBehavior(FloatingActionButton fab) {
             bottomSheet.floatingActionButton = fab;
             return this;
         }
 
-        @Beta
-        @New(version = "0.2.1")
         public Builder setFabBehavior(FloatingActionButton fab, @FabBehavior int fabBehavior) {
             bottomSheet.floatingActionButton = fab;
             bottomSheet.fabBehavior = fabBehavior;
@@ -1269,7 +1235,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setBackgroundColorRes(@ColorRes int backgroundColorRes) {
             bottomSheet.backgroundColor = ContextCompat.getColor(context, backgroundColorRes);
             return this;
@@ -1280,7 +1245,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setTitleTextColorRes(@ColorRes int titleTextColorRes) {
             bottomSheet.titleTextColor = ContextCompat.getColor(context, titleTextColorRes);
             return this;
@@ -1291,7 +1255,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setItemTextColorRes(@ColorRes int itemTextColorRes) {
             bottomSheet.itemTextColor = ContextCompat.getColor(context, itemTextColorRes);
             return this;
@@ -1302,7 +1265,6 @@ public class BottomSheet extends Dialog {
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setIconColorRes(@ColorInt int iconColorRes) {
             bottomSheet.iconColor = ContextCompat.getColor(context, iconColorRes);
             return this;
@@ -1315,13 +1277,11 @@ public class BottomSheet extends Dialog {
 
 //----- Interfaces ---------------------------------------------------------------------------------
 
-        @New(version = "1.1.9")
         public Builder setOnShowListener(DialogInterface.OnShowListener listener) {
             bottomSheet.onShowListener = listener;
             return this;
         }
 
-        @New(version = "1.1.9")
         public Builder setOnDismissListener(DialogInterface.OnDismissListener listener) {
             bottomSheet.onDismissListener = listener;
             return this;
@@ -1339,15 +1299,11 @@ public class BottomSheet extends Dialog {
             return bottomSheet;
         }
 
-        @Beta
-        @New(version = "1.2.0")
         public BottomSheet dismiss() {
             bottomSheet.dismiss();
             return bottomSheet;
         }
 
-        @Beta
-        @New(version = "1.2.0")
         public BottomSheet create() {
             return bottomSheet;
         }
@@ -1366,7 +1322,6 @@ public class BottomSheet extends Dialog {
             return bottomSheet.gridView;
         }
 
-        @New(version = "1.1.9")
         public View getView() {
             return bottomSheet.customView;
         }

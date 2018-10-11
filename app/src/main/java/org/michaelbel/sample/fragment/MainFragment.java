@@ -19,7 +19,7 @@ import android.widget.Toast;
 import org.michaelbel.bottomsheet.BottomSheet;
 import org.michaelbel.bottomsheet.BottomSheetCallback;
 import org.michaelbel.bottomsheet.Utils;
-import org.michaelbel.sample.MainActivity;
+import org.michaelbel.sample.activity.MainActivity;
 import org.michaelbel.sample.R;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
@@ -31,7 +31,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         R.string.print_this_page
     };
 
-    /*private int[] items2 = new int[] {
+    /*private int[] items = new int[] {
         R.string.preview,
         R.string.share,
         R.string.get_link,
@@ -199,9 +199,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
             if (fabCheckBox.isChecked()) {
                 if (slideUpRadio.isChecked()) {
-                    builder.setFabBehavior(activity.floatingActionButton, BottomSheet.FAB_SLIDE_UP);
+                    builder.setFabBehavior(activity.fab, BottomSheet.FAB_SLIDE_UP);
                 } else {
-                    builder.setFabBehavior(activity.floatingActionButton);
+                    builder.setFabBehavior(activity.fab);
                 }
             }
             if (wdCheckBox.isChecked()) {

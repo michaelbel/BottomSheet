@@ -22,6 +22,7 @@
     <string name="show_hide">Show hide</string>
     <string name="window_dimming">Window dimming</string>
     <string name="cell_height">Cell height</string>
+    <string name="image_description">No image</string>
 
     <string name="message">Message</string>
     <string name="print_this_page">Print this page</string>
