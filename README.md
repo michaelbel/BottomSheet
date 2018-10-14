@@ -60,7 +60,7 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
   <img alt="App on Google Play" src="https://goo.gl/cR2qQH" height="100"/>
 </a>
 
-Or [Download APK][apk-url].
+Or [**Download APK**][apk-url].
 
 ## Download
 ```gradle
