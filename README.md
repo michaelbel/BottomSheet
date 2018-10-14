@@ -40,19 +40,19 @@ BottomSheet dialogs library for Android with [material design concept][mdguides-
 Bottom sheets slide up from the bottom of the screen to reveal more content.
 
 <div style="dispaly:flex">
-    <img style="margin-left:0px;" src="/art/screens/light_1.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/light_2.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/light_3.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/light_4.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_1.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_2.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_3.png" width="24%">
-    <img style="margin-left:0px;" src="/art/screens/dark_4.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_1.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_2.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_3.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_4.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_1.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_2.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_3.png" width="24%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_4.png" width="24%">
 </div>
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/art/screens/light_landscape.png" width="49%">
-    <img style="margin-left:0px;" src="/art/screens/dark_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/images/screenshots/light_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/images/screenshots/dark_landscape.png" width="49%">
 </div>    
 
 ## Demo
@@ -60,7 +60,7 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
   <img alt="App on Google Play" src="https://goo.gl/cR2qQH" height="100"/>
 </a>
 
-Or [Download APK][apk-url].
+Or [**Download APK**][apk-url].
 
 ## Download
 ```gradle
