@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void setTheme(@StyleRes int resid) {
+    public void setTheme(@StyleRes int resId) {
         SharedPreferences prefs = getSharedPreferences("mainconfig", MODE_PRIVATE);
         boolean appTheme = prefs.getBoolean("theme", true);
         super.setTheme(appTheme ? R.style.AppThemeLight : R.style.AppThemeDark);
