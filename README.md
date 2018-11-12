@@ -39,20 +39,22 @@ BottomSheet is deprecated. No more development will be taking place. Existing ve
 BottomSheet dialogs library for Android with [material design concept][mdguides-url].
 Bottom sheets slide up from the bottom of the screen to reveal more content.
 
+<img style="margin-left:0px;" src="/screenshots/demo-gif.gif" width="24%">
+
 <div style="dispaly:flex">
-    <img style="margin-left:0px;" src="/images/screenshots/light_1.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/light_2.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/light_3.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/light_4.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/dark_1.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/dark_2.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/dark_3.png" width="24%">
-    <img style="margin-left:0px;" src="/images/screenshots/dark_4.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_light_1.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_light_2.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_light_3.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_light_4.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_dark_1.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_dark_2.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_dark_3.png" width="24%">
+    <img style="margin-left:0px;" src="/screenshots/bs_dark_4.png" width="24%">
 </div>
 
 <div style="dispaly:flex;">
-    <img style="margin-left:0px;" src="/images/screenshots/light_landscape.png" width="49%">
-    <img style="margin-left:0px;" src="/images/screenshots/dark_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/screenshots/bs_light_landscape.png" width="49%">
+    <img style="margin-left:0px;" src="/screenshots/bs_dark_landscape.png" width="49%">
 </div>    
 
 ## Demo
