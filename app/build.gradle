@@ -7,9 +7,9 @@ android {
         applicationId "org.michaelbel.bottomsheetdialog"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 26
-        versionName "1.2.3"
-        buildConfigField "String", "VERSION_DATE", '"20 Aug 2018"'
+        versionCode 27
+        versionName "1.2.4"
+        buildConfigField "String", "VERSION_DATE", '"12 Nov 2018"'
     }
 
     buildTypes {
