@@ -58,11 +58,8 @@ Bottom sheets slide up from the bottom of the screen to reveal more content.
 </div>    
 
 ## Demo
-<a href="https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog" target="_blank">
-  <img alt="App on Google Play" src="https://goo.gl/cR2qQH" height="100"/>
-</a>
-
-Or [**Download APK**][apk-url].
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="100">](https://play.google.com/store/apps/details?id=org.michaelbel.bottomsheetdialog)
+[<img src="/screenshots/direct-apk-download.png" alt="Direct apk download" height="100">](https://github.com/michaelbel/BottomSheet/raw/master/app/release/bottomsheet-v1.2.3.apk)
 
 ## Download
 ```gradle
