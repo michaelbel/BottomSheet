@@ -116,8 +116,8 @@ builder
 ## Wiki
 For all information check [BottomSheet Wiki][wiki-url].
 
-# Deprecated
-BottomSheet is deprecated. No more development will be taking place. Existing version will continue to function. Please, use [BottomSheetDialogFragment][bsdf-url] from Google  AppCompat instead. Thanks!
+## Deprecated
+BottomSheet is deprecated. No more development will be taking place. Existing version will continue to function. Please, use [BottomSheetDialogFragment][bsdf-url] from Google instead. Thanks!
 
 ## License
 
